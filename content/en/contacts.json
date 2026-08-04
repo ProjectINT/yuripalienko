@@ -1,0 +1,11 @@
+{
+  "title": "Contact",
+  "intro": "Get in touch — let's discuss your task and timeline.",
+  "channels": [
+    { "label": "Email", "value": "yuripalienko@gmail.com", "url": "mailto:yuripalienko@gmail.com", "primary": true },
+    { "label": "Telegram", "value": "@yurapalienko", "url": "https://t.me/yurapalienko", "primary": true },
+    { "label": "GitHub", "value": "github.com/ProjectINT", "url": "https://github.com/ProjectINT", "primary": false }
+  ],
+  "location": "Sochi, Russia",
+  "availability": "Remote, open to business trips. Russia · work permit in Georgia."
+}

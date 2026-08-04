@@ -1,0 +1,154 @@
+{
+  "title": "Work",
+  "intro": "10+ years: SaaS platforms, marketplaces, BI systems and my own products.",
+  "items": [
+    {
+      "slug": "toprentapp",
+      "title": "toprentapp.com",
+      "url": "https://toprentapp.com",
+      "role": "Team Lead",
+      "period": "2020 — 2025",
+      "company": "Laflei ltd, Rome",
+      "summary": "SaaS for fleet management and car rental companies. Built from scratch, grew to 500+ corporate clients with 20% year-over-year growth.",
+      "highlights": [
+        "Platform from scratch to 500+ corporate clients",
+        "Sustained 20% year-over-year growth",
+        "Custom UI library with dynamic theming",
+        "Stripe, Firebase (auth and notifications), Cloudinary"
+      ],
+      "stack": ["React", "Next.js", "Relay", "Redux", "Zustand", "Node.js", "NestJS", "PostgreSQL", "Kafka", "GraphQL", "Firebase", "Stripe", "Vercel"],
+      "featured": true
+    },
+    {
+      "slug": "billionrent",
+      "title": "billionrent.com",
+      "url": "https://billionrent.com",
+      "role": "Team Lead",
+      "period": "2020 — 2025",
+      "company": "Laflei ltd, Rome",
+      "summary": "B2C car rental marketplace with external fleets integrated via API.",
+      "highlights": [
+        "External fleet integration via API",
+        "Responsive embeddable booking widgets for partner sites",
+        "One-click website module — auto-generated landing pages for rental companies"
+      ],
+      "stack": ["Next.js", "React", "GraphQL", "Node.js", "PostgreSQL", "FaunaDB", "Nginx"],
+      "featured": true
+    },
+    {
+      "slug": "bi-platform",
+      "title": "BI-система уровня Power BI",
+      "url": null,
+      "role": "Full-Stack Developer",
+      "period": "2026",
+      "company": "Colvir Software Solutions",
+      "summary": "A business intelligence system on par with Microsoft Power BI. Rebuilt the core: split the client and server sides, which delivered a noticeable performance boost.",
+      "highlights": [
+        "AI agent for managing the app and its data — a harness with tools, subagents and a memory system",
+        "DuckDB on the client — analytics right in the browser",
+        "ClickHouse on the backend for large data volumes",
+        "Tokenization-based formula editor"
+      ],
+      "stack": ["NestJS", "TypeScript", "Prisma", "ClickHouse", "DuckDB", "React", "AI Agents"],
+      "featured": true
+    },
+    {
+      "slug": "egesto",
+      "title": "egesto.ru",
+      "url": "https://egesto.ru",
+      "role": "Founder & Developer",
+      "period": "2025 — present",
+      "company": "ИП Палиенко",
+      "summary": "AI platform for preparing for the Russian state English exam.",
+      "highlights": [],
+      "stack": ["Next.js", "NestJS", "TypeScript", "OpenAI", "PostgreSQL"],
+      "featured": true
+    },
+    {
+      "slug": "kvartly",
+      "title": "kvartly.com",
+      "url": "https://kvartly.com",
+      "role": "Founder & Developer",
+      "period": "2025 — present",
+      "company": "ИП Палиенко",
+      "summary": "Real estate marketplace in Georgia, lead generation model.",
+      "highlights": [],
+      "stack": ["Next.js", "NestJS", "TypeScript", "PostgreSQL"],
+      "featured": true
+    },
+    {
+      "slug": "palirent",
+      "title": "pali.rent",
+      "url": "https://pali.rent",
+      "role": "Founder & Developer",
+      "period": "2025 — present",
+      "company": "ИП Палиенко",
+      "summary": "SaaS platform for rental companies.",
+      "highlights": [],
+      "stack": ["Next.js", "NestJS", "TypeScript", "PostgreSQL"],
+      "featured": false
+    },
+    {
+      "slug": "palistor",
+      "title": "palistor",
+      "url": "https://github.com/ProjectINT",
+      "role": "Author",
+      "period": "2025 — present",
+      "company": "Open source",
+      "summary": "My own React framework: declarative MVVM, designed to be easy for AI agents to work with.",
+      "highlights": [],
+      "stack": ["TypeScript", "React"],
+      "featured": true
+    },
+    {
+      "slug": "paliproxy",
+      "title": "paliproxy",
+      "url": "https://github.com/ProjectINT",
+      "role": "Author",
+      "period": "2025 — present",
+      "company": "Open source",
+      "summary": "A proxy tool for development.",
+      "highlights": [],
+      "stack": ["Node.js", "TypeScript"],
+      "featured": false
+    },
+    {
+      "slug": "elit-taxi",
+      "title": "CRM для службы такси",
+      "url": null,
+      "role": "React Middle Developer",
+      "period": "2019 — 2020",
+      "company": "Элит такси",
+      "summary": "CRM system for a taxi service: dispatching, maps, reporting.",
+      "highlights": [],
+      "stack": ["React", "Redux", "Redux-Saga", "Ant Design", "OpenStreetMap"],
+      "featured": false
+    },
+    {
+      "slug": "topjsurfing",
+      "title": "Topjsurfing",
+      "url": null,
+      "role": "Developer",
+      "period": "2018 — 2019",
+      "company": "Topjsurfing",
+      "summary": "Migrated an online store frontend from jQuery to Next.js. The store became a niche leader thanks to speed, markup validity and SEO.",
+      "highlights": [
+        "Reviews, CRM integrations, PDF invoices, email notifications"
+      ],
+      "stack": ["Next.js", "Keystone.js"],
+      "featured": false
+    },
+    {
+      "slug": "freelance",
+      "title": "Фриланс: сайты для автопроката, недвижимости и туризма",
+      "url": null,
+      "role": "Programmer, webmaster",
+      "period": "2015 — 2018",
+      "company": "Фриланс",
+      "summary": "zapstroy.ru (Nuxt.js), estiacard.com (Next.js), somnium.su (Vue SSR), barcelonasupercars.com, monacosupercar.com, taketesla.com.",
+      "highlights": [],
+      "stack": ["JavaScript", "Vue/Nuxt", "Next.js", "jQuery", "WordPress", "Gulp", "Pug", "Stylus"],
+      "featured": false
+    }
+  ]
+}

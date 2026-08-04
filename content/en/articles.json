@@ -1,0 +1,27 @@
+{
+  "title": "Writing",
+  "intro": "About palistor — a declarative MVVM framework for React.",
+  "items": [
+    {
+      "title": "Palistor is here: the AI-friendly MVVM framework for React",
+      "platform": "dev.to",
+      "url": "https://dev.to/yuri_palienko/palistor-is-here-the-ai-friendly-mvvm-framework-for-react-experimental-5162",
+      "summary": "Why React needs an MVVM layer and why this architecture works well for AI agents.",
+      "lang": "en"
+    },
+    {
+      "title": "Palistor — декларативный MVVM-фреймворк для React",
+      "platform": "vc.ru",
+      "url": "https://vc.ru/id6038291/3021320-palistor-deklarativnyj-mvvm-frejmvork-dlya-react",
+      "summary": "A walkthrough of the framework's ideas, in Russian.",
+      "lang": "ru"
+    },
+    {
+      "title": "Palistor: декларативный MVVM для React",
+      "platform": "Хабр",
+      "url": "https://habr.com/ru/sandbox/294410/",
+      "summary": "The technical version of the article.",
+      "lang": "ru"
+    }
+  ]
+}

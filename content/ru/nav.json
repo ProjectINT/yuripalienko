@@ -1,0 +1,10 @@
+{
+  "items": [
+    { "index": "01", "href": "/works", "label": "Работы" },
+    { "index": "02", "href": "/about", "label": "О нас" },
+    { "index": "03", "href": "/articles", "label": "Статьи" },
+    { "index": "04", "href": "/pricing", "label": "Цены" },
+    { "index": "05", "href": "/cv", "label": "Резюме" },
+    { "index": "06", "href": "/contacts", "label": "Контакты" }
+  ]
+}

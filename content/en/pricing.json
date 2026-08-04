@@ -1,0 +1,41 @@
+{
+  "title": "Pricing",
+  "intro": "I work per project or as a dedicated team. Estimate after the first call.",
+  "tiers": [
+    {
+      "slug": "landing",
+      "title": "Landing / promo site",
+      "price": "TODO_CONFIRM",
+      "priceNote": "",
+      "summary": "Next.js, responsive, SEO, deployment.",
+      "includes": ["Design and markup", "SEO and OG markup", "Deployment to Vercel"],
+      "featured": false
+    },
+    {
+      "slug": "mvp",
+      "title": "MVP",
+      "price": "TODO_CONFIRM",
+      "priceNote": "",
+      "summary": "A working product with a backend, authentication and payments.",
+      "includes": ["Architecture and data schema", "NestJS backend", "Authentication and payments", "Admin panel"],
+      "featured": false
+    },
+    {
+      "slug": "complex",
+      "title": "Complex application",
+      "price": "from ₽500,000",
+      "priceNote": "SaaS platform, marketplace, BI system",
+      "summary": "Full cycle: architecture, backend, frontend, integrations, production launch.",
+      "includes": [
+        "Architecture designed for load",
+        "Event-driven backend (Node.js / NestJS / Kafka)",
+        "Multi-tenancy and billing",
+        "API integrations, webhooks, widgets",
+        "AI agents and analytics",
+        "Post-launch support"
+      ],
+      "featured": true
+    }
+  ],
+  "note": "An exact estimate comes after discussing the task. Part-time work or a dedicated team lead arrangement is possible."
+}

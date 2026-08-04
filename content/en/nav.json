@@ -1,0 +1,10 @@
+{
+  "items": [
+    { "index": "01", "href": "/works", "label": "Work" },
+    { "index": "02", "href": "/about", "label": "About" },
+    { "index": "03", "href": "/articles", "label": "Writing" },
+    { "index": "04", "href": "/pricing", "label": "Pricing" },
+    { "index": "05", "href": "/cv", "label": "CV" },
+    { "index": "06", "href": "/contacts", "label": "Contact" }
+  ]
+}

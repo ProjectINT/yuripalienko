@@ -1,0 +1,111 @@
+{
+  "title": "CV",
+  "intro": "Senior / Lead Full-Stack JavaScript Engineer",
+  "pdfUrl": "/cv/yuri-palienko-fullstack-tl.pdf",
+  "pdfLabel": "Download PDF",
+  "profile": "Full-Stack JavaScript Architect and Team Lead. I specialize in designing and delivering SaaS platforms and marketplaces from scratch to production. Deep expertise in backend architecture with Node.js/NestJS, event-driven systems and high-load solutions. Built engineering processes in distributed teams.",
+  "facts": [
+    { "label": "Experience", "value": "10+ years · 4+ years as Team Lead" },
+    { "label": "Format", "value": "Remote, open to business trips" },
+    { "label": "Availability", "value": "Full-time · part-time · project" },
+    { "label": "Expectations", "value": "from ₽250,000 net" },
+    { "label": "Notice period", "value": "2–4 weeks" },
+    { "label": "English", "value": "B2 · 4 years on a team in Rome" }
+  ],
+  "jobs": [
+    {
+      "company": "Colvir Software Solutions",
+      "companyNote": "system integration",
+      "role": "Full-Stack Developer",
+      "period": "Feb 2026 — Jul 2026",
+      "duration": "6 months",
+      "summary": "A business intelligence system on par with Microsoft Power BI.",
+      "bullets": [
+        "Rebuilt the system core: split the client and server sides, which delivered a noticeable performance boost.",
+        "Built an AI agent for managing the app and its data — a harness with tools, subagents and a memory system.",
+        "Introduced DuckDB on the client (analytics right in the browser) and ClickHouse on the backend for large data volumes.",
+        "Built a NestJS service with Prisma; designed a tokenization-based formula editor."
+      ],
+      "stack": ["NestJS", "TypeScript", "Prisma", "ClickHouse", "DuckDB", "React", "AI Agents"],
+      "current": false
+    },
+    {
+      "company": "ИП Палиенко",
+      "companyNote": "own products",
+      "role": "Founder & Developer",
+      "period": "Jul 2025 — present",
+      "duration": "",
+      "summary": "Launching my own products in EdTech, PropTech and SaaS + open source.",
+      "bullets": [
+        "egesto.ru — AI platform for preparing for the Russian state English exam.",
+        "kvartly.com — real estate marketplace in Georgia, lead generation model.",
+        "pali.rent — SaaS platform for rental companies.",
+        "Open source: palistor — my own React framework; paliproxy — a proxy tool for development."
+      ],
+      "stack": ["Next.js", "NestJS", "TypeScript", "OpenAI", "PostgreSQL"],
+      "current": true
+    },
+    {
+      "company": "Laflei ltd",
+      "companyNote": "Rome, Italy",
+      "role": "Team Lead",
+      "period": "Nov 2020 — Jun 2025",
+      "duration": "4 years 8 months",
+      "summary": "Products: toprentapp.com — SaaS for fleet management and car rental companies; billionrent.com — B2C car rental marketplace.",
+      "bullets": [
+        "Built a SaaS platform from scratch — grew to 500+ corporate clients with sustained 20% year-over-year growth.",
+        "Launched the billionrent.com marketplace with external fleets integrated via API.",
+        "Delivered responsive embeddable booking widgets for partner sites and a one-click website module — auto-generated landing pages for rental companies.",
+        "Built a custom UI library with dynamic theming; integrated Stripe, Firebase (auth and notifications), Cloudinary, FaunaDB.",
+        "Leadership: ran a distributed team — architecture decisions, code review, mentoring; kept the platform stable under growing load."
+      ],
+      "stack": ["React", "Next.js", "Relay", "Redux", "Zustand", "Node.js", "NestJS", "PostgreSQL", "Kafka", "GraphQL", "Firebase", "FaunaDB", "Stripe", "Cloudinary", "Vercel", "Nginx"],
+      "current": false
+    },
+    {
+      "company": "Элит такси",
+      "companyNote": "",
+      "role": "React Middle Developer",
+      "period": "Sep 2019 — Jul 2020",
+      "duration": "",
+      "summary": "CRM system for a taxi service: dispatching, maps, reporting.",
+      "bullets": [],
+      "stack": ["React", "Redux", "Redux-Saga", "Ant Design", "OpenStreetMap"],
+      "current": false
+    },
+    {
+      "company": "Topjsurfing",
+      "companyNote": "",
+      "role": "Developer",
+      "period": "Nov 2018 — May 2019",
+      "duration": "",
+      "summary": "Migrated the frontend from jQuery to Next.js: online store, reviews, CRM integrations, PDF invoices, email notifications. The store became a niche leader thanks to speed, markup validity and SEO.",
+      "bullets": [],
+      "stack": ["Next.js", "Keystone.js"],
+      "current": false
+    },
+    {
+      "company": "Фриланс",
+      "companyNote": "",
+      "role": "Programmer, webmaster",
+      "period": "Nov 2015 — Nov 2018",
+      "duration": "",
+      "summary": "Websites for car rental, real estate and tourism: zapstroy.ru (Nuxt.js), estiacard.com (Next.js), somnium.su (Vue SSR), barcelonasupercars.com, monacosupercar.com, taketesla.com.",
+      "bullets": [],
+      "stack": ["JavaScript", "Vue/Nuxt", "jQuery", "WordPress", "Gulp", "Pug", "Stylus"],
+      "current": false
+    }
+  ],
+  "stack": [
+    { "group": "Backend", "items": ["Node.js", "NestJS", "TypeScript", "Kafka", "GraphQL", "REST API", "Prisma"] },
+    { "group": "Frontend", "items": ["React", "Next.js", "Relay", "Redux", "Zustand", "Material UI"] },
+    { "group": "Databases", "items": ["PostgreSQL", "ClickHouse", "MongoDB", "Redis", "DuckDB", "FaunaDB"] },
+    { "group": "Cloud / DevOps", "items": ["Docker", "Vercel", "Firebase", "Cloudinary", "GitLab CI", "GitHub", "Nginx"] },
+    { "group": "AI & integrations", "items": ["OpenAI / AI Agents", "Stripe", "REST", "GraphQL"] },
+    { "group": "Architecture", "items": ["Microservices", "Event-driven", "SaaS multi-tenancy", "API-first", "Serverless"] }
+  ],
+  "education": [
+    { "year": "2012", "title": "Европейский Университет, Киев", "note": "Enterprise economics, higher education" },
+    { "year": "2024", "title": "Курсы: Node.js и JavaScript Async", "note": "Timur Shemsedinov" }
+  ]
+}

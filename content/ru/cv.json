@@ -1,0 +1,111 @@
+{
+  "title": "Резюме",
+  "intro": "Senior / Lead Full-Stack JavaScript Engineer",
+  "pdfUrl": "/cv/yuri-palienko-fullstack-tl.pdf",
+  "pdfLabel": "Скачать PDF",
+  "profile": "Full-Stack JavaScript Architect и Team Lead. Специализируюсь на проектировании и доставке SaaS-платформ и маркетплейсов с нуля до продакшена. Глубокая экспертиза в backend-архитектуре на Node.js/NestJS, event-driven системах и высоконагруженных решениях. Выстраивал инженерные процессы в распределённых командах.",
+  "facts": [
+    { "label": "Опыт", "value": "10+ лет · 4+ года Team Lead" },
+    { "label": "Формат", "value": "Удалённо, готов к командировкам" },
+    { "label": "Занятость", "value": "Full-time · part-time · проект" },
+    { "label": "Ожидания", "value": "от 250 000 ₽ net" },
+    { "label": "Готовность к выходу", "value": "2–4 недели" },
+    { "label": "Английский", "value": "B2 · 4 года в команде в Риме" }
+  ],
+  "jobs": [
+    {
+      "company": "Colvir Software Solutions",
+      "companyNote": "системная интеграция",
+      "role": "Full-Stack Developer",
+      "period": "Фев 2026 — Июл 2026",
+      "duration": "6 месяцев",
+      "summary": "Система бизнес-аналитики уровня Microsoft Power BI.",
+      "bullets": [
+        "Пересобрал ядро системы: разделил клиентскую и серверную части, что дало ощутимый прирост производительности.",
+        "Разработал AI-агента для управления приложением и данными — harness с инструментами, субагентами и системой памяти.",
+        "Внедрил DuckDB на клиенте (аналитика прямо в браузере) и ClickHouse на бэкенде для больших объёмов данных.",
+        "Собрал сервис на NestJS с Prisma; спроектировал редактор формул на основе токенизации."
+      ],
+      "stack": ["NestJS", "TypeScript", "Prisma", "ClickHouse", "DuckDB", "React", "AI Agents"],
+      "current": false
+    },
+    {
+      "company": "ИП Палиенко",
+      "companyNote": "собственные продукты",
+      "role": "Founder & Developer",
+      "period": "Июл 2025 — наст. время",
+      "duration": "",
+      "summary": "Запуск собственных продуктов в EdTech, PropTech и SaaS + open source.",
+      "bullets": [
+        "egesto.ru — AI-платформа для подготовки к ЕГЭ по английскому языку.",
+        "kvartly.com — маркетплейс недвижимости в Грузии, модель лидогенерации.",
+        "pali.rent — SaaS-платформа для арендных компаний.",
+        "Open source: palistor — собственный React-фреймворк; paliproxy — прокси-инструмент для разработки."
+      ],
+      "stack": ["Next.js", "NestJS", "TypeScript", "OpenAI", "PostgreSQL"],
+      "current": true
+    },
+    {
+      "company": "Laflei ltd",
+      "companyNote": "Рим, Италия",
+      "role": "Team Lead",
+      "period": "Ноя 2020 — Июн 2025",
+      "duration": "4 года 8 мес",
+      "summary": "Продукты: toprentapp.com — SaaS для управления автопарками и арендными компаниями; billionrent.com — B2C-маркетплейс аренды автомобилей.",
+      "bullets": [
+        "Построил SaaS-платформу с нуля — выросла до 500+ корпоративных клиентов с устойчивым ростом 20% в год.",
+        "Запустил маркетплейс billionrent.com с интеграцией внешних автопарков через API.",
+        "Реализовал адаптивные embed-виджеты бронирования для партнёрских сайтов и модуль «Сайт в один клик» — автогенерация лендингов для арендных компаний.",
+        "Разработал кастомную UI-библиотеку с динамической темой; подключил Stripe, Firebase (auth и нотификации), Cloudinary, FaunaDB.",
+        "Лидерство: руководил распределённой командой — архитектурные решения, код-ревью, менторство; удержал стабильность платформы под растущую нагрузку."
+      ],
+      "stack": ["React", "Next.js", "Relay", "Redux", "Zustand", "Node.js", "NestJS", "PostgreSQL", "Kafka", "GraphQL", "Firebase", "FaunaDB", "Stripe", "Cloudinary", "Vercel", "Nginx"],
+      "current": false
+    },
+    {
+      "company": "Элит такси",
+      "companyNote": "",
+      "role": "React Middle Developer",
+      "period": "Сен 2019 — Июл 2020",
+      "duration": "",
+      "summary": "CRM-система для службы такси: диспетчеризация, карты, отчётность.",
+      "bullets": [],
+      "stack": ["React", "Redux", "Redux-Saga", "Ant Design", "OpenStreetMap"],
+      "current": false
+    },
+    {
+      "company": "Topjsurfing",
+      "companyNote": "",
+      "role": "Developer",
+      "period": "Ноя 2018 — Май 2019",
+      "duration": "",
+      "summary": "Перенёс фронтенд с jQuery на Next.js: интернет-магазин, отзывы, интеграции с CRM, PDF-счета, email-уведомления. Магазин вышел в лидеры ниши за счёт скорости, валидности и SEO.",
+      "bullets": [],
+      "stack": ["Next.js", "Keystone.js"],
+      "current": false
+    },
+    {
+      "company": "Фриланс",
+      "companyNote": "",
+      "role": "Программист, вебмастер",
+      "period": "Ноя 2015 — Ноя 2018",
+      "duration": "",
+      "summary": "Сайты для автопроката, недвижимости и туризма: zapstroy.ru (Nuxt.js), estiacard.com (Next.js), somnium.su (Vue SSR), barcelonasupercars.com, monacosupercar.com, taketesla.com.",
+      "bullets": [],
+      "stack": ["JavaScript", "Vue/Nuxt", "jQuery", "WordPress", "Gulp", "Pug", "Stylus"],
+      "current": false
+    }
+  ],
+  "stack": [
+    { "group": "Backend", "items": ["Node.js", "NestJS", "TypeScript", "Kafka", "GraphQL", "REST API", "Prisma"] },
+    { "group": "Frontend", "items": ["React", "Next.js", "Relay", "Redux", "Zustand", "Material UI"] },
+    { "group": "Базы данных", "items": ["PostgreSQL", "ClickHouse", "MongoDB", "Redis", "DuckDB", "FaunaDB"] },
+    { "group": "Cloud / DevOps", "items": ["Docker", "Vercel", "Firebase", "Cloudinary", "GitLab CI", "GitHub", "Nginx"] },
+    { "group": "AI и интеграции", "items": ["OpenAI / AI Agents", "Stripe", "REST", "GraphQL"] },
+    { "group": "Архитектура", "items": ["Микросервисы", "Event-driven", "SaaS multi-tenancy", "API-first", "Serverless"] }
+  ],
+  "education": [
+    { "year": "2012", "title": "Европейский Университет, Киев", "note": "Экономика предприятий, высшее" },
+    { "year": "2024", "title": "Курсы: Node.js и JavaScript Async", "note": "Тимур Шемсединов" }
+  ]
+}

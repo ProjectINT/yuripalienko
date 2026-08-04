@@ -1,0 +1,19 @@
+{
+  "title": "About",
+  "lead": "Full-Stack JavaScript architect and Team Lead. I specialize in designing and delivering SaaS platforms and marketplaces from scratch to production.",
+  "paragraphs": [
+    "10+ years in development, 4+ years as a Team Lead. Deep expertise in backend architecture with Node.js and NestJS, event-driven systems and high-load solutions.",
+    "For four years I led a distributed team in Rome: architecture decisions, code review, mentoring. Kept the platform stable under growing load as it scaled to 500+ corporate clients.",
+    "These days I build my own products in EdTech, PropTech and SaaS, plus open source: palistor (a declarative MVVM framework for React) and paliproxy.",
+    "A separate focus is AI agents in production: a harness with tools, subagents and a memory system for managing an application and its data."
+  ],
+  "facts": [
+    { "label": "Experience", "value": "10+ years · 4+ years as Team Lead" },
+    { "label": "Format", "value": "Remote, open to business trips" },
+    { "label": "Languages", "value": "Russian — native · English — B2" },
+    { "label": "Based in", "value": "Sochi, Russia" }
+  ],
+  "links": [
+    { "label": "GitHub — ProjectINT", "url": "https://github.com/ProjectINT" }
+  ]
+}

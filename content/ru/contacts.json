@@ -1,0 +1,11 @@
+{
+  "title": "Контакты",
+  "intro": "Пишите — обсудим задачу и сроки.",
+  "channels": [
+    { "label": "Email", "value": "yuripalienko@gmail.com", "url": "mailto:yuripalienko@gmail.com", "primary": true },
+    { "label": "Telegram", "value": "@yurapalienko", "url": "https://t.me/yurapalienko", "primary": true },
+    { "label": "GitHub", "value": "github.com/ProjectINT", "url": "https://github.com/ProjectINT", "primary": false }
+  ],
+  "location": "Сочи, РФ",
+  "availability": "Удалённо, готов к командировкам. РФ · разрешение на работу в Грузии."
+}
