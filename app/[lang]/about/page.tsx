@@ -1,6 +1,9 @@
 import { notFound } from 'next/navigation'
 import { isLocale } from '@/lib/i18n'
 import { getAbout } from '@/lib/content'
+import { metaFor } from '@/lib/seo'
+import { breadcrumbs, profilePage } from '@/lib/schema'
+import JsonLd from '@/components/seo/JsonLd'
 import PageShell from '@/components/ui/PageShell'
 import PageHeader from '@/components/ui/PageHeader'
 import CvFacts from '@/components/cv/CvFacts'
@@ -10,7 +13,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/about'>) {
   const { lang } = await params
   if (!isLocale(lang)) return {}
   const about = getAbout(lang)
-  return { title: about.title, description: about.lead }
+  return metaFor(lang, '/about', about.seoTitle, about.seoDescription)
 }
 
 export default async function AboutPage({ params }: PageProps<'/[lang]/about'>) {
@@ -20,6 +23,8 @@ export default async function AboutPage({ params }: PageProps<'/[lang]/about'>) 
 
   return (
     <PageShell>
+      <JsonLd data={breadcrumbs(lang, '/about', about.title)} />
+      <JsonLd data={profilePage(lang, '/about')} />
       <PageHeader title={about.title} />
       <p className="max-w-3xl text-2xl font-medium leading-snug tracking-tight lg:text-3xl">
         {about.lead}

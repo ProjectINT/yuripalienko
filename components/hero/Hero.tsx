@@ -51,7 +51,7 @@ export default function Hero({
   cards: HeroCard[]
 }) {
   const mode = useSyncExternalStore<HeroMode | null>(subscribeMode, getMode, () => null)
-  // HDRI весит ~1.6 МБ: до его загрузки канвас пустой, поэтому проявляем сцену
+  // HDRI весит ~0.4 МБ: до его загрузки канвас пустой, поэтому проявляем сцену
   // поверх glow, а не вместо него. Полноценный прелоадер — Этап 3.
   const [ready, setReady] = useState(false)
   const onReady = useCallback(() => setReady(true), [])
@@ -88,8 +88,15 @@ export default function Hero({
           прошивают его насквозь и открывают невидимую карточку за градиентом */}
       <div className="pointer-events-auto relative mt-auto space-y-4 pb-10 text-center">
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold tracking-tight lg:text-3xl">{site.name}</h1>
-          <p className="font-mono text-xs uppercase tracking-widest text-muted">{site.role}</p>
+          {/* Один h1 с именем и специализацией (P1-9); визуально — те же две строки */}
+          <h1 className="space-y-2">
+            <span className="block text-2xl font-bold tracking-tight lg:text-3xl">
+              {site.name}
+            </span>
+            <span className="block font-mono text-xs uppercase tracking-widest text-muted">
+              {site.role}
+            </span>
+          </h1>
           <p className="mx-auto max-w-xl text-sm leading-relaxed text-muted lg:text-base">
             {site.tagline}
           </p>

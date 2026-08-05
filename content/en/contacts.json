@@ -1,11 +1,28 @@
 {
   "title": "Contact",
   "intro": "Get in touch — let's discuss your task and timeline.",
+  "seoTitle": "Contact Palisoft — Discuss Your SaaS or MVP Project",
+  "seoDescription": "Tell us about your product via email or Telegram — we'll discuss scope, timeline and an estimate. Working remotely, worldwide, in English and Russian.",
   "channels": [
-    { "label": "Email", "value": "yuripalienko@gmail.com", "url": "mailto:yuripalienko@gmail.com", "primary": true },
-    { "label": "Telegram", "value": "@yurapalienko", "url": "https://t.me/yurapalienko", "primary": true },
-    { "label": "GitHub", "value": "github.com/ProjectINT", "url": "https://github.com/ProjectINT", "primary": false }
+    {
+      "label": "Email",
+      "value": "yuripalienko@gmail.com",
+      "url": "mailto:yuripalienko@gmail.com",
+      "primary": true
+    },
+    {
+      "label": "Telegram",
+      "value": "@yurapalienko",
+      "url": "https://t.me/yurapalienko",
+      "primary": true
+    },
+    {
+      "label": "GitHub",
+      "value": "github.com/ProjectINT",
+      "url": "https://github.com/ProjectINT",
+      "primary": false
+    }
   ],
   "location": "Sochi, Russia",
-  "availability": "Remote, open to business trips. Russia · work permit in Georgia."
+  "availability": "Remote · working worldwide · English and Russian"
 }

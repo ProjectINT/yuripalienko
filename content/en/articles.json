@@ -1,6 +1,8 @@
 {
   "title": "Writing",
   "intro": "About palistor — a declarative MVVM framework for React.",
+  "seoTitle": "Articles on React, MVVM and AI Agents | Palisoft",
+  "seoDescription": "Engineering writing from production experience: palistor, a declarative MVVM framework for React, AI agent harnesses, DuckDB and ClickHouse analytics.",
   "items": [
     {
       "title": "Palistor is here: the AI-friendly MVVM framework for React",

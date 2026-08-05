@@ -1,6 +1,37 @@
 {
   "name": "Юрий Палиенко",
   "role": "Full-Stack Architect & Team Lead",
-  "tagline": "Проектирую и довожу до продакшена SaaS-платформы и маркетплейсы — от архитектуры до сотен B2B-клиентов",
-  "description": "Full-Stack JavaScript архитектор и Team Lead. Node.js / NestJS / React. SaaS-платформы и маркетплейсы с нуля до продакшена."
+  "tagline": "Проектируем и доводим до продакшена SaaS-платформы и маркетплейсы — от архитектуры до сотен B2B-клиентов",
+  "description": "Студия full-stack JavaScript разработки. Node.js / NestJS / React. SaaS-платформы и маркетплейсы с нуля до продакшена.",
+  "seoTitle": "Palisoft — разработка SaaS, маркетплейсов и MVP под ключ",
+  "seoDescription": "Проектируем и выводим в продакшен SaaS-платформы, маркетплейсы и MVP. Next.js, NestJS, PostgreSQL, ClickHouse. Кейсы до 500+ B2B-клиентов. Удалённо, весь мир.",
+  "home": {
+    "heading": "Разработка SaaS-платформ, маркетплейсов и MVP",
+    "paragraphs": [
+      "Palisoft — студия full-stack разработки Юрия Палиенко. Проектируем архитектуру, строим бэкенд на Node.js и NestJS, фронтенд на React и Next.js, выводим продукт в продакшен и сопровождаем после запуска.",
+      "За плечами — SaaS для управления автопарками, выросший с нуля до 500+ корпоративных клиентов, B2C-маркетплейс аренды автомобилей, BI-система уровня Power BI с AI-агентом и аналитикой на ClickHouse и DuckDB, собственные продукты в EdTech и PropTech.",
+      "Работаем удалённо по всему миру, на русском и английском. Стек: TypeScript, Next.js, NestJS, PostgreSQL, Supabase, ClickHouse, Kafka, Redis, Three.js."
+    ],
+    "highlightsTitle": "Ключевые проекты",
+    "highlights": [
+      {
+        "title": "toprentapp.com",
+        "note": "SaaS для автопарков: с нуля до 500+ B2B-клиентов"
+      },
+      {
+        "title": "billionrent.com",
+        "note": "маркетплейс аренды автомобилей с API-интеграциями автопарков"
+      },
+      {
+        "title": "BI-система уровня Power BI",
+        "note": "ClickHouse, DuckDB в браузере и AI-агент"
+      },
+      {
+        "title": "palistor",
+        "note": "open-source MVVM-фреймворк для React"
+      }
+    ],
+    "worksLink": "Все работы",
+    "pricingLink": "Цены и форматы работы"
+  }
 }

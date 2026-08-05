@@ -1,16 +1,36 @@
 {
   "title": "CV",
   "intro": "Senior / Lead Full-Stack JavaScript Engineer",
+  "seoTitle": "Yuri Palienko — Senior Full-Stack JS / Team Lead CV",
+  "seoDescription": "CV: 10+ years in JavaScript, 4+ years as a team lead. Node.js, NestJS, React, Next.js, Kafka, ClickHouse. SaaS platforms grown to 500+ B2B clients. PDF inside.",
   "pdfUrl": "/cv/yuri-palienko-fullstack-tl.pdf",
   "pdfLabel": "Download PDF",
   "profile": "Full-Stack JavaScript Architect and Team Lead. I specialize in designing and delivering SaaS platforms and marketplaces from scratch to production. Deep expertise in backend architecture with Node.js/NestJS, event-driven systems and high-load solutions. Built engineering processes in distributed teams.",
   "facts": [
-    { "label": "Experience", "value": "10+ years · 4+ years as Team Lead" },
-    { "label": "Format", "value": "Remote, open to business trips" },
-    { "label": "Availability", "value": "Full-time · part-time · project" },
-    { "label": "Expectations", "value": "from ₽250,000 net" },
-    { "label": "Notice period", "value": "2–4 weeks" },
-    { "label": "English", "value": "B2 · 4 years on a team in Rome" }
+    {
+      "label": "Experience",
+      "value": "10+ years · 4+ years as Team Lead"
+    },
+    {
+      "label": "Format",
+      "value": "Remote, open to business trips"
+    },
+    {
+      "label": "Availability",
+      "value": "Full-time · part-time · project"
+    },
+    {
+      "label": "Expectations",
+      "value": "from ₽250,000 net"
+    },
+    {
+      "label": "Notice period",
+      "value": "2–4 weeks"
+    },
+    {
+      "label": "English",
+      "value": "B2 · 4 years on a team in Rome"
+    }
   ],
   "jobs": [
     {
@@ -26,7 +46,15 @@
         "Introduced DuckDB on the client (analytics right in the browser) and ClickHouse on the backend for large data volumes.",
         "Built a NestJS service with Prisma; designed a tokenization-based formula editor."
       ],
-      "stack": ["NestJS", "TypeScript", "Prisma", "ClickHouse", "DuckDB", "React", "AI Agents"],
+      "stack": [
+        "NestJS",
+        "TypeScript",
+        "Prisma",
+        "ClickHouse",
+        "DuckDB",
+        "React",
+        "AI Agents"
+      ],
       "current": false
     },
     {
@@ -42,7 +70,13 @@
         "pali.rent — SaaS platform for rental companies.",
         "Open source: palistor — my own React framework; paliproxy — a proxy tool for development."
       ],
-      "stack": ["Next.js", "NestJS", "TypeScript", "OpenAI", "PostgreSQL"],
+      "stack": [
+        "Next.js",
+        "NestJS",
+        "TypeScript",
+        "OpenAI",
+        "PostgreSQL"
+      ],
       "current": true
     },
     {
@@ -59,7 +93,24 @@
         "Built a custom UI library with dynamic theming; integrated Stripe, Firebase (auth and notifications), Cloudinary, FaunaDB.",
         "Leadership: ran a distributed team — architecture decisions, code review, mentoring; kept the platform stable under growing load."
       ],
-      "stack": ["React", "Next.js", "Relay", "Redux", "Zustand", "Node.js", "NestJS", "PostgreSQL", "Kafka", "GraphQL", "Firebase", "FaunaDB", "Stripe", "Cloudinary", "Vercel", "Nginx"],
+      "stack": [
+        "React",
+        "Next.js",
+        "Relay",
+        "Redux",
+        "Zustand",
+        "Node.js",
+        "NestJS",
+        "PostgreSQL",
+        "Kafka",
+        "GraphQL",
+        "Firebase",
+        "FaunaDB",
+        "Stripe",
+        "Cloudinary",
+        "Vercel",
+        "Nginx"
+      ],
       "current": false
     },
     {
@@ -70,7 +121,13 @@
       "duration": "",
       "summary": "CRM system for a taxi service: dispatching, maps, reporting.",
       "bullets": [],
-      "stack": ["React", "Redux", "Redux-Saga", "Ant Design", "OpenStreetMap"],
+      "stack": [
+        "React",
+        "Redux",
+        "Redux-Saga",
+        "Ant Design",
+        "OpenStreetMap"
+      ],
       "current": false
     },
     {
@@ -81,7 +138,10 @@
       "duration": "",
       "summary": "Migrated the frontend from jQuery to Next.js: online store, reviews, CRM integrations, PDF invoices, email notifications. The store became a niche leader thanks to speed, markup validity and SEO.",
       "bullets": [],
-      "stack": ["Next.js", "Keystone.js"],
+      "stack": [
+        "Next.js",
+        "Keystone.js"
+      ],
       "current": false
     },
     {
@@ -92,20 +152,97 @@
       "duration": "",
       "summary": "Websites for car rental, real estate and tourism: zapstroy.ru (Nuxt.js), estiacard.com (Next.js), somnium.su (Vue SSR), barcelonasupercars.com, monacosupercar.com, taketesla.com.",
       "bullets": [],
-      "stack": ["JavaScript", "Vue/Nuxt", "jQuery", "WordPress", "Gulp", "Pug", "Stylus"],
+      "stack": [
+        "JavaScript",
+        "Vue/Nuxt",
+        "jQuery",
+        "WordPress",
+        "Gulp",
+        "Pug",
+        "Stylus"
+      ],
       "current": false
     }
   ],
   "stack": [
-    { "group": "Backend", "items": ["Node.js", "NestJS", "TypeScript", "Kafka", "GraphQL", "REST API", "Prisma"] },
-    { "group": "Frontend", "items": ["React", "Next.js", "Relay", "Redux", "Zustand", "Material UI"] },
-    { "group": "Databases", "items": ["PostgreSQL", "ClickHouse", "MongoDB", "Redis", "DuckDB", "FaunaDB"] },
-    { "group": "Cloud / DevOps", "items": ["Docker", "Vercel", "Firebase", "Cloudinary", "GitLab CI", "GitHub", "Nginx"] },
-    { "group": "AI & integrations", "items": ["OpenAI / AI Agents", "Stripe", "REST", "GraphQL"] },
-    { "group": "Architecture", "items": ["Microservices", "Event-driven", "SaaS multi-tenancy", "API-first", "Serverless"] }
+    {
+      "group": "Backend",
+      "items": [
+        "Node.js",
+        "NestJS",
+        "TypeScript",
+        "Kafka",
+        "GraphQL",
+        "REST API",
+        "Prisma"
+      ]
+    },
+    {
+      "group": "Frontend",
+      "items": [
+        "React",
+        "Next.js",
+        "Relay",
+        "Redux",
+        "Zustand",
+        "Material UI",
+        "Three.js"
+      ]
+    },
+    {
+      "group": "Databases",
+      "items": [
+        "PostgreSQL",
+        "ClickHouse",
+        "MongoDB",
+        "Redis",
+        "DuckDB",
+        "FaunaDB",
+        "Supabase"
+      ]
+    },
+    {
+      "group": "Cloud / DevOps",
+      "items": [
+        "Docker",
+        "Vercel",
+        "Firebase",
+        "Cloudinary",
+        "GitLab CI",
+        "GitHub",
+        "Nginx"
+      ]
+    },
+    {
+      "group": "AI & integrations",
+      "items": [
+        "OpenAI / AI Agents",
+        "Stripe",
+        "REST",
+        "GraphQL"
+      ]
+    },
+    {
+      "group": "Architecture",
+      "items": [
+        "Microservices",
+        "Event-driven",
+        "SaaS multi-tenancy",
+        "API-first",
+        "Serverless"
+      ]
+    }
   ],
   "education": [
-    { "year": "2012", "title": "Европейский Университет, Киев", "note": "Enterprise economics, higher education" },
-    { "year": "2024", "title": "Курсы: Node.js и JavaScript Async", "note": "Timur Shemsedinov" }
+    {
+      "year": "2012",
+      "title": "Европейский Университет, Киев",
+      "note": "Enterprise economics, higher education"
+    },
+    {
+      "year": "2024",
+      "title": "Курсы: Node.js и JavaScript Async",
+      "note": "Timur Shemsedinov"
+    }
   ]
 }

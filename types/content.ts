@@ -1,8 +1,23 @@
+/** Текстовый блок под hero на главной: услуги + ключевые проекты + CTA */
+export interface HomeContent {
+  heading: string
+  paragraphs: string[]
+  highlightsTitle: string
+  highlights: { title: string; note: string }[]
+  worksLink: string
+  pricingLink: string
+}
+
 export interface SiteContent {
   name: string
   role: string
   tagline: string
   description: string
+  /** Полный title под выдачу (50–60 симв.), выводится без шаблона layout */
+  seoTitle: string
+  /** Description под выдачу (140–160 симв.) */
+  seoDescription: string
+  home: HomeContent
 }
 
 export interface NavItem {
@@ -52,12 +67,16 @@ export interface HeroCard {
 export interface WorksContent {
   title: string
   intro: string
+  seoTitle: string
+  seoDescription: string
   items: WorkItem[]
 }
 
 export interface AboutContent {
   title: string
   lead: string
+  seoTitle: string
+  seoDescription: string
   paragraphs: string[]
   facts: { label: string; value: string }[]
   links: { label: string; url: string }[]
@@ -74,13 +93,17 @@ export interface ArticleItem {
 export interface ArticlesContent {
   title: string
   intro: string
+  seoTitle: string
+  seoDescription: string
   items: ArticleItem[]
 }
 
 export interface PricingTier {
   slug: string
   title: string
-  price: string
+  /** Цена «от», в валюте currency; null — «по запросу». Число нужно для Offer JSON-LD */
+  price: number | null
+  currency: 'USD'
   priceNote: string
   summary: string
   includes: string[]
@@ -90,7 +113,11 @@ export interface PricingTier {
 export interface PricingContent {
   title: string
   intro: string
+  seoTitle: string
+  seoDescription: string
   tiers: PricingTier[]
+  stackTitle: string
+  stack: { group: string; items: string[] }[]
   note: string
 }
 
@@ -109,6 +136,8 @@ export interface CvJob {
 export interface CvContent {
   title: string
   intro: string
+  seoTitle: string
+  seoDescription: string
   pdfUrl: string
   pdfLabel: string
   profile: string
@@ -121,6 +150,8 @@ export interface CvContent {
 export interface ContactsContent {
   title: string
   intro: string
+  seoTitle: string
+  seoDescription: string
   channels: { label: string; value: string; url: string; primary: boolean }[]
   location: string
   availability: string

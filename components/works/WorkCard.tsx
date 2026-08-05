@@ -1,9 +1,19 @@
 import Image from 'next/image'
+import type { Locale } from '@/lib/i18n'
 import type { WorkItem } from '@/types/content'
 import Tag from '@/components/ui/Tag'
 import ExternalLink from '@/components/ui/ExternalLink'
+import PeriodText from '@/components/ui/PeriodText'
 
-export default function WorkCard({ item }: { item: WorkItem }) {
+export default function WorkCard({
+  item,
+  lang,
+  priority = false,
+}: {
+  item: WorkItem
+  lang: Locale
+  priority?: boolean
+}) {
   const cover = item.images?.[0]
 
   return (
@@ -15,15 +25,21 @@ export default function WorkCard({ item }: { item: WorkItem }) {
       {cover && (
         <Image
           src={cover.src}
-          alt=""
+          alt={
+            lang === 'ru'
+              ? `Скриншот интерфейса: ${item.title} — ${item.role}`
+              : `Interface screenshot: ${item.title} — ${item.role}`
+          }
           width={1600}
           height={900}
           sizes={item.featured ? '(max-width: 1024px) 100vw, 70vw' : '(max-width: 1024px) 100vw, 35vw'}
+          // Первая карточка — вероятный LCP-элемент страницы /works
+          priority={priority}
           className="mb-6 h-auto w-full border border-line"
         />
       )}
       <p className="font-mono text-xs uppercase tracking-widest text-muted">
-        {item.period}
+        <PeriodText value={item.period} />
       </p>
       <h2 className="mt-3 break-words text-2xl font-bold tracking-tight lg:text-3xl">
         {item.url ? (

@@ -1,11 +1,70 @@
 {
   "title": "Контакты",
   "intro": "Пишите — обсудим задачу и сроки.",
+  "seoTitle": "Контакты Palisoft — обсудить разработку SaaS или MVP",
+  "seoDescription": "Напишите в Telegram или на почту — обсудим задачу, сроки и оценку. Работаем удалённо по всему миру, на русском и английском языках.",
   "channels": [
-    { "label": "Email", "value": "yuripalienko@gmail.com", "url": "mailto:yuripalienko@gmail.com", "primary": true },
-    { "label": "Telegram", "value": "@yurapalienko", "url": "https://t.me/yurapalienko", "primary": true },
-    { "label": "GitHub", "value": "github.com/ProjectINT", "url": "https://github.com/ProjectINT", "primary": false }
+    {
+      "label": "Email",
+      "value": "yuripalienko@gmail.com",
+      "url": "mailto:yuripalienko@gmail.com",
+      "primary": true
+    },
+    {
+      "label": "Telegram",
+      "value": "@yurapalienko",
+      "url": "https://t.me/yurapalienko",
+      "primary": true
+    },
+    {
+      "label": "GitHub",
+      "value": "github.com/ProjectINT",
+      "url": "https://github.com/ProjectINT",
+      "primary": false
+    },
+    {
+      "label": "X",
+      "value": "@PalienkoYuri",
+      "url": "https://x.com/PalienkoYuri",
+      "primary": false
+    },
+    {
+      "label": "LinkedIn",
+      "value": "https://www.linkedin.com/in/YuriPalienko",
+      "url": "https://www.linkedin.com/in/YuriPalienko/",
+      "primary": false
+    },
+    {
+      "label": "Instagram",
+      "value": "@yura.palienko",
+      "url": "https://www.instagram.com/yura.palienko/",
+      "primary": true
+    },
+    {
+      "label": "Instagram",
+      "value": "@pali.rent",
+      "url": "https://www.instagram.com/pali.rent/",
+      "primary": false
+    },
+    {
+      "label": "dev.to",
+      "value": "@yuri_palienko",
+      "url": "https://dev.to/yuri_palienko",
+      "primary": false
+    },
+    {
+      "label": "vc.ru",
+      "value": "https://vc.ru/id6038291",
+      "url": "https://vc.ru/id6038291",
+      "primary": false
+    },
+    {
+      "label": "Habr",
+      "value": "https://habr.com/ru/users/YuriPalienko/",
+      "url": "https://habr.com/ru/users/YuriPalienko/",
+      "primary": false
+    }
   ],
   "location": "Сочи, РФ",
-  "availability": "Удалённо, готов к командировкам. РФ · разрешение на работу в Грузии."
+  "availability": "Удалённо · работаем по всему миру · русский и английский"
 }

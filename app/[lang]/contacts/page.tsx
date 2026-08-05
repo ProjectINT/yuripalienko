@@ -1,6 +1,9 @@
 import { notFound } from 'next/navigation'
 import { isLocale } from '@/lib/i18n'
 import { getContacts } from '@/lib/content'
+import { metaFor } from '@/lib/seo'
+import { breadcrumbs, contactPage } from '@/lib/schema'
+import JsonLd from '@/components/seo/JsonLd'
 import PageShell from '@/components/ui/PageShell'
 import PageHeader from '@/components/ui/PageHeader'
 
@@ -8,7 +11,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/contacts'>
   const { lang } = await params
   if (!isLocale(lang)) return {}
   const contacts = getContacts(lang)
-  return { title: contacts.title, description: contacts.intro }
+  return metaFor(lang, '/contacts', contacts.seoTitle, contacts.seoDescription)
 }
 
 export default async function ContactsPage({ params }: PageProps<'/[lang]/contacts'>) {
@@ -20,6 +23,8 @@ export default async function ContactsPage({ params }: PageProps<'/[lang]/contac
 
   return (
     <PageShell>
+      <JsonLd data={breadcrumbs(lang, '/contacts', contacts.title)} />
+      <JsonLd data={contactPage(lang, '/contacts')} />
       <PageHeader title={contacts.title} intro={contacts.intro} />
 
       <div className="space-y-8">
@@ -42,18 +47,19 @@ export default async function ContactsPage({ params }: PageProps<'/[lang]/contac
       </div>
 
       <div className="space-y-6 border-t border-line pt-8">
+        {/* Q3: формат работы (весь мир) — первым, локация — вторым фактом */}
         <dl className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
-          <div>
-            <dt className="font-mono text-xs uppercase tracking-widest text-muted">
-              {lang === 'ru' ? 'Локация' : 'Location'}
-            </dt>
-            <dd className="mt-1 leading-relaxed">{contacts.location}</dd>
-          </div>
           <div>
             <dt className="font-mono text-xs uppercase tracking-widest text-muted">
               {lang === 'ru' ? 'Формат' : 'Availability'}
             </dt>
             <dd className="mt-1 leading-relaxed">{contacts.availability}</dd>
+          </div>
+          <div>
+            <dt className="font-mono text-xs uppercase tracking-widest text-muted">
+              {lang === 'ru' ? 'Локация' : 'Location'}
+            </dt>
+            <dd className="mt-1 leading-relaxed">{contacts.location}</dd>
           </div>
         </dl>
         {secondary.length > 0 && (

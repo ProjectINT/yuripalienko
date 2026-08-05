@@ -1,29 +1,43 @@
 {
   "title": "Цены",
-  "intro": "Работаю проектом или в формате выделенной команды. Оценка после первого созвона.",
+  "intro": "Работаем проектом или в формате выделенной команды. Оценка после первого созвона.",
+  "seoTitle": "Разработка SaaS и MVP — цены от $250 | Palisoft",
+  "seoDescription": "Прозрачные цены: лендинг от $250, MVP с бэкендом и платежами от $1000, SaaS-платформа или маркетплейс от $6000. Стек: Next.js, NestJS, Supabase, ClickHouse.",
   "tiers": [
     {
       "slug": "landing",
       "title": "Лендинг / промо-сайт",
-      "price": "TODO_CONFIRM",
+      "price": 250,
+      "currency": "USD",
       "priceNote": "",
       "summary": "Next.js, адаптив, SEO, деплой.",
-      "includes": ["Дизайн и вёрстка", "SEO и OG-разметка", "Деплой на Vercel"],
+      "includes": [
+        "Дизайн и вёрстка",
+        "SEO и OG-разметка",
+        "Деплой на Vercel"
+      ],
       "featured": false
     },
     {
       "slug": "mvp",
       "title": "MVP",
-      "price": "TODO_CONFIRM",
+      "price": 1000,
+      "currency": "USD",
       "priceNote": "",
       "summary": "Рабочий продукт с бэкендом, авторизацией и оплатой.",
-      "includes": ["Архитектура и схема данных", "Бэкенд на NestJS", "Авторизация и платежи", "Админка"],
+      "includes": [
+        "Архитектура и схема данных",
+        "Бэкенд на NestJS",
+        "Авторизация и платежи",
+        "Админка"
+      ],
       "featured": false
     },
     {
       "slug": "complex",
       "title": "Сложное приложение",
-      "price": "от 500 000 ₽",
+      "price": 6000,
+      "currency": "USD",
       "priceNote": "SaaS-платформа, маркетплейс, BI-система",
       "summary": "Полный цикл: архитектура, бэкенд, фронтенд, интеграции, вывод в продакшен.",
       "includes": [
@@ -35,6 +49,36 @@
         "Сопровождение после запуска"
       ],
       "featured": true
+    }
+  ],
+  "stackTitle": "Стек, на котором строим",
+  "stack": [
+    {
+      "group": "Frontend",
+      "items": [
+        "React",
+        "Next.js",
+        "Three.js"
+      ]
+    },
+    {
+      "group": "Backend",
+      "items": [
+        "Node.js",
+        "NestJS",
+        "Prisma"
+      ]
+    },
+    {
+      "group": "Данные и стриминг",
+      "items": [
+        "PostgreSQL",
+        "Supabase",
+        "Redis",
+        "ClickHouse",
+        "DuckDB",
+        "Kafka"
+      ]
     }
   ],
   "note": "Точная оценка — после обсуждения задачи. Возможна работа part-time или в формате выделенного тимлида."

@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { LOCALES, isLocale } from '@/lib/i18n'
 import { getSite, getNav } from '@/lib/content'
+import { SITE_URL, metaFor } from '@/lib/seo'
+import { rootGraph } from '@/lib/schema'
+import JsonLd from '@/components/seo/JsonLd'
 import SideNav from '@/components/layout/SideNav'
 import MobileNav from '@/components/layout/MobileNav'
 import Footer from '@/components/layout/Footer'
@@ -31,13 +34,15 @@ export async function generateMetadata({ params }: LayoutProps<'/[lang]'>): Prom
   if (!isLocale(lang)) return {}
   const site = getSite(lang)
   return {
-    metadataBase: new URL('https://yuripalienko.com'), // TODO_CONFIRM домен
-    title: { default: `${site.name} — ${site.role}`, template: `%s · ${site.name}` },
-    description: site.description,
-    alternates: {
-      canonical: `/${lang}`,
-      languages: { ru: '/ru', en: '/en' },
-    },
+    metadataBase: new URL(SITE_URL),
+    // canonical/hreflang, robots (kill-switch Q5), OG и twitter — для главной;
+    // каждая внутренняя страница переопределяет их своим metaFor(lang, path, …),
+    // потому что alternates наследуются и иначе канонизируют всё на главную.
+    ...metaFor(lang, '', site.seoTitle, site.seoDescription),
+    // Шаблон — для страниц без собственного absolute-title (например, 404)
+    title: { default: site.seoTitle, template: `%s · ${site.name}` },
+    // Этап 5 (после снятия флага индексации): коды подтверждения площадок.
+    // verification: { google: '…', other: { 'msvalidate.01': '…' }, yandex: '…' },
   }
 }
 
@@ -50,6 +55,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
   return (
     <html lang={lang} className={`${sans.variable} ${mono.variable}`}>
       <body className="min-h-dvh bg-bg text-fg">
+        <JsonLd data={rootGraph(lang)} />
         <MobileNav lang={lang} items={nav.items} site={site} />
         <SideNav lang={lang} items={nav.items} site={site} />
         <div className="lg:pl-64">

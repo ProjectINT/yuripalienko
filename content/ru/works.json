@@ -1,6 +1,8 @@
 {
   "title": "Работы",
   "intro": "10+ лет: SaaS-платформы, маркетплейсы, BI-системы и собственные продукты.",
+  "seoTitle": "Портфолио: SaaS, маркетплейсы и BI-системы | Palisoft",
+  "seoDescription": "Кейсы Palisoft: SaaS для автопарков с 500+ B2B-клиентами, маркетплейс аренды авто, BI-система уровня Power BI, AI-агенты в продакшене. Next.js, NestJS, ClickHouse.",
   "items": [
     {
       "slug": "toprentapp",
@@ -16,7 +18,21 @@
         "Кастомная UI-библиотека с динамической темой",
         "Stripe, Firebase (auth и нотификации), Cloudinary"
       ],
-      "stack": ["React", "Next.js", "Relay", "Redux", "Zustand", "Node.js", "NestJS", "PostgreSQL", "Kafka", "GraphQL", "Firebase", "Stripe", "Vercel"],
+      "stack": [
+        "React",
+        "Next.js",
+        "Relay",
+        "Redux",
+        "Zustand",
+        "Node.js",
+        "NestJS",
+        "PostgreSQL",
+        "Kafka",
+        "GraphQL",
+        "Firebase",
+        "Stripe",
+        "Vercel"
+      ],
       "featured": true
     },
     {
@@ -32,7 +48,15 @@
         "Адаптивные embed-виджеты бронирования для партнёрских сайтов",
         "Модуль «Сайт в один клик» — автогенерация лендингов для арендных компаний"
       ],
-      "stack": ["Next.js", "React", "GraphQL", "Node.js", "PostgreSQL", "FaunaDB", "Nginx"],
+      "stack": [
+        "Next.js",
+        "React",
+        "GraphQL",
+        "Node.js",
+        "PostgreSQL",
+        "FaunaDB",
+        "Nginx"
+      ],
       "featured": true
     },
     {
@@ -49,7 +73,15 @@
         "ClickHouse на бэкенде для больших объёмов данных",
         "Редактор формул на основе токенизации"
       ],
-      "stack": ["NestJS", "TypeScript", "Prisma", "ClickHouse", "DuckDB", "React", "AI Agents"],
+      "stack": [
+        "NestJS",
+        "TypeScript",
+        "Prisma",
+        "ClickHouse",
+        "DuckDB",
+        "React",
+        "AI Agents"
+      ],
       "featured": true
     },
     {
@@ -61,7 +93,13 @@
       "company": "ИП Палиенко",
       "summary": "AI-платформа для подготовки к ЕГЭ по английскому языку.",
       "highlights": [],
-      "stack": ["Next.js", "NestJS", "TypeScript", "OpenAI", "PostgreSQL"],
+      "stack": [
+        "Next.js",
+        "NestJS",
+        "TypeScript",
+        "OpenAI",
+        "PostgreSQL"
+      ],
       "featured": true
     },
     {
@@ -73,7 +111,14 @@
       "company": "ИП Палиенко",
       "summary": "Маркетплейс недвижимости в Грузии, модель лидогенерации.",
       "highlights": [],
-      "stack": ["Next.js", "NestJS", "TypeScript", "PostgreSQL"],
+      "stack": [
+        "Next.js",
+        "NestJS",
+        "TypeScript",
+        "PostgreSQL",
+        "Supabase",
+        "Redis"
+      ],
       "featured": true
     },
     {
@@ -85,7 +130,13 @@
       "company": "ИП Палиенко",
       "summary": "SaaS-платформа для арендных компаний.",
       "highlights": [],
-      "stack": ["Next.js", "NestJS", "TypeScript", "PostgreSQL"],
+      "stack": [
+        "Next.js",
+        "NestJS",
+        "TypeScript",
+        "PostgreSQL",
+        "Supabase"
+      ],
       "featured": false
     },
     {
@@ -97,7 +148,10 @@
       "company": "Open source",
       "summary": "Собственный React-фреймворк: декларативный MVVM, спроектированный так, чтобы с ним было удобно работать AI-агентам.",
       "highlights": [],
-      "stack": ["TypeScript", "React"],
+      "stack": [
+        "TypeScript",
+        "React"
+      ],
       "featured": true
     },
     {
@@ -109,7 +163,10 @@
       "company": "Open source",
       "summary": "Прокси-инструмент для разработки.",
       "highlights": [],
-      "stack": ["Node.js", "TypeScript"],
+      "stack": [
+        "Node.js",
+        "TypeScript"
+      ],
       "featured": false
     },
     {
@@ -121,7 +178,13 @@
       "company": "Элит такси",
       "summary": "CRM-система для службы такси: диспетчеризация, карты, отчётность.",
       "highlights": [],
-      "stack": ["React", "Redux", "Redux-Saga", "Ant Design", "OpenStreetMap"],
+      "stack": [
+        "React",
+        "Redux",
+        "Redux-Saga",
+        "Ant Design",
+        "OpenStreetMap"
+      ],
       "featured": false
     },
     {
@@ -135,7 +198,10 @@
       "highlights": [
         "Отзывы, интеграции с CRM, PDF-счета, email-уведомления"
       ],
-      "stack": ["Next.js", "Keystone.js"],
+      "stack": [
+        "Next.js",
+        "Keystone.js"
+      ],
       "featured": false
     },
     {
@@ -147,7 +213,16 @@
       "company": "Фриланс",
       "summary": "zapstroy.ru (Nuxt.js), estiacard.com (Next.js), somnium.su (Vue SSR), barcelonasupercars.com, monacosupercar.com, taketesla.com.",
       "highlights": [],
-      "stack": ["JavaScript", "Vue/Nuxt", "Next.js", "jQuery", "WordPress", "Gulp", "Pug", "Stylus"],
+      "stack": [
+        "JavaScript",
+        "Vue/Nuxt",
+        "Next.js",
+        "jQuery",
+        "WordPress",
+        "Gulp",
+        "Pug",
+        "Stylus"
+      ],
       "featured": false
     }
   ]

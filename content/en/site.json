@@ -1,6 +1,37 @@
 {
   "name": "Yuri Palienko",
   "role": "Full-Stack Architect & Team Lead",
-  "tagline": "I design and ship SaaS platforms and marketplaces — from architecture to hundreds of B2B clients in production",
-  "description": "Full-Stack JavaScript architect and Team Lead. Node.js / NestJS / React. SaaS platforms and marketplaces from scratch to production."
+  "tagline": "We design and ship SaaS platforms and marketplaces — from architecture to hundreds of B2B clients in production",
+  "description": "Full-stack JavaScript development studio. Node.js / NestJS / React. SaaS platforms and marketplaces from scratch to production.",
+  "seoTitle": "Palisoft — SaaS, Marketplace & MVP Development Studio",
+  "seoDescription": "We design and ship SaaS platforms, marketplaces and MVPs from architecture to production. Next.js, NestJS, PostgreSQL, ClickHouse. Remote, worldwide.",
+  "home": {
+    "heading": "SaaS, marketplace and MVP development",
+    "paragraphs": [
+      "Palisoft is the full-stack development studio of Yuri Palienko. We design the architecture, build the backend with Node.js and NestJS and the frontend with React and Next.js, ship the product to production and support it after launch.",
+      "Track record: a fleet-management SaaS grown from scratch to 500+ corporate clients, a B2C car rental marketplace, a Power BI-grade analytics system with an AI agent and ClickHouse/DuckDB analytics, plus our own products in EdTech and PropTech.",
+      "We work remotely, worldwide, in English and Russian. Stack: TypeScript, Next.js, NestJS, PostgreSQL, Supabase, ClickHouse, Kafka, Redis, Three.js."
+    ],
+    "highlightsTitle": "Key projects",
+    "highlights": [
+      {
+        "title": "toprentapp.com",
+        "note": "fleet-management SaaS: from scratch to 500+ B2B clients"
+      },
+      {
+        "title": "billionrent.com",
+        "note": "car rental marketplace with external fleet API integrations"
+      },
+      {
+        "title": "Power BI-grade analytics system",
+        "note": "ClickHouse, in-browser DuckDB and an AI agent"
+      },
+      {
+        "title": "palistor",
+        "note": "open-source MVVM framework for React"
+      }
+    ],
+    "worksLink": "All work",
+    "pricingLink": "Pricing & engagement"
+  }
 }

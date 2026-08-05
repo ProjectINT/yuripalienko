@@ -1,6 +1,9 @@
 import { notFound } from 'next/navigation'
 import { isLocale } from '@/lib/i18n'
 import { getArticles } from '@/lib/content'
+import { metaFor } from '@/lib/seo'
+import { breadcrumbs } from '@/lib/schema'
+import JsonLd from '@/components/seo/JsonLd'
 import PageShell from '@/components/ui/PageShell'
 import PageHeader from '@/components/ui/PageHeader'
 import ExternalLink from '@/components/ui/ExternalLink'
@@ -10,7 +13,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/articles'>
   const { lang } = await params
   if (!isLocale(lang)) return {}
   const articles = getArticles(lang)
-  return { title: articles.title, description: articles.intro }
+  return metaFor(lang, '/articles', articles.seoTitle, articles.seoDescription)
 }
 
 export default async function ArticlesPage({ params }: PageProps<'/[lang]/articles'>) {
@@ -20,6 +23,7 @@ export default async function ArticlesPage({ params }: PageProps<'/[lang]/articl
 
   return (
     <PageShell>
+      <JsonLd data={breadcrumbs(lang, '/articles', articles.title)} />
       <PageHeader title={articles.title} intro={articles.intro} />
       <div className="space-y-10">
         {articles.items.map((item) => (

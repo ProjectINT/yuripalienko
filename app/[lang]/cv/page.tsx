@@ -1,6 +1,9 @@
 import { notFound } from 'next/navigation'
 import { isLocale } from '@/lib/i18n'
 import { getCv } from '@/lib/content'
+import { metaFor } from '@/lib/seo'
+import { breadcrumbs, profilePage } from '@/lib/schema'
+import JsonLd from '@/components/seo/JsonLd'
 import PageShell from '@/components/ui/PageShell'
 import PageHeader from '@/components/ui/PageHeader'
 import CvFacts from '@/components/cv/CvFacts'
@@ -11,7 +14,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/cv'>) {
   const { lang } = await params
   if (!isLocale(lang)) return {}
   const cv = getCv(lang)
-  return { title: cv.title, description: cv.intro }
+  return metaFor(lang, '/cv', cv.seoTitle, cv.seoDescription)
 }
 
 export default async function CvPage({ params }: PageProps<'/[lang]/cv'>) {
@@ -21,6 +24,8 @@ export default async function CvPage({ params }: PageProps<'/[lang]/cv'>) {
 
   return (
     <PageShell>
+      <JsonLd data={breadcrumbs(lang, '/cv', cv.title)} />
+      <JsonLd data={profilePage(lang, '/cv')} />
       <div className="space-y-8">
         <PageHeader title={cv.title} intro={cv.intro} />
         <a
