@@ -1,14 +1,27 @@
+import Image from 'next/image'
 import type { WorkItem } from '@/types/content'
 import Tag from '@/components/ui/Tag'
 import ExternalLink from '@/components/ui/ExternalLink'
 
 export default function WorkCard({ item }: { item: WorkItem }) {
+  const cover = item.images?.[0]
+
   return (
     <article
       className={`min-w-0 border-t border-line pt-8 ${
         item.featured ? 'lg:col-span-2' : ''
       }`}
     >
+      {cover && (
+        <Image
+          src={cover.src}
+          alt=""
+          width={1600}
+          height={900}
+          sizes={item.featured ? '(max-width: 1024px) 100vw, 70vw' : '(max-width: 1024px) 100vw, 35vw'}
+          className="mb-6 h-auto w-full border border-line"
+        />
+      )}
       <p className="font-mono text-xs uppercase tracking-widest text-muted">
         {item.period}
       </p>

@@ -1,5 +1,6 @@
 import type { Locale } from './i18n'
 import type {
+  HeroCard,
   SiteContent,
   NavContent,
   WorksContent,
@@ -28,9 +29,29 @@ import enPricing from '@/content/en/pricing.json'
 import enCv from '@/content/en/cv.json'
 import enContacts from '@/content/en/contacts.json'
 
+import worksMedia from '@/content/works-media.json'
+
+// Скриншоты общие для обеих локалей, поэтому подмешиваются сюда, а не лежат
+// в content/{ru,en}/works.json — иначе один и тот же список пришлось бы править
+// в двух местах при каждом новом скриншоте.
+function withMedia(content: WorksContent): WorksContent {
+  const media: Record<string, string[]> = worksMedia.media
+  return {
+    ...content,
+    items: content.items.map((item) => ({
+      ...item,
+      images: (media[item.slug] ?? []).map((name) => ({
+        name,
+        src: `/works/${name}.webp`,
+        card: `/works/cards/${name}.webp`,
+      })),
+    })),
+  }
+}
+
 const site: Record<Locale, SiteContent> = { ru: ruSite, en: enSite }
 const nav: Record<Locale, NavContent> = { ru: ruNav, en: enNav }
-const works: Record<Locale, WorksContent> = { ru: ruWorks, en: enWorks }
+const works: Record<Locale, WorksContent> = { ru: withMedia(ruWorks), en: withMedia(enWorks) }
 const about: Record<Locale, AboutContent> = { ru: ruAbout, en: enAbout }
 const articles: Record<Locale, ArticlesContent> = { ru: ruArticles, en: enArticles }
 const pricing: Record<Locale, PricingContent> = { ru: ruPricing, en: enPricing }
@@ -45,3 +66,13 @@ export const getArticles = (lang: Locale) => articles[lang]
 export const getPricing = (lang: Locale) => pricing[lang]
 export const getCv = (lang: Locale) => cv[lang]
 export const getContacts = (lang: Locale) => contacts[lang]
+
+/** Плоский список скриншотов для кольца карточек в hero: одна картинка — одна карточка */
+export const getHeroCards = (lang: Locale): HeroCard[] =>
+  works[lang].items.flatMap((item) =>
+    (item.images ?? []).map((image) => ({
+      slug: item.slug,
+      title: item.title,
+      src: image.card,
+    })),
+  )

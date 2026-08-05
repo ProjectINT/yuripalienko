@@ -15,5 +15,9 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next|favicon.ico|robots.txt|sitemap.xml|cv/).*)'],
+  // Пропускаем внутренние роуты Next и всё, в чём есть точка, — то есть любой файл.
+  // Ассеты из public (/cv/*.pdf, /hdri/*.hdr, /logo/*.svg) редиректить на локаль
+  // нельзя: three.js грузит их fetch-ем и получает 404 после 307 на /ru/....
+  // robots.txt, sitemap.xml и favicon.ico подпадают под то же правило.
+  matcher: ['/((?!_next|.*\\.).*)'],
 }

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { isLocale } from '@/lib/i18n'
-import { getSite } from '@/lib/content'
+import { getHeroCards, getSite } from '@/lib/content'
 import Hero from '@/components/hero/Hero'
 
 export default async function HomePage({ params }: PageProps<'/[lang]'>) {
@@ -8,5 +8,5 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
   if (!isLocale(lang)) notFound()
   const site = getSite(lang)
 
-  return <Hero lang={lang} site={site} />
+  return <Hero lang={lang} site={site} cards={getHeroCards(lang)} />
 }

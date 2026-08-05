@@ -15,6 +15,15 @@ export interface NavContent {
   items: NavItem[]
 }
 
+export interface WorkImage {
+  /** имя файла без расширения, оно же ключ в content/works-media.json */
+  name: string
+  /** 1600×900 — для страницы /works */
+  src: string
+  /** 800×450 — текстура карточки в hero-сцене */
+  card: string
+}
+
 export interface WorkItem {
   slug: string
   title: string
@@ -26,6 +35,15 @@ export interface WorkItem {
   highlights: string[]
   stack: string[]
   featured: boolean
+  /** подмешивается в lib/content.ts из works-media.json, в локализованных JSON его нет */
+  images?: WorkImage[]
+}
+
+/** Плоский список всех скриншотов — по одному на карточку в hero-сцене */
+export interface HeroCard {
+  slug: string
+  title: string
+  src: string
 }
 
 export interface WorksContent {

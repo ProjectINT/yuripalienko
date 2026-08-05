@@ -1,17 +1,32 @@
 'use client'
 
-import { useEffect, useMemo, useRef } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Suspense, useEffect, useMemo, useRef } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Environment, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
+import type { HeroCard } from '@/types/content'
+import YpLogo from './YpLogo'
 
-// STAGE-2, шаг 2 роадмапа: плоскости-заглушки по цилиндру + вращение + параллакс.
-// Без стекла, без шейдеров, без постобработки — это шаги 3–4.
+// STAGE-2, шаги 2–3 роадмапа: скриншоты работ по цилиндру + вращение + параллакс,
+// в центре — стеклянная монограмма YP на HDRI-окружении.
+// Изгиб карточек вершинным шейдером — шаг 4, постобработка — Этап 3.
 
-const CARD_COUNT = 10
-const RADIUS = 4
-const CARD_W = 2
-const CARD_H = CARD_W / 1.5 // пропорция 3:2 под будущие скриншоты 1200×800
+const RADIUS = 5.2
+const CARD_W = 1.5
+const CARD_H = (CARD_W * 9) / 16 // скриншоты обрезаны до 16:9
 const SPIN_SPEED = 0.08 // рад/с — полный оборот ~80 секунд
+const CARD_TINT = '#7d7d7d'
+
+// Туман цвета фона страницы: дальняя половина кольца растворяется в чёрном,
+// ближняя остаётся читаемой. Это и глубина, и способ не давать пятнадцати
+// карточкам одновременно спорить за внимание с логотипом.
+const FOG_NEAR = 12
+const FOG_FAR = 26
+
+// Камера дальше + узкий fov: иначе ближняя карточка оказывается вдвое ближе
+// логотипа и перспектива раздувает её так, что центр сцены не читается.
+const CAMERA_Z = 15
+const CAMERA_FOV = 28
 
 // Детерминированный псевдорандом, чтобы сцена не менялась между кадрами и рендерами
 function seeded(i: number) {
@@ -19,62 +34,24 @@ function seeded(i: number) {
   return x - Math.floor(x)
 }
 
-// Процедурная текстура-заглушка «скриншот кейса».
-// STAGE-2, шаг 2+: заменить на THREE.TextureLoader / drei useTexture со скриншотами работ.
-function makeCardTexture(index: number): THREE.CanvasTexture {
-  const w = 600
-  const h = 400
-  const canvas = document.createElement('canvas')
-  canvas.width = w
-  canvas.height = h
-  const ctx = canvas.getContext('2d')!
-
-  ctx.fillStyle = '#151515'
-  ctx.fillRect(0, 0, w, h)
-
-  // Верхняя панель «окна браузера»
-  ctx.fillStyle = '#1d1d1d'
-  ctx.fillRect(0, 0, w, 44)
-  for (let d = 0; d < 3; d++) {
-    ctx.beginPath()
-    ctx.arc(26 + d * 22, 22, 5, 0, Math.PI * 2)
-    ctx.fillStyle = '#3a3a3a'
-    ctx.fill()
-  }
-
-  // Фейковые строки контента
-  let y = 84
-  for (let row = 0; row < 7; row++) {
-    const width = (0.25 + seeded(index * 31 + row) * 0.55) * (w - 96)
-    ctx.fillStyle = row === 0 ? '#4a4a4a' : '#2a2a2a'
-    ctx.fillRect(48, y, width, row === 0 ? 22 : 12)
-    y += row === 0 ? 48 : 34
-  }
-
-  // Крупный полупрозрачный номер кейса
-  ctx.fillStyle = 'rgba(245,245,245,0.07)'
-  ctx.font = 'bold 170px ui-monospace, monospace'
-  ctx.textAlign = 'right'
-  ctx.textBaseline = 'alphabetic'
-  ctx.fillText(String(index + 1).padStart(2, '0'), w - 28, h - 24)
-
-  ctx.strokeStyle = '#2e2e2e'
-  ctx.lineWidth = 2
-  ctx.strokeRect(1, 1, w - 2, h - 2)
-
-  const texture = new THREE.CanvasTexture(canvas)
-  texture.colorSpace = THREE.SRGBColorSpace
-  texture.anisotropy = 8
-  return texture
-}
-
+// Два пояса — над логотипом и под ним. Смещение подобрано так, чтобы нижний край
+// верхнего пояса шёл выше верхушки монограммы: иначе карточка проезжает прямо
+// по буквам и центр сцены каждые несколько секунд теряется.
 function baseY(index: number) {
-  return (index % 2 === 0 ? 0.45 : -0.45) + (seeded(index) - 0.5) * 0.3
+  return (index % 2 === 0 ? 1.5 : -1.5) + (seeded(index) - 0.5) * 0.6
 }
 
-function Card({ index }: { index: number }) {
-  const texture = useMemo(() => makeCardTexture(index), [index])
-  const angle = (index / CARD_COUNT) * Math.PI * 2
+// Скриншоты приходят сгруппированными по проектам (четыре подряд toprentapp,
+// три kvartly и так далее). Раскладываем их по кольцу шагом, взаимно простым
+// с длиной списка: соседние карточки гарантированно из разных проектов.
+function ringOrder<T>(items: T[]): T[] {
+  const step = items.length % 7 === 0 ? 5 : 7
+  if (items.length < step) return items
+  return items.map((_, i) => items[(i * step) % items.length])
+}
+
+function Card({ index, count, texture }: { index: number; count: number; texture: THREE.Texture }) {
+  const angle = (index / count) * Math.PI * 2
 
   return (
     <mesh
@@ -83,13 +60,32 @@ function Card({ index }: { index: number }) {
     >
       {/* STAGE-2, шаг 4: сегменты 32×32 понадобятся вершинному шейдеру изгиба */}
       <planeGeometry args={[CARD_W, CARD_H, 1, 1]} />
-      <meshBasicMaterial map={texture} side={THREE.DoubleSide} toneMapped={false} />
+      {/* Большинство скриншотов — светлые макеты. В полную яркость на чёрной
+          странице они перебивают логотип, поэтому гасим умножением на серый. */}
+      <meshBasicMaterial
+        map={texture}
+        color={CARD_TINT}
+        side={THREE.DoubleSide}
+        toneMapped={false}
+      />
     </mesh>
   )
 }
 
-function Cards({ animate }: { animate: boolean }) {
+function Cards({ animate, cards }: { animate: boolean; cards: HeroCard[] }) {
   const group = useRef<THREE.Group>(null)
+  const ordered = useMemo(() => ringOrder(cards), [cards])
+  // Грузится внутри той же Suspense-границы, что и HDRI: сцена появляется целиком
+  const textures = useTexture(ordered.map((card) => card.src))
+
+  // Скриншоты — цветные изображения, а материал без освещения и тонмаппинга:
+  // так карточка выглядит ровно так же, как исходный PNG.
+  useMemo(() => {
+    textures.forEach((texture) => {
+      texture.colorSpace = THREE.SRGBColorSpace
+      texture.anisotropy = 8
+    })
+  }, [textures])
 
   // Лёгкое «дыхание» карточек по вертикали
   useFrame((state) => {
@@ -101,32 +97,29 @@ function Cards({ animate }: { animate: boolean }) {
 
   return (
     <group ref={group}>
-      {Array.from({ length: CARD_COUNT }, (_, i) => (
-        <Card key={i} index={i} />
+      {ordered.map((card, i) => (
+        <Card key={card.src} index={i} count={ordered.length} texture={textures[i]} />
       ))}
     </group>
   )
 }
 
-// STAGE-2, шаг 3: заменить куб на экструд логотипа YP с MeshTransmissionMaterial + HDRI
-function LogoPlaceholder({ animate }: { animate: boolean }) {
-  const mesh = useRef<THREE.Mesh>(null)
+// Все ассеты сцены (HDRI, SVG логотипа) грузятся через Suspense. Дети границы
+// монтируются разом, когда она разрешилась, — значит момент маунта и есть
+// «сцена готова». В статичном режиме нужен ручной invalidate: frameloop="demand"
+// сам по себе кадр после загрузки не нарисует.
+function Ready({ onReady }: { onReady: () => void }) {
+  const invalidate = useThree((state) => state.invalidate)
 
-  useFrame((_, delta) => {
-    if (!animate || !mesh.current) return
-    mesh.current.rotation.x += delta * 0.15
-    mesh.current.rotation.y -= delta * 0.2
-  })
+  useEffect(() => {
+    invalidate()
+    onReady()
+  }, [invalidate, onReady])
 
-  return (
-    <mesh ref={mesh} rotation={[0.4, 0.6, 0]}>
-      <boxGeometry args={[1.1, 1.1, 1.1]} />
-      <meshStandardMaterial color="#e8e8e8" roughness={0.35} metalness={0.15} />
-    </mesh>
-  )
+  return null
 }
 
-function Rig({ animate }: { animate: boolean }) {
+function Rig({ animate, cards }: { animate: boolean; cards: HeroCard[] }) {
   const tilt = useRef<THREE.Group>(null)
   const spin = useRef<THREE.Group>(null)
   // Курсор слушаем на window: канвас стоит с pointer-events-none,
@@ -164,30 +157,44 @@ function Rig({ animate }: { animate: boolean }) {
   })
 
   return (
-    <group ref={tilt}>
-      <LogoPlaceholder animate={animate} />
+    // Приподнимаем всю сцену: снизу блок с именем и ссылками, туда карточкам нельзя
+    <group ref={tilt} position={[0, 0.45, 0]}>
+      <YpLogo animate={animate} />
       <group ref={spin}>
-        <Cards animate={animate} />
+        <Cards animate={animate} cards={cards} />
       </group>
     </group>
   )
 }
 
-export default function HeroScene({ animate }: { animate: boolean }) {
+export default function HeroScene({
+  animate,
+  cards,
+  onReady,
+}: {
+  animate: boolean
+  cards: HeroCard[]
+  onReady: () => void
+}) {
   return (
     <Canvas
       // В статичном режиме (мобильные, prefers-reduced-motion) рендерим один кадр
       frameloop={animate ? 'always' : 'demand'}
       dpr={animate ? [1, 2] : [1, 1.5]}
       // На узких экранах (статичный режим) камера дальше, иначе ближняя карточка заполняет весь кадр
-      camera={{ position: [0, -0.4, animate ? 9.6 : 13], fov: 35 }}
+      camera={{ position: [0, -0.4, animate ? CAMERA_Z : CAMERA_Z + 3], fov: CAMERA_FOV }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       className="pointer-events-none"
     >
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[3, 4, 5]} intensity={2.2} />
-      <directionalLight position={[-4, -2, -3]} intensity={0.4} />
-      <Rig animate={animate} />
+      <fog attach="fog" args={['#0a0a0a', FOG_NEAR, FOG_FAR]} />
+      <Suspense fallback={null}>
+        {/* Своя HDRI в /public вместо preset: preset тянет карту со стороннего
+            CDN прямо в критическом пути рендера. Карточки материалом не освещаются
+            (meshBasicMaterial), так что источников света в сцене нет вообще. */}
+        <Environment files="/hdri/studio.hdr" environmentIntensity={1.8} />
+        <Rig animate={animate} cards={cards} />
+        <Ready onReady={onReady} />
+      </Suspense>
     </Canvas>
   )
 }

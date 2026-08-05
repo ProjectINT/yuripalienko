@@ -1,17 +1,35 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useState, useSyncExternalStore } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { Locale } from '@/lib/i18n'
-import type { SiteContent } from '@/types/content'
+import type { HeroCard, SiteContent } from '@/types/content'
 
 // ssr:false обязан жить в клиентском компоненте (см. next/dist/docs, lazy-loading):
 // three.js работает только с WebGL в браузере
-const HeroScene = dynamic(() => import('./HeroScene'), {
-  ssr: false,
-  loading: () => <HeroGlow />,
-})
+const HeroScene = dynamic(() => import('./HeroScene'), { ssr: false })
+
+// full = полная анимация, static = один кадр (мобильные, prefers-reduced-motion).
+// Читаем matchMedia через useSyncExternalStore, а не setState в эффекте: на сервере
+// снапшот null, поэтому до гидратации рисуется только glow, а смена медиазапроса
+// (поворот планшета, включение reduce motion) подхватывается на лету.
+type HeroMode = 'full' | 'static'
+
+const REDUCED_MOTION = '(prefers-reduced-motion: reduce)'
+const LIGHTWEIGHT = '(pointer: coarse), (max-width: 767px)'
+
+function subscribeMode(onChange: () => void) {
+  const queries = [window.matchMedia(REDUCED_MOTION), window.matchMedia(LIGHTWEIGHT)]
+  queries.forEach((query) => query.addEventListener('change', onChange))
+  return () => queries.forEach((query) => query.removeEventListener('change', onChange))
+}
+
+function getMode(): HeroMode {
+  const lightweight =
+    window.matchMedia(REDUCED_MOTION).matches || window.matchMedia(LIGHTWEIGHT).matches
+  return lightweight ? 'static' : 'full'
+}
 
 function HeroGlow() {
   return (
@@ -22,22 +40,36 @@ function HeroGlow() {
   )
 }
 
-export default function Hero({ lang, site }: { lang: Locale; site: SiteContent }) {
-  // null — до маунта (показываем glow), дальше full = анимация, static = один кадр
-  const [mode, setMode] = useState<'full' | 'static' | null>(null)
-
-  useEffect(() => {
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const mobile =
-      window.matchMedia('(pointer: coarse)').matches ||
-      window.matchMedia('(max-width: 767px)').matches
-    setMode(reducedMotion || mobile ? 'static' : 'full')
-  }, [])
+export default function Hero({
+  lang,
+  site,
+  cards,
+}: {
+  lang: Locale
+  site: SiteContent
+  cards: HeroCard[]
+}) {
+  const mode = useSyncExternalStore<HeroMode | null>(subscribeMode, getMode, () => null)
+  // HDRI весит ~1.6 МБ: до его загрузки канвас пустой, поэтому проявляем сцену
+  // поверх glow, а не вместо него. Полноценный прелоадер — Этап 3.
+  const [ready, setReady] = useState(false)
+  const onReady = useCallback(() => setReady(true), [])
 
   return (
     <section className="relative flex min-h-[calc(100dvh-8rem)] flex-col overflow-hidden lg:min-h-[calc(100dvh-6rem)]">
       <div aria-hidden className="absolute inset-0">
-        {mode === null ? <HeroGlow /> : <HeroScene animate={mode === 'full'} />}
+        <HeroGlow />
+        {mode !== null && (
+          <div
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              ready ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <HeroScene animate={mode === 'full'} cards={cards} onReady={onReady} />
+          </div>
+        )}
+        {/* Карточки на обороте кольца заходят на текст — гасим низ кадра */}
+        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-bg via-bg/85 to-transparent" />
       </div>
 
       <div className="pointer-events-none relative mt-auto space-y-4 pb-10 text-center">
