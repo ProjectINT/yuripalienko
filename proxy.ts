@@ -4,19 +4,13 @@ import { LOCALES, pickLocale } from '@/lib/i18n'
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const locale = LOCALES.find(
-    (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`)
+  const hasLocale = LOCALES.some(
+    (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)
   )
+  if (hasLocale) return
 
-  if (locale) {
-    // Пробрасываем локаль заголовком: not-found.tsx не получает params,
-    // а показать 404 на языке посетителя нужно.
-    const headers = new Headers(request.headers)
-    headers.set('x-locale', locale)
-    return NextResponse.next({ request: { headers } })
-  }
-
-  request.nextUrl.pathname = `/${pickLocale(request.headers.get('accept-language'))}${pathname}`
+  const locale = pickLocale(request.headers.get('accept-language'))
+  request.nextUrl.pathname = `/${locale}${pathname}`
   return NextResponse.redirect(request.nextUrl)
 }
 

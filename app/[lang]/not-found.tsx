@@ -1,7 +1,12 @@
+'use client'
+
+// Клиентский компонент осознанно: not-found не получает params, а серверные
+// request-API (headers) здесь делают динамическими ВСЕ роуты сегмента [lang],
+// ломая SSG. usePathname решает то же без потери статики.
 import Link from 'next/link'
-import { headers } from 'next/headers'
+import { usePathname } from 'next/navigation'
 import type { Locale } from '@/lib/i18n'
-import { isLocale, DEFAULT_LOCALE } from '@/lib/i18n'
+import { DEFAULT_LOCALE, isLocale } from '@/lib/i18n'
 
 const COPY: Record<Locale, { title: string; text: string; home: string }> = {
   ru: {
@@ -16,10 +21,9 @@ const COPY: Record<Locale, { title: string; text: string; home: string }> = {
   },
 }
 
-export default async function NotFound() {
-  // not-found не получает params — локаль приходит заголовком из proxy.ts
-  const headerLocale = (await headers()).get('x-locale') ?? ''
-  const lang: Locale = isLocale(headerLocale) ? headerLocale : DEFAULT_LOCALE
+export default function NotFound() {
+  const first = (usePathname() ?? '').split('/')[1]
+  const lang: Locale = isLocale(first) ? first : DEFAULT_LOCALE
   const copy = COPY[lang]
 
   return (

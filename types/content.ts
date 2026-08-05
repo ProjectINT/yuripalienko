@@ -103,7 +103,8 @@ export interface PricingTier {
   title: string
   /** Цена «от», в валюте currency; null — «по запросу». Число нужно для Offer JSON-LD */
   price: number | null
-  currency: 'USD'
+  /** ISO 4217, сейчас везде USD (Q4). Не литерал: JSON-импорт расширяет до string */
+  currency: string
   priceNote: string
   summary: string
   includes: string[]
