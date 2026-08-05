@@ -15,20 +15,39 @@
     "highlightsTitle": "Ключевые проекты",
     "highlights": [
       {
+        "title": "kvartly.com",
+        "note": "Сообщество риелторов, лидогенрация и SaaS для управления объектами недвижимости",
+        "link": "https://kvartly.com"
+      },
+      {
+        "title": "egesto.ru",
+        "note": "SaaS для подготовки к ЕГЭ и ОГЭ с AI-репетитором, кабинеты для учителей и школ, интерактивные задания, игры, видеоконференции, доски для уроков и аналитика по прогрессу.",
+        "link": "https://egesto.ru"
+      },
+      {
         "title": "toprentapp.com",
-        "note": "SaaS для автопарков: с нуля до 500+ B2B-клиентов"
+        "note": "SaaS для автопарков: с нуля до 500+ B2B-клиентов",
+        "link": "https://toprentapp.com"
+      },
+      {
+        "title": "pali.rent",
+        "note": "SaaS для автопарков",
+        "link": "https://pali.rent"
       },
       {
         "title": "billionrent.com",
-        "note": "маркетплейс аренды автомобилей с API-интеграциями автопарков"
+        "note": "Маркетплейс аренды автомобилей с API-интеграциями автопарков",
+        "link": "https://billionrent.com"
       },
       {
         "title": "BI-система уровня Power BI",
-        "note": "ClickHouse, DuckDB в браузере и AI-агент"
+        "note": "ClickHouse, DuckDB в браузере и AI-агент",
+        "link": null
       },
       {
-        "title": "palistor",
-        "note": "open-source MVVM-фреймворк для React"
+        "title": "Palistor framework",
+        "note": "open-source MVVM-фреймворк для React",
+        "link": "https://projectint.github.io/palistor"
       }
     ],
     "worksLink": "Все работы",

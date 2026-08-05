@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { isLocale } from '@/lib/i18n'
 import { getHeroCards, getSite } from '@/lib/content'
 import Hero from '@/components/hero/Hero'
+import ExternalLink from '@/components/ui/ExternalLink'
 
 export default async function HomePage({ params }: PageProps<'/[lang]'>) {
   const { lang } = await params
@@ -35,7 +36,17 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
               <li key={highlight.title} className="flex gap-2">
                 <span aria-hidden className="text-muted">—</span>
                 <span>
-                  <span className="font-medium">{highlight.title}</span>
+                  {/* Проекты без публичной ссылки (link: null) остаются текстом */}
+                  {highlight.link ? (
+                    <ExternalLink
+                      href={highlight.link}
+                      className="font-medium underline decoration-line underline-offset-4 transition-colors hover:decoration-fg focus-visible:outline-2 focus-visible:outline-offset-2"
+                    >
+                      {highlight.title}
+                    </ExternalLink>
+                  ) : (
+                    <span className="font-medium">{highlight.title}</span>
+                  )}
                   <span className="text-muted"> — {highlight.note}</span>
                 </span>
               </li>

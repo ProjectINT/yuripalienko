@@ -15,20 +15,39 @@
     "highlightsTitle": "Key projects",
     "highlights": [
       {
+        "title": "kvartly.com",
+        "note": "realtor community, lead generation and a SaaS for managing property listings",
+        "link": "https://kvartly.com"
+      },
+      {
+        "title": "egesto.ru",
+        "note": "SaaS for Russian state exam prep with an AI tutor, teacher and school accounts, interactive exercises, games, video calls, lesson whiteboards and progress analytics.",
+        "link": "https://egesto.ru"
+      },
+      {
         "title": "toprentapp.com",
-        "note": "fleet-management SaaS: from scratch to 500+ B2B clients"
+        "note": "fleet-management SaaS: from scratch to 500+ B2B clients",
+        "link": "https://toprentapp.com"
+      },
+      {
+        "title": "pali.rent",
+        "note": "fleet-management SaaS",
+        "link": "https://pali.rent"
       },
       {
         "title": "billionrent.com",
-        "note": "car rental marketplace with external fleet API integrations"
+        "note": "car rental marketplace with external fleet API integrations",
+        "link": "https://billionrent.com"
       },
       {
         "title": "Power BI-grade analytics system",
-        "note": "ClickHouse, in-browser DuckDB and an AI agent"
+        "note": "ClickHouse, in-browser DuckDB and an AI agent",
+        "link": null
       },
       {
-        "title": "palistor",
-        "note": "open-source MVVM framework for React"
+        "title": "Palistor framework",
+        "note": "open-source MVVM framework for React",
+        "link": "https://projectint.github.io/palistor"
       }
     ],
     "worksLink": "All work",

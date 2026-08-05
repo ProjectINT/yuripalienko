@@ -2,6 +2,7 @@
   "_comment": "Пути к скриншотам не переводятся, поэтому лежат отдельно от content/{ru,en}/works.json — иначе список пришлось бы держать синхронным в двух файлах. Ключ — slug работы, значение — имена файлов без расширения: /works/<name>.webp (1600×900, страница) и /works/cards/<name>.webp (800×450, текстура в hero). Оригиналы — assets/screenshots/.",
   "media": {
     "toprentapp": ["toprentapp-1", "toprentapp-2", "toprentapp-3", "toprentapp-4"],
+    "billionrent": ["billionrent-1", "billionrent-2"],
     "kvartly": ["kvartly-1", "kvartly-2", "kvartly-3"],
     "egesto": ["egesto-1", "egesto-2", "egesto-3"],
     "palirent": ["palirent-1", "palirent-2"],

@@ -3,7 +3,8 @@ export interface HomeContent {
   heading: string
   paragraphs: string[]
   highlightsTitle: string
-  highlights: { title: string; note: string }[]
+  /** link: null — проект без публичной ссылки, выводится обычным текстом */
+  highlights: { title: string; note: string; link: string | null }[]
   worksLink: string
   pricingLink: string
 }
