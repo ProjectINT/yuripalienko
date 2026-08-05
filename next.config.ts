@@ -6,6 +6,9 @@ const IMMUTABLE = {
 };
 
 const nextConfig: NextConfig = {
+  // Сборка в .next/standalone — в докер-образ едет только server.js и
+  // реально нужные файлы из node_modules, без всего дерева зависимостей.
+  output: "standalone",
   poweredByHeader: false,
   compress: true,
   images: {
