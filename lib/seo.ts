@@ -8,10 +8,11 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://palisoft.ru
 export const SITE_NAME = 'Palisoft'
 
 /**
- * Q5: глобальный рубильник индексации. Впекается на этапе сборки (SSG),
- * поэтому смена значения требует пересборки и передеплоя, а не рестарта.
+ * Q5: единственный рубильник индексации — открыто/закрыто для всех сразу.
+ * Впекается на этапе сборки (SSG), поэтому смена значения требует пересборки
+ * и передеплоя, а не рестарта.
  */
-export const INDEXING_ENABLED = process.env.ALLOW_INDEXING_BOTS === 'true'
+export const INDEXING_ENABLED = process.env.ALLOW_INDEXING === 'true'
 
 /** Q3: рынок — весь мир, поэтому «безъязыкий» краулер должен попадать на английскую версию */
 export const X_DEFAULT_LOCALE: Locale = 'en'
