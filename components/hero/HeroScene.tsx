@@ -5,6 +5,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 import type { HeroCard } from '@/types/content'
+import type { HeroMode } from './Hero'
 import YpLogo from './YpLogo'
 
 // STAGE-2, шаги 2–3 роадмапа: скриншоты работ по цилиндру + вращение + параллакс,
@@ -27,6 +28,10 @@ const FOG_FAR = 26
 // логотипа и перспектива раздувает её так, что центр сцены не читается.
 const CAMERA_Z = 15
 const CAMERA_FOV = 28
+// На узком экране кадр вдвое уже, и ближняя карточка занимает его целиком —
+// отодвигаем камеру. Привязано к режиму, а не к ширине: lite и static включает
+// ровно тот же медиазапрос про тач/узкий экран.
+const CAMERA_Z_NARROW = CAMERA_Z + 3
 
 // Детерминированный псевдорандом, чтобы сцена не менялась между кадрами и рендерами
 function seeded(i: number) {
@@ -106,11 +111,11 @@ function Card({
 }
 
 function Cards({
-  animate,
+  motion,
   cards,
   onCardClick,
 }: {
-  animate: boolean
+  motion: boolean
   cards: HeroCard[]
   onCardClick: (card: HeroCard) => void
 }) {
@@ -130,7 +135,7 @@ function Cards({
 
   // Лёгкое «дыхание» карточек по вертикали
   useFrame((state) => {
-    if (!animate || !group.current) return
+    if (!motion || !group.current) return
     group.current.children.forEach((card, i) => {
       card.position.y = baseY(i) + Math.sin(state.clock.elapsedTime * 0.6 + i * 1.7) * 0.08
     })
@@ -168,11 +173,15 @@ function Ready({ onReady }: { onReady: () => void }) {
 }
 
 function Rig({
-  animate,
+  motion,
+  parallax,
+  glass,
   cards,
   onCardClick,
 }: {
-  animate: boolean
+  motion: boolean
+  parallax: boolean
+  glass: boolean
   cards: HeroCard[]
   onCardClick: (card: HeroCard) => void
 }) {
@@ -183,19 +192,18 @@ function Rig({
   const pointer = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
-    if (!animate) return
+    if (!parallax) return
     const onMove = (e: PointerEvent) => {
       pointer.current.x = (e.clientX / window.innerWidth) * 2 - 1
       pointer.current.y = (e.clientY / window.innerHeight) * 2 - 1
     }
     window.addEventListener('pointermove', onMove)
     return () => window.removeEventListener('pointermove', onMove)
-  }, [animate])
+  }, [parallax])
 
   useFrame((_, delta) => {
-    if (!animate) return
-    if (spin.current) spin.current.rotation.y += delta * SPIN_SPEED
-    if (tilt.current) {
+    if (motion && spin.current) spin.current.rotation.y += delta * SPIN_SPEED
+    if (parallax && tilt.current) {
       // Параллакс от курсора с демпфированием — плавное затухание, не резкое следование
       tilt.current.rotation.x = THREE.MathUtils.damp(
         tilt.current.rotation.x,
@@ -215,32 +223,40 @@ function Rig({
   return (
     // Приподнимаем всю сцену: снизу блок с именем и ссылками, туда карточкам нельзя
     <group ref={tilt} position={[0, 0.45, 0]}>
-      <YpLogo animate={animate} />
+      <YpLogo glass={glass} motion={motion} />
       <group ref={spin}>
-        <Cards animate={animate} cards={cards} onCardClick={onCardClick} />
+        <Cards motion={motion} cards={cards} onCardClick={onCardClick} />
       </group>
     </group>
   )
 }
 
 export default function HeroScene({
-  animate,
+  mode,
+  paused,
   cards,
   onReady,
   onCardClick,
 }: {
-  animate: boolean
+  mode: HeroMode
+  paused: boolean
   cards: HeroCard[]
   onReady: () => void
   onCardClick: (card: HeroCard) => void
 }) {
+  const motion = mode !== 'static' // кольцо крутится, логотип качается
+  const rich = mode === 'full' // стекло, параллакс, полный dpr
+
   return (
     <Canvas
-      // В статичном режиме (мобильные, prefers-reduced-motion) рендерим один кадр
-      frameloop={animate ? 'always' : 'demand'}
-      dpr={animate ? [1, 2] : [1, 1.5]}
-      // На узких экранах (статичный режим) камера дальше, иначе ближняя карточка заполняет весь кадр
-      camera={{ position: [0, -0.4, animate ? CAMERA_Z : CAMERA_Z + 3], fov: CAMERA_FOV }}
+      // 'demand' — это и статичный режим (один кадр по invalidate), и пауза,
+      // когда сцена уехала за экран: в обоих случаях кадры не нужны.
+      frameloop={motion && !paused ? 'always' : 'demand'}
+      dpr={rich ? [1, 2] : [1, 1.5]}
+      camera={{
+        position: [0, -0.4, rich ? CAMERA_Z : CAMERA_Z_NARROW],
+        fov: CAMERA_FOV,
+      }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
     >
       <fog attach="fog" args={['#0a0a0a', FOG_NEAR, FOG_FAR]} />
@@ -249,7 +265,13 @@ export default function HeroScene({
             CDN прямо в критическом пути рендера. Карточки материалом не освещаются
             (meshBasicMaterial), так что источников света в сцене нет вообще. */}
         <Environment files="/hdri/studio.hdr" environmentIntensity={1.8} />
-        <Rig animate={animate} cards={cards} onCardClick={onCardClick} />
+        <Rig
+          motion={motion}
+          parallax={rich}
+          glass={rich}
+          cards={cards}
+          onCardClick={onCardClick}
+        />
         <Ready onReady={onReady} />
       </Suspense>
     </Canvas>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState, useSyncExternalStore } from 'react'
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { Locale } from '@/lib/i18n'
@@ -11,11 +11,21 @@ import HeroLightbox from './HeroLightbox'
 // three.js работает только с WebGL в браузере
 const HeroScene = dynamic(() => import('./HeroScene'), { ssr: false })
 
-// full = полная анимация, static = один кадр (мобильные, prefers-reduced-motion).
+// full   — стекло, параллакс от курсора, dpr до 2 (десктоп с мышью);
+// lite   — кольцо крутится, но логотип хромовый и параллакса нет (тач/узкий экран);
+// static — один кадр, никакого движения (prefers-reduced-motion).
+//
+// Тач и reduce-motion разведены намеренно. Полный отказ от анимации — это про
+// доступность, и его требует только reduce-motion. Мобильному же не тянется не
+// движение как таковое, а стекло: MeshTransmissionMaterial рендерит сцену в
+// буфер дважды за кадр. Убрали стекло — вращение кольца телефон везёт спокойно.
+// Параллакс на тач-устройствах выключен не ради экономии: pointermove там
+// приходит только во время касания, то есть сцена дёргалась бы на скролле.
+//
 // Читаем matchMedia через useSyncExternalStore, а не setState в эффекте: на сервере
 // снапшот null, поэтому до гидратации рисуется только glow, а смена медиазапроса
 // (поворот планшета, включение reduce motion) подхватывается на лету.
-type HeroMode = 'full' | 'static'
+export type HeroMode = 'full' | 'lite' | 'static'
 
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)'
 const LIGHTWEIGHT = '(pointer: coarse), (max-width: 767px)'
@@ -27,9 +37,8 @@ function subscribeMode(onChange: () => void) {
 }
 
 function getMode(): HeroMode {
-  const lightweight =
-    window.matchMedia(REDUCED_MOTION).matches || window.matchMedia(LIGHTWEIGHT).matches
-  return lightweight ? 'static' : 'full'
+  if (window.matchMedia(REDUCED_MOTION).matches) return 'static'
+  return window.matchMedia(LIGHTWEIGHT).matches ? 'lite' : 'full'
 }
 
 function HeroGlow() {
@@ -58,6 +67,22 @@ export default function Hero({
   // Клик по карточке в сцене открывает полноразмерный скриншот в лайтбоксе
   const [activeCard, setActiveCard] = useState<HeroCard | null>(null)
   const closeLightbox = useCallback(() => setActiveCard(null), [])
+  // Уехавшую за экран сцену незачем перерисовывать: rAF работает, пока вкладка
+  // активна, и без этого рендер-цикл крутился бы всё время, что читатель
+  // проводит внизу страницы. Элемент держим в state, а не в ref: ref-колбэк
+  // не вызывает ререндер, а эффекту нужно узнать о появлении узла.
+  const [sceneEl, setSceneEl] = useState<HTMLDivElement | null>(null)
+  const [onScreen, setOnScreen] = useState(true)
+
+  useEffect(() => {
+    if (!sceneEl) return
+    // rootMargin: возобновляем чуть раньше, чем сцена реально въедет в кадр
+    const observer = new IntersectionObserver(([entry]) => setOnScreen(entry.isIntersecting), {
+      rootMargin: '15%',
+    })
+    observer.observe(sceneEl)
+    return () => observer.disconnect()
+  }, [sceneEl])
 
   return (
     <section className="relative flex min-h-[calc(100dvh-8rem)] flex-col overflow-hidden lg:min-h-[calc(100dvh-6rem)]">
@@ -67,12 +92,14 @@ export default function Hero({
         <HeroGlow />
         {mode !== null && (
           <div
+            ref={setSceneEl}
             className={`absolute inset-0 transition-opacity duration-1000 ${
               ready ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <HeroScene
-              animate={mode === 'full'}
+              mode={mode}
+              paused={!onScreen}
               cards={cards}
               onReady={onReady}
               onCardClick={setActiveCard}

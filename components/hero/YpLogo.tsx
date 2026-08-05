@@ -51,21 +51,32 @@ function useLogoGeometry() {
   }, [svg])
 }
 
+// Поза покоя для неподвижного логотипа: анфас читается плоско, лёгкий доворот
+// показывает фаски и глубину экструда.
+const REST_POSE: [number, number, number] = [0.06, 0.32, 0]
+
+// Качание вместо полного оборота: буквы должны оставаться читаемыми.
+// Живёт в общем хуке — качается и стекло, и хром, разница только в материале.
+function useSway(enabled: boolean) {
+  const mesh = useRef<THREE.Mesh>(null)
+
+  useFrame((state) => {
+    if (!enabled || !mesh.current) return
+    const t = state.clock.elapsedTime
+    mesh.current.rotation.y = Math.sin(t * 0.25) * 0.5
+    mesh.current.rotation.x = Math.sin(t * 0.19) * 0.12
+  })
+
+  return mesh
+}
+
 /**
  * Полный вариант: MeshTransmissionMaterial рендерит сцену в буфер, чтобы
  * карточки были видны сквозь стекло. Дорого — samples и resolution занижены.
  */
 function GlassLogo() {
   const { geometry, scale } = useLogoGeometry()
-  const mesh = useRef<THREE.Mesh>(null)
-
-  useFrame((state) => {
-    if (!mesh.current) return
-    const t = state.clock.elapsedTime
-    // Качание вместо полного оборота: буквы должны оставаться читаемыми
-    mesh.current.rotation.y = Math.sin(t * 0.25) * 0.5
-    mesh.current.rotation.x = Math.sin(t * 0.19) * 0.12
-  })
+  const mesh = useSway(true)
 
   return (
     <mesh ref={mesh} geometry={geometry} scale={scale} {...blockRaycast}>
@@ -95,19 +106,30 @@ function GlassLogo() {
 }
 
 /**
- * Лёгкий вариант для мобильных и prefers-reduced-motion: хром вместо стекла.
+ * Лёгкий вариант для тача и prefers-reduced-motion: хром вместо стекла.
  * Отражение целиком из HDRI, без рендера сцены в буфер — один проход.
+ * На тач-устройствах при этом качается: цикл там всё равно идёт ради кольца,
+ * так что движение бесплатно, а замерший логотип рядом с ним смотрится поломкой.
  */
-function ChromeLogo() {
+function ChromeLogo({ motion }: { motion: boolean }) {
   const { geometry, scale } = useLogoGeometry()
+  const mesh = useSway(motion)
 
   return (
-    <mesh geometry={geometry} scale={scale} rotation={[0.06, 0.32, 0]} {...blockRaycast}>
+    <mesh
+      ref={mesh}
+      geometry={geometry}
+      scale={scale}
+      // При качании поворот перезаписывается покадрово, поза покоя нужна только
+      // неподвижному варианту — иначе первый же кадр даёт рывок из неё в ноль.
+      rotation={motion ? undefined : REST_POSE}
+      {...blockRaycast}
+    >
       <meshStandardMaterial color="#ffffff" metalness={1} roughness={0.12} />
     </mesh>
   )
 }
 
-export default function YpLogo({ animate }: { animate: boolean }) {
-  return animate ? <GlassLogo /> : <ChromeLogo />
+export default function YpLogo({ glass, motion }: { glass: boolean; motion: boolean }) {
+  return glass ? <GlassLogo /> : <ChromeLogo motion={motion} />
 }
