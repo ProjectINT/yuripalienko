@@ -6,7 +6,6 @@ export default function Footer({ lang }: { lang: Locale }) {
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 font-mono text-xs tracking-widest text-muted">
         <p>
           © 2026 Yuri Palienko ·{' '}
-          {lang === 'ru' ? 'Сделано на Next.js' : 'Built with Next.js'}
         </p>
         <a
           href="https://github.com/ProjectINT/yuripalienko"
