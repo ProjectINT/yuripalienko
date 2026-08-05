@@ -43,7 +43,10 @@ export interface WorkItem {
 export interface HeroCard {
   slug: string
   title: string
+  /** 800×450 — текстура карточки в сцене */
   src: string
+  /** 1600×900 — полноразмерный скриншот для лайтбокса */
+  full: string
 }
 
 export interface WorksContent {

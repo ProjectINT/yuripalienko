@@ -74,5 +74,6 @@ export const getHeroCards = (lang: Locale): HeroCard[] =>
       slug: item.slug,
       title: item.title,
       src: image.card,
+      full: image.src,
     })),
   )

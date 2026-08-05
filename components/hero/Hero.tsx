@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { Locale } from '@/lib/i18n'
 import type { HeroCard, SiteContent } from '@/types/content'
+import HeroLightbox from './HeroLightbox'
 
 // ssr:false обязан жить в клиентском компоненте (см. next/dist/docs, lazy-loading):
 // three.js работает только с WebGL в браузере
@@ -54,9 +55,14 @@ export default function Hero({
   // поверх glow, а не вместо него. Полноценный прелоадер — Этап 3.
   const [ready, setReady] = useState(false)
   const onReady = useCallback(() => setReady(true), [])
+  // Клик по карточке в сцене открывает полноразмерный скриншот в лайтбоксе
+  const [activeCard, setActiveCard] = useState<HeroCard | null>(null)
+  const closeLightbox = useCallback(() => setActiveCard(null), [])
 
   return (
     <section className="relative flex min-h-[calc(100dvh-8rem)] flex-col overflow-hidden lg:min-h-[calc(100dvh-6rem)]">
+      {/* aria-hidden оставляем: для скринридеров кольцо декоративно, работы
+          доступны на /works. Клики канвас ловит сам — рейкастом по карточкам. */}
       <div aria-hidden className="absolute inset-0">
         <HeroGlow />
         {mode !== null && (
@@ -65,14 +71,22 @@ export default function Hero({
               ready ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            <HeroScene animate={mode === 'full'} cards={cards} onReady={onReady} />
+            <HeroScene
+              animate={mode === 'full'}
+              cards={cards}
+              onReady={onReady}
+              onCardClick={setActiveCard}
+            />
           </div>
         )}
-        {/* Карточки на обороте кольца заходят на текст — гасим низ кадра */}
-        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-bg via-bg/85 to-transparent" />
+        {/* Карточки на обороте кольца заходят на текст — гасим низ кадра.
+            pointer-events-none: иначе градиент съедает клики по нижним карточкам */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-bg via-bg/85 to-transparent" />
       </div>
 
-      <div className="pointer-events-none relative mt-auto space-y-4 pb-10 text-center">
+      {/* pointer-events-auto: блок текста должен перехватывать клики, иначе они
+          прошивают его насквозь и открывают невидимую карточку за градиентом */}
+      <div className="pointer-events-auto relative mt-auto space-y-4 pb-10 text-center">
         <div className="space-y-2">
           <h1 className="text-2xl font-bold tracking-tight lg:text-3xl">{site.name}</h1>
           <p className="font-mono text-xs uppercase tracking-widest text-muted">{site.role}</p>
@@ -95,6 +109,14 @@ export default function Hero({
           </Link>
         </div>
       </div>
+
+      {activeCard && (
+        <HeroLightbox
+          card={activeCard}
+          closeLabel={lang === 'ru' ? 'Закрыть' : 'Close'}
+          onClose={closeLightbox}
+        />
+      )}
     </section>
   )
 }

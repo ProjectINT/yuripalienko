@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect, useMemo, useRef } from 'react'
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
@@ -50,21 +50,54 @@ function ringOrder<T>(items: T[]): T[] {
   return items.map((_, i) => items[(i * step) % items.length])
 }
 
-function Card({ index, count, texture }: { index: number; count: number; texture: THREE.Texture }) {
+function Card({
+  index,
+  count,
+  texture,
+  card,
+  onClick,
+}: {
+  index: number
+  count: number
+  texture: THREE.Texture
+  card: HeroCard
+  onClick: (card: HeroCard) => void
+}) {
   const angle = (index / count) * Math.PI * 2
+  const [hovered, setHovered] = useState(false)
+
+  useEffect(() => {
+    if (!hovered) return
+    document.body.style.cursor = 'pointer'
+    return () => {
+      document.body.style.cursor = ''
+    }
+  }, [hovered])
 
   return (
     <mesh
       position={[Math.sin(angle) * RADIUS, baseY(index), Math.cos(angle) * RADIUS]}
       rotation={[0, angle, (seeded(index + 50) - 0.5) * 0.12]}
+      // stopPropagation: рейкаст прошивает кольцо насквозь, событие нужно
+      // только ближайшей к камере карточке — иначе клик откроет дальнюю
+      onClick={(e) => {
+        e.stopPropagation()
+        onClick(card)
+      }}
+      onPointerOver={(e) => {
+        e.stopPropagation()
+        setHovered(true)
+      }}
+      onPointerOut={() => setHovered(false)}
     >
       {/* STAGE-2, шаг 4: сегменты 32×32 понадобятся вершинному шейдеру изгиба */}
       <planeGeometry args={[CARD_W, CARD_H, 1, 1]} />
       {/* Большинство скриншотов — светлые макеты. В полную яркость на чёрной
-          странице они перебивают логотип, поэтому гасим умножением на серый. */}
+          странице они перебивают логотип, поэтому гасим умножением на серый.
+          Под курсором гашение снимаем — это и есть hover-состояние. */}
       <meshBasicMaterial
         map={texture}
-        color={CARD_TINT}
+        color={hovered ? '#ffffff' : CARD_TINT}
         side={THREE.DoubleSide}
         toneMapped={false}
       />
@@ -72,7 +105,15 @@ function Card({ index, count, texture }: { index: number; count: number; texture
   )
 }
 
-function Cards({ animate, cards }: { animate: boolean; cards: HeroCard[] }) {
+function Cards({
+  animate,
+  cards,
+  onCardClick,
+}: {
+  animate: boolean
+  cards: HeroCard[]
+  onCardClick: (card: HeroCard) => void
+}) {
   const group = useRef<THREE.Group>(null)
   const ordered = useMemo(() => ringOrder(cards), [cards])
   // Грузится внутри той же Suspense-границы, что и HDRI: сцена появляется целиком
@@ -98,7 +139,14 @@ function Cards({ animate, cards }: { animate: boolean; cards: HeroCard[] }) {
   return (
     <group ref={group}>
       {ordered.map((card, i) => (
-        <Card key={card.src} index={i} count={ordered.length} texture={textures[i]} />
+        <Card
+          key={card.src}
+          index={i}
+          count={ordered.length}
+          texture={textures[i]}
+          card={card}
+          onClick={onCardClick}
+        />
       ))}
     </group>
   )
@@ -119,11 +167,19 @@ function Ready({ onReady }: { onReady: () => void }) {
   return null
 }
 
-function Rig({ animate, cards }: { animate: boolean; cards: HeroCard[] }) {
+function Rig({
+  animate,
+  cards,
+  onCardClick,
+}: {
+  animate: boolean
+  cards: HeroCard[]
+  onCardClick: (card: HeroCard) => void
+}) {
   const tilt = useRef<THREE.Group>(null)
   const spin = useRef<THREE.Group>(null)
-  // Курсор слушаем на window: канвас стоит с pointer-events-none,
-  // чтобы не перехватывать клики по ссылкам поверх сцены
+  // Курсор слушаем на window, а не через события канваса: ссылки и градиент
+  // поверх сцены перекрывают часть кадра, а параллакс должен жить во всём окне
   const pointer = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
@@ -161,7 +217,7 @@ function Rig({ animate, cards }: { animate: boolean; cards: HeroCard[] }) {
     <group ref={tilt} position={[0, 0.45, 0]}>
       <YpLogo animate={animate} />
       <group ref={spin}>
-        <Cards animate={animate} cards={cards} />
+        <Cards animate={animate} cards={cards} onCardClick={onCardClick} />
       </group>
     </group>
   )
@@ -171,10 +227,12 @@ export default function HeroScene({
   animate,
   cards,
   onReady,
+  onCardClick,
 }: {
   animate: boolean
   cards: HeroCard[]
   onReady: () => void
+  onCardClick: (card: HeroCard) => void
 }) {
   return (
     <Canvas
@@ -184,7 +242,6 @@ export default function HeroScene({
       // На узких экранах (статичный режим) камера дальше, иначе ближняя карточка заполняет весь кадр
       camera={{ position: [0, -0.4, animate ? CAMERA_Z : CAMERA_Z + 3], fov: CAMERA_FOV }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-      className="pointer-events-none"
     >
       <fog attach="fog" args={['#0a0a0a', FOG_NEAR, FOG_FAR]} />
       <Suspense fallback={null}>
@@ -192,7 +249,7 @@ export default function HeroScene({
             CDN прямо в критическом пути рендера. Карточки материалом не освещаются
             (meshBasicMaterial), так что источников света в сцене нет вообще. */}
         <Environment files="/hdri/studio.hdr" environmentIntensity={1.8} />
-        <Rig animate={animate} cards={cards} />
+        <Rig animate={animate} cards={cards} onCardClick={onCardClick} />
         <Ready onReady={onReady} />
       </Suspense>
     </Canvas>

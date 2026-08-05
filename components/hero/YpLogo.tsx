@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useRef } from 'react'
-import { useFrame, useLoader } from '@react-three/fiber'
+import { useFrame, useLoader, type ThreeEvent } from '@react-three/fiber'
 import { MeshTransmissionMaterial } from '@react-three/drei'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 import * as THREE from 'three'
@@ -11,6 +11,14 @@ import * as THREE from 'three'
 
 const TARGET_WIDTH = 3.4 // ширина логотипа в мировых единицах (кольцо карточек — R=4.8)
 const EXTRUDE_DEPTH = 44 // в единицах SVG, где толщина штриха = 34
+
+// Карточки в сцене кликабельны, а рейкаст видит только объекты с обработчиками.
+// Пустые хендлеры со stopPropagation делают буквы непрозрачными для кликов:
+// иначе клик по стеклу открывал бы еле видимую карточку с дальней стороны кольца.
+const blockRaycast = {
+  onClick: (e: ThreeEvent<MouseEvent>) => e.stopPropagation(),
+  onPointerOver: (e: ThreeEvent<PointerEvent>) => e.stopPropagation(),
+}
 
 function useLogoGeometry() {
   const svg = useLoader(SVGLoader, '/logo/yp.svg')
@@ -60,7 +68,7 @@ function GlassLogo() {
   })
 
   return (
-    <mesh ref={mesh} geometry={geometry} scale={scale}>
+    <mesh ref={mesh} geometry={geometry} scale={scale} {...blockRaycast}>
       {/* Толщина и дисторсия занижены намеренно: на чёрном фоне толстое стекло
           преломляет темноту и логотип читается как грязное пятно. */}
       <MeshTransmissionMaterial
@@ -94,7 +102,7 @@ function ChromeLogo() {
   const { geometry, scale } = useLogoGeometry()
 
   return (
-    <mesh geometry={geometry} scale={scale} rotation={[0.06, 0.32, 0]}>
+    <mesh geometry={geometry} scale={scale} rotation={[0.06, 0.32, 0]} {...blockRaycast}>
       <meshStandardMaterial color="#ffffff" metalness={1} roughness={0.12} />
     </mesh>
   )
