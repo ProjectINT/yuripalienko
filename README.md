@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# palisoft.ru
 
-## Getting Started
+Personal portfolio of **Yuri Palienko** — full-stack developer. The site itself is part of the portfolio: the code is intentionally small, dependency-light, and readable.
 
-First, run the development server:
+**Live:** [palisoft.ru](https://palisoft.ru)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Stack
+
+- [Next.js 16](https://nextjs.org) (App Router) · React 19 · TypeScript
+- [Tailwind CSS 4](https://tailwindcss.com)
+- [three.js](https://threejs.org) via `@react-three/fiber` + `@react-three/drei`
+
+That's the whole dependency list — no CMS, no i18n library, no UI kit.
+
+## Highlights
+
+**3D hero.** Screenshots of real projects orbit on a cylinder around a glass **YP** monogram lit by an HDRI environment. Scene fog dissolves the far half of the ring into the page background, so depth comes for free and fifteen cards never compete with the logo at once. Cards are clickable and open a lightbox. See [components/hero](components/hero/).
+
+**i18n without a library.** Two locales (`ru` default, `en`). A tiny [proxy](proxy.ts) parses `Accept-Language` by hand (~20 lines, q-values included) and redirects `/` to `/ru` or `/en`; everything under [app/[lang]](app/%5Blang%5D/) is statically typed against the `Locale` union. Asset routes are carefully excluded from the redirect so three.js can `fetch` HDRIs and textures without hitting a 307.
+
+**Content as data.** All copy lives in per-locale JSON under [content/](content/), validated by TypeScript types in [types/](types/) and loaded through a single typed accessor in [lib/content.ts](lib/content.ts). Adding a language = adding a folder.
+
+**SEO.** Per-locale [sitemap](app/sitemap.ts) and [robots](app/robots.ts) generated from one route list.
+
+## Structure
+
+```
+app/[lang]/       pages: works, about, articles, pricing, cv, contacts
+components/
+  hero/           three.js scene, lightbox, YP logo
+  layout/         header, footer, nav, locale switcher
+  ui/             small primitives (Card, Tag, ExternalLink, …)
+content/{ru,en}/  all site copy as typed JSON
+lib/              i18n + content accessors
+proxy.ts          locale detection & redirect
+public/           work screenshots, HDRI, CV
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+pnpm dev      # http://localhost:3000
+pnpm build
+pnpm lint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2026 Yuri Palienko
