@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { LOCALES, isLocale } from '@/lib/i18n'
@@ -17,6 +17,10 @@ const mono = Geist_Mono({
   variable: '--font-app-mono',
   subsets: ['latin', 'cyrillic'],
 })
+
+export const viewport: Viewport = {
+  themeColor: '#0a0a0b',
+}
 
 export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }))
