@@ -5,6 +5,7 @@
     { "index": "03", "href": "/articles", "label": "Статьи" },
     { "index": "04", "href": "/pricing", "label": "Цены" },
     { "index": "05", "href": "/cv", "label": "Резюме" },
-    { "index": "06", "href": "/contacts", "label": "Контакты" }
+    { "index": "06", "href": "/contacts", "label": "Контакты" },
+    { "index": "07", "href": "/palistor", "label": "Palistor" }
   ]
 }

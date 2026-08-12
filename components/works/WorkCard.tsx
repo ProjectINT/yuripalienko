@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import type { Locale } from '@/lib/i18n'
 import type { WorkItem } from '@/types/content'
 import Tag from '@/components/ui/Tag'
@@ -72,6 +73,16 @@ export default function WorkCard({
           <Tag key={tech}>{tech}</Tag>
         ))}
       </div>
+      {/* Точка расширения под P1-3: когда появятся страницы остальных проектов,
+          достаточно проставить им page в works.json */}
+      {item.page && (
+        <Link
+          href={`/${lang}${item.page}`}
+          className="mt-5 inline-block border-b border-fg pb-1 font-mono text-xs uppercase tracking-widest transition-colors hover:text-muted focus-visible:outline-2 focus-visible:outline-offset-2"
+        >
+          {lang === 'ru' ? 'Подробнее' : 'Read more'} →
+        </Link>
+      )}
     </article>
   )
 }

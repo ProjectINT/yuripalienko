@@ -1,11 +1,12 @@
 import type { Locale } from './i18n'
-import type { PricingContent, WorksContent } from '@/types/content'
+import type { PalistorContent, PricingContent, WorksContent } from '@/types/content'
 import { SITE_URL, SITE_NAME, urlFor } from './seo'
 import { getCv, getSite } from './content'
 
 const ORG_ID = `${SITE_URL}/#organization`
 const PERSON_ID = `${SITE_URL}/#person`
 const WEBSITE_ID = `${SITE_URL}/#website`
+const PALISTOR_ID = `${SITE_URL}/#palistor`
 
 // Q6 открыт: дополнить LinkedIn, X, npm-пакетами, когда владелец пришлёт URL.
 // Двусторонняя связка: эти профили должны ссылаться на palisoft.ru (Этап 5).
@@ -143,5 +144,96 @@ export function contactPage(lang: Locale, path: string) {
     url: urlFor(lang, path),
     inLanguage: lang,
     about: { '@id': ORG_ID },
+  }
+}
+
+/**
+ * Мультитип ["SoftwareSourceCode", "SoftwareApplication"] — ровно тот случай,
+ * для которого мультитип придуман: первый описывает репозиторий и язык, второй
+ * — устанавливаемый пакет (и только он даёт право на rich result).
+ *
+ * Сознательно НЕ добавляем: softwareVersion (протухнет через месяц после
+ * релиза), aggregateRating/review (рейтингов нет, выдумывать — прямое
+ * нарушение правил Google), HowTo (тип убран из выдачи в сентябре 2023).
+ */
+export function palistorGraph(lang: Locale, content: PalistorContent) {
+  const url = urlFor(lang, '/palistor')
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#webpage`,
+        url,
+        name: content.seoTitle,
+        description: content.seoDescription,
+        inLanguage: lang,
+        isPartOf: { '@id': WEBSITE_ID },
+        about: { '@id': PALISTOR_ID },
+        mainEntity: { '@id': PALISTOR_ID },
+        primaryImageOfPage: `${SITE_URL}/works/palistor-1.webp`,
+        // Продакшен-внедрения: связываем страницу с двумя живыми доменами.
+        // Единственное подтверждаемое отличие от github.com и npmjs.com.
+        mentions: content.usedIn.map((project) => ({
+          '@type': 'WebSite',
+          name: project.title,
+          url: project.url,
+        })),
+      },
+      {
+        '@type': ['SoftwareSourceCode', 'SoftwareApplication'],
+        '@id': PALISTOR_ID,
+        name: 'Palistor',
+        alternateName: '@projectint/palistor',
+        description: content.seoDescription,
+        url, // канон — наша страница
+        codeRepository: 'https://github.com/ProjectINT/palistor',
+        programmingLanguage: { '@type': 'ComputerLanguage', name: 'TypeScript' },
+        runtimePlatform: 'React 19',
+        applicationCategory: 'DeveloperApplication',
+        applicationSubCategory: 'JavaScript framework',
+        operatingSystem: 'Any',
+        license: 'https://spdx.org/licenses/MIT.html',
+        // Второе ребро графа к Person из rootGraph: автор связывается не только
+        // с работодателем и CV, но и с публичным open-source-артефактом,
+        // у которого есть независимые подтверждения на npm и GitHub.
+        author: { '@id': PERSON_ID },
+        maintainer: { '@id': PERSON_ID },
+        publisher: { '@id': ORG_ID },
+        keywords: 'mvvm, react, state management, forms, wizard, typescript, ai-friendly',
+        screenshot: `${SITE_URL}/works/palistor-1.webp`,
+        downloadUrl: 'https://www.npmjs.com/package/palistor',
+        installUrl: 'https://www.npmjs.com/package/palistor',
+        isAccessibleForFree: true,
+        // Единственный способ в schema.org сказать «бесплатно»: для
+        // SoftwareApplication Google требует offers либо aggregateRating.
+        offers: { '@type': 'Offer', price: 0, priceCurrency: 'USD' },
+        sameAs: [
+          'https://www.npmjs.com/package/palistor',
+          'https://github.com/ProjectINT/palistor',
+          'https://projectint.github.io/palistor/',
+        ],
+      },
+    ],
+  }
+}
+
+/**
+ * FAQ-сниппеты Google с августа 2023 показывает только гос- и медресурсам —
+ * визуального выигрыша в выдаче не будет. Разметка всё равно ставится:
+ * app/robots.ts осознанно пускает GPTBot, ClaudeBot и компанию, а
+ * вопрос-ответная разметка — самый удобный для LLM формат извлечения фактов.
+ */
+export function faqPage(lang: Locale, path: string, items: { q: string; a: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    url: urlFor(lang, path),
+    inLanguage: lang,
+    mainEntity: items.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
   }
 }

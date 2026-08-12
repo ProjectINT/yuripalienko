@@ -1,0 +1,209 @@
+{
+  "title": "Palistor",
+  "intro": "An open-source MVVM framework for React. Screen behaviour goes into a config, data stays behind a resolver, and JSX is left as a thin rendering layer. Battle-tested in production on pali.rent and kvartly.com; the public API is still tightening up — versions 0.0.x.",
+  "seoTitle": "Palistor — open-source MVVM framework for React | Palisoft",
+  "seoDescription": "Open-source MVVM framework for React: forms, lists, wizards. Granular re-renders, config instead of useEffect. In production on pali.rent and kvartly.com.",
+  "ogAlt": "Palistor — an open-source MVVM framework for React by Palisoft",
+  "meta": [
+    "MIT",
+    "React 19",
+    "TypeScript"
+  ],
+  "links": [
+    {
+      "label": "Live demo",
+      "url": "https://projectint.github.io/palistor/",
+      "primary": true
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/ProjectINT/palistor",
+      "primary": false
+    },
+    {
+      "label": "npm",
+      "url": "https://www.npmjs.com/package/palistor",
+      "primary": false
+    }
+  ],
+  "screenshotAlt": "The Palistor README on GitHub: two code examples one after another — the JSX View layer and the ViewModel declaration in the config.",
+  "usedInTitle": "In production",
+  "usedIn": [
+    {
+      "title": "pali.rent",
+      "url": "https://pali.rent",
+      "note": "fleet-management SaaS"
+    },
+    {
+      "title": "kvartly.com",
+      "url": "https://kvartly.com",
+      "note": "real estate marketplace and listing management SaaS"
+    }
+  ],
+  "copyLabel": "Copy",
+  "copiedLabel": "Copied",
+  "layersTitle": "Three layers",
+  "layersLead": "Most React screens tangle three unrelated concerns inside one component: how the screen behaves, where its data comes from and how it looks. As the screen grows they braid together until any change touches everything. Palistor pulls them apart.",
+  "layers": [
+    {
+      "index": "01",
+      "title": "View — rendering only",
+      "text": "The JSX layer with everything but rendering stripped out: markup, layout and styles. A component reads field state and spreads it into your inputs. It is primitive enough that there is nowhere left to make a mistake.",
+      "code": {
+        "lang": "tsx",
+        "caption": "A markup example (View in MVVM terms)",
+        "code": "function Form() {\n  const form = useForm(store);\n\n  return (\n    <>\n      <Input {...form.email} />\n      {form.phone.isVisible && <Input {...form.phone} />}\n    </>\n  );\n}"
+      }
+    },
+    {
+      "index": "02",
+      "title": "ViewModel — the config",
+      "text": "One tree describes values, validation, visibility, cross-field rules and lifecycle callbacks. No useEffect, no custom hooks, no context: the necessary complexity is pulled into a single object you can read top to bottom — and, unlike a tree of hooks, review in one pass.",
+      "code": {
+        "lang": "ts",
+        "caption": "A configuration example (ViewModel declaration in MVVM terms)",
+        "code": "const store = new Palistor({\n  config: {\n    id: { value: \"\" },\n    email: {\n      value: \"\",\n      isRequired: true,\n    },\n    phone: {\n      value: \"\",\n      isVisible: (v) => v.email !== \"\",\n      resolve: {\n        // getPhone is already the data layer.\n        resolver: async (v) => { return await getPhone(v.id) }\n      }\n    },\n  },\n});"
+      }
+    },
+    {
+      "index": "03",
+      "title": "Model — the data layer",
+      "text": "Fetching and sending data stays outside Palistor: a plain fetch, a caching layer or a full offline layer — whatever you plug in through resolve. Palistor defines the interface to it, not the implementation, and caches what a resolver returns so the same data is not fetched twice.",
+      "code": null
+    }
+  ],
+  "startTitle": "Quick start",
+  "install": {
+    "lang": "bash",
+    "caption": "Install from the public npm registry",
+    "code": "npm install palistor\n# peer dependency: react ^19"
+  },
+  "steps": [
+    {
+      "index": "01",
+      "title": "Describe the form",
+      "text": "The config is declarative: field values, validation, visibility and lifecycle callbacks live in one tree. Create the store at module level.",
+      "code": {
+        "lang": "ts",
+        "caption": "Payment form config",
+        "code": "import { Palistor } from \"palistor\";\n\nexport const paymentStore = new Palistor({\n  config: {\n    paymentType: {\n      value: \"card\",\n      label: \"Payment method\",\n    },\n    cardNumber: {\n      value: \"\",\n      label: \"Card number\",\n      placeholder: \"0000 0000 0000 0000\",\n      isVisible: (v) => v.paymentType === \"card\",\n      isRequired: (v) => v.paymentType === \"card\",\n      validate: (value, v) =>\n        v.paymentType === \"card\" && value.length < 16\n          ? \"Enter 16 digits\"\n          : undefined,\n    },\n    passport: {\n      isVisible: (v) => v.paymentType === \"bank\",\n      number:    { value: \"\", label: \"Passport number\", isRequired: true },\n      issueDate: { value: \"\", label: \"Issue date\" },\n    },\n    amount: { value: 0, label: \"Amount\", isRequired: true },\n  },\n  initialValues: { paymentType: \"card\" },\n});"
+      }
+    },
+    {
+      "index": "02",
+      "title": "Connect a component",
+      "text": "useForm returns a typed tracking proxy. The component re-renders only when the nodes it actually read change — writing to a neighbouring field does nothing to it.",
+      "code": {
+        "lang": "tsx",
+        "caption": "Payment form component",
+        "code": "import { useForm } from \"palistor\";\nimport { paymentStore } from \"./paymentStore\";\n\nfunction PaymentForm() {\n  const form = useForm(paymentStore);\n\n  return (\n    <form onSubmit={(e) => { e.preventDefault(); paymentStore.submit(); }}>\n      <Select\n        value={form.paymentType.value}\n        onChange={(e) => (form.paymentType.value = e.target.value)}\n        label={form.paymentType.label}\n      />\n\n      {/* The config knows the Input's interface thanks to an adapter (fieldMapping) */}\n      {form.cardNumber.isVisible && <Input {...form.cardNumber} />}\n\n      {form.passport.isVisible && <PassportSection passport={form.passport} />}\n\n      <Button type=\"submit\" isLoading={form.submitting}>Pay</Button>\n    </form>\n  );\n}"
+      }
+    }
+  ],
+  "featuresTitle": "Features",
+  "features": [
+    {
+      "term": "Granular re-renders",
+      "text": "A component subscribes only to the fields it read — nothing else triggers a re-render."
+    },
+    {
+      "term": "Computed field state",
+      "text": "isVisible, isRequired, label and validation errors are recomputed automatically from the config."
+    },
+    {
+      "term": "Proxy API",
+      "text": "Native syntax: form.email.value = x instead of dispatching actions."
+    },
+    {
+      "term": "Submit pipeline",
+      "text": "beforeSubmit → validate → onSubmit → afterSubmit; errors surface after the first failed submit."
+    },
+    {
+      "term": "Async resolvers",
+      "text": "Data loading with auto-tracked dependencies, retry, optimistic updates and React Suspense."
+    },
+    {
+      "term": "Lists & entities",
+      "text": "Normalized entity registry, list proxy with add / remove / setItems, per-entity templates."
+    },
+    {
+      "term": "Flows",
+      "text": "Step wizards via defineFlow / defineStep: navigation, branching, per-step validation."
+    },
+    {
+      "term": "Persist",
+      "text": "Autosave to localStorage, sessionStorage or any custom driver — flow navigation included."
+    }
+  ],
+  "fitTitle": "Where it fits",
+  "fit": [
+    "Onboarding, KYC, verification and questionnaires — branching multi-step wizards, conditional fields, step-by-step validation.",
+    "Checkouts and payment forms — conditional payment methods, cross-field rules, async loading.",
+    "Configurators, calculators and CPQ — computed fields and dependencies (price × quantity → tax → total) without a single useEffect.",
+    "CRUD entity editors and tables with inline editing — a normalized registry, list proxy, per-entity templates.",
+    "Schema-driven forms — the config is data, so it can be generated or served from the backend, including per-region variants."
+  ],
+  "unfitTitle": "Where it doesn't",
+  "unfit": [
+    "Content sites — blogs, docs, marketing, SSG: SEO-first, static, almost no behaviour.",
+    "Graphics, canvas and realtime rendering — games, rich-text and diagram editors, maps, heavy visualizations: the complexity lives in rendering and the model does not split into layers.",
+    "Trivial UI — one search box, one button, a form with a couple of fields: the three-layer split is overhead that does not pay off.",
+    "Embeddable widgets where bundle size is critical — the library is not small."
+  ],
+  "demoTitle": "Live demo",
+  "demoLead": "Every example from this page runs in the playground. Each tab is a separate feature of the framework and has its own deep link.",
+  "demo": [
+    {
+      "label": "Quick start",
+      "url": "https://projectint.github.io/palistor/#form",
+      "note": "conditional fields, submit pipeline, persist"
+    },
+    {
+      "label": "Flows",
+      "url": "https://projectint.github.io/palistor/#flow",
+      "note": "a step wizard with branching"
+    },
+    {
+      "label": "Lists & entities",
+      "url": "https://projectint.github.io/palistor/#lists",
+      "note": "normalized registry, list proxy, store context"
+    },
+    {
+      "label": "Async resolvers",
+      "url": "https://projectint.github.io/palistor/#async",
+      "note": "data loading, retry, notifications"
+    },
+    {
+      "label": "Field mapping",
+      "url": "https://projectint.github.io/palistor/#mapping",
+      "note": "rename props to your UI kit"
+    }
+  ],
+  "faqTitle": "In short",
+  "faq": [
+    {
+      "q": "What is Palistor?",
+      "a": "An open-source MVVM framework for React under the MIT licence. It splits a screen into three layers: JSX that only renders, a config that holds all behaviour — values, validation, visibility, cross-field rules — and a data layer you plug in through resolve. Instead of a tree of useEffects and custom hooks you get one flat object."
+    },
+    {
+      "q": "How is it different from Redux, Zustand or React Hook Form?",
+      "a": "Those each solve one thing: global state, or form state. Palistor sets the architecture of the whole screen — behaviour, data and rendering are pulled apart on purpose. State is computed in the store, outside React's render cycle, and a component gets a signal only for the fields it actually read, so re-renders are targeted instead of cascading."
+    },
+    {
+      "q": "Is it used in real projects?",
+      "a": "Yes. Palistor runs in production on pali.rent, a fleet-management SaaS, and on kvartly.com, a real estate marketplace — both are live and open to check. It is battle-tested on the author's own products, while the public API is still tightening up, which is what the 0.0.x versions say."
+    },
+    {
+      "q": "Why is it convenient for AI-generated code?",
+      "a": "AI is bad at architecture but great at filling declarative slots. Palistor removes the architecture task itself: what is left is filling in a config by the rules. Reviewing generated code then means reading one flat object instead of a tree of useEffects, so there is far less room for it to fall apart."
+    },
+    {
+      "q": "What licence is it under and how do I install it?",
+      "a": "MIT. Install it from the public npm registry with npm install palistor; the peer dependency is react ^19. The same package is published to GitHub Packages under the scoped name @projectint/palistor, but the canonical name is palistor."
+    }
+  ],
+  "ctaText": "Need a screen — or a whole product — built this way? Palistor grew out of the production of SaaS platforms we design, ship and run ourselves.",
+  "ctaLabel": "Discuss a project",
+  "worksLabel": "All work",
+  "docsLabel": "Full documentation"
+}

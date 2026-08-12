@@ -9,6 +9,7 @@ import type {
   PricingContent,
   CvContent,
   ContactsContent,
+  PalistorContent,
 } from '@/types/content'
 
 import ruSite from '@/content/ru/site.json'
@@ -19,6 +20,7 @@ import ruArticles from '@/content/ru/articles.json'
 import ruPricing from '@/content/ru/pricing.json'
 import ruCv from '@/content/ru/cv.json'
 import ruContacts from '@/content/ru/contacts.json'
+import ruPalistor from '@/content/ru/palistor.json'
 
 import enSite from '@/content/en/site.json'
 import enNav from '@/content/en/nav.json'
@@ -28,6 +30,7 @@ import enArticles from '@/content/en/articles.json'
 import enPricing from '@/content/en/pricing.json'
 import enCv from '@/content/en/cv.json'
 import enContacts from '@/content/en/contacts.json'
+import enPalistor from '@/content/en/palistor.json'
 
 import worksMedia from '@/content/works-media.json'
 
@@ -57,6 +60,9 @@ const articles: Record<Locale, ArticlesContent> = { ru: ruArticles, en: enArticl
 const pricing: Record<Locale, PricingContent> = { ru: ruPricing, en: enPricing }
 const cv: Record<Locale, CvContent> = { ru: ruCv, en: enCv }
 const contacts: Record<Locale, ContactsContent> = { ru: ruContacts, en: enContacts }
+// layers[].code === null у слоя Model: JSON-импорт выводит для него тип null,
+// поэтому без явной аннотации Record<Locale, PalistorContent> не сходится.
+const palistor: Record<Locale, PalistorContent> = { ru: ruPalistor, en: enPalistor }
 
 export const getSite = (lang: Locale) => site[lang]
 export const getNav = (lang: Locale) => nav[lang]
@@ -66,6 +72,7 @@ export const getArticles = (lang: Locale) => articles[lang]
 export const getPricing = (lang: Locale) => pricing[lang]
 export const getCv = (lang: Locale) => cv[lang]
 export const getContacts = (lang: Locale) => contacts[lang]
+export const getPalistor = (lang: Locale) => palistor[lang]
 
 /** Плоский список скриншотов для кольца карточек в hero: одна картинка — одна карточка */
 export const getHeroCards = (lang: Locale): HeroCard[] =>

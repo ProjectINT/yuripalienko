@@ -142,7 +142,8 @@
     {
       "slug": "palistor",
       "title": "palistor",
-      "url": "https://github.com/ProjectINT",
+      "url": "https://github.com/ProjectINT/palistor",
+      "page": "/palistor",
       "role": "Автор",
       "period": "2025 — наст. время",
       "company": "Open source",
@@ -157,7 +158,7 @@
     {
       "slug": "paliproxy",
       "title": "paliproxy",
-      "url": "https://github.com/ProjectINT",
+      "url": "https://github.com/ProjectINT/paliproxy",
       "role": "Автор",
       "period": "2025 — наст. время",
       "company": "Open source",

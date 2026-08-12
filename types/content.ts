@@ -51,6 +51,11 @@ export interface WorkItem {
   highlights: string[]
   stack: string[]
   featured: boolean
+  /**
+   * Внутренняя страница проекта («/palistor»), если она есть. Опционально:
+   * сейчас такая страница одна, остальные 10 проектов поля не имеют.
+   */
+  page?: string | null
   /** подмешивается в lib/content.ts из works-media.json, в локализованных JSON его нет */
   images?: WorkImage[]
 }
@@ -157,4 +162,93 @@ export interface ContactsContent {
   channels: { label: string; value: string; url: string; primary: boolean }[]
   location: string
   availability: string
+}
+
+export interface PalistorLink {
+  label: string
+  url: string
+  /** primary — выводится в верхнем ряду ссылок крупно, рамкой */
+  primary: boolean
+}
+
+export interface PalistorCode {
+  /** ключ для подсветки: 'ts' | 'tsx' | 'bash' — других грамматик в lib/highlight.ts нет */
+  lang: string
+  /** подпись над блоком: «Декларация ViewModel по MVVM» */
+  caption: string
+  /**
+   * Код целиком, включая комментарии. Локализуется вместе с остальным JSON:
+   * в README.md — «// getPhone is already the data layer»,
+   * в README.ru.md — «// getPhone это уже слой данных».
+   * Расходиться между локалями могут только комментарии и строки, которые
+   * видит пользователь примера (label, placeholder, тексты ошибок); сам код —
+   * идентификаторы, структура, логика — обязан совпадать.
+   */
+  code: string
+}
+
+export interface PalistorLayer {
+  /** «01» / «02» / «03» — мононумерация в стиле nav */
+  index: string
+  title: string
+  text: string
+  /** у слоя Model примера нет — только текст */
+  code: PalistorCode | null
+}
+
+export interface PalistorStep {
+  index: string
+  title: string
+  text: string
+  code: PalistorCode
+}
+
+export interface PalistorContent {
+  title: string
+  intro: string
+  seoTitle: string
+  seoDescription: string
+  /** alt для og:image — не берётся из intro, там своя длина и смысл */
+  ogAlt: string
+  /** «MIT · React 19 · TypeScript» — мета-строка под заголовком */
+  meta: string[]
+  links: PalistorLink[]
+  screenshotAlt: string
+
+  /** «В продакшене: pali.rent, kvartly.com» — плашка доверия под ссылками */
+  usedInTitle: string
+  usedIn: { title: string; url: string; note: string }[]
+
+  /** подписи кнопки копирования — иначе единственные хардкод-строки на странице */
+  copyLabel: string
+  copiedLabel: string
+
+  layersTitle: string
+  layersLead: string
+  layers: PalistorLayer[]
+
+  startTitle: string
+  install: PalistorCode
+  steps: PalistorStep[]
+
+  featuresTitle: string
+  features: { term: string; text: string }[]
+
+  fitTitle: string
+  fit: string[]
+  unfitTitle: string
+  unfit: string[]
+
+  demoTitle: string
+  demoLead: string
+  demo: { label: string; url: string; note: string }[]
+
+  faqTitle: string
+  /** идут в FAQPage JSON-LD как есть, поэтому без разметки и без ссылок */
+  faq: { q: string; a: string }[]
+
+  ctaText: string
+  ctaLabel: string /** → /{lang}/contacts */
+  worksLabel: string /** → /{lang}/works */
+  docsLabel: string /** → README на GitHub */
 }

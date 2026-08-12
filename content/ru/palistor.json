@@ -1,0 +1,209 @@
+{
+  "title": "Palistor",
+  "intro": "Открытый MVVM-фреймворк для React. Поведение экрана уезжает в конфиг, данные остаются за резольвером, а JSX остаётся тонким слоем отображения. Обкатан в продакшене pali.rent и kvartly.com; публичный API ещё уплотняется — версии 0.0.x.",
+  "seoTitle": "Palistor — открытый MVVM-фреймворк для React | Palisoft",
+  "seoDescription": "Открытый MVVM-фреймворк для React: формы, списки, мастера. Точечные ре-рендеры, конфиг вместо useEffect. В продакшене pali.rent и kvartly.com.",
+  "ogAlt": "Palistor — открытый MVVM-фреймворк для React от студии Palisoft",
+  "meta": [
+    "MIT",
+    "React 19",
+    "TypeScript"
+  ],
+  "links": [
+    {
+      "label": "Живое демо",
+      "url": "https://projectint.github.io/palistor/",
+      "primary": true
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/ProjectINT/palistor",
+      "primary": false
+    },
+    {
+      "label": "npm",
+      "url": "https://www.npmjs.com/package/palistor",
+      "primary": false
+    }
+  ],
+  "screenshotAlt": "README Palistor на GitHub: два примера кода друг за другом — слой View на JSX и декларация ViewModel в конфиге.",
+  "usedInTitle": "В продакшене",
+  "usedIn": [
+    {
+      "title": "pali.rent",
+      "url": "https://pali.rent",
+      "note": "SaaS для управления автопарками"
+    },
+    {
+      "title": "kvartly.com",
+      "url": "https://kvartly.com",
+      "note": "маркетплейс недвижимости и SaaS для управления объектами"
+    }
+  ],
+  "copyLabel": "Копировать",
+  "copiedLabel": "Скопировано",
+  "layersTitle": "Три слоя",
+  "layersLead": "Большинство React-экранов сплетают внутри одного компонента три несвязанные заботы: как экран себя ведёт, откуда берутся его данные и как он выглядит. По мере роста экрана они срастаются так, что любое изменение задевает всё. Palistor их разводит.",
+  "layers": [
+    {
+      "index": "01",
+      "title": "View — только отображение",
+      "text": "JSX-слой, из которого изъято всё, кроме собственно отображения: вёрстка, рендеринг, стили. Компонент читает состояние поля и раскладывает его в свои инпуты. Он настолько примитивен, что ошибиться там негде.",
+      "code": {
+        "lang": "tsx",
+        "caption": "Пример вёрстки (View по MVVM)",
+        "code": "function Form() {\n  const form = useForm(store);\n\n  return (\n    <>\n      <Input {...form.email} />\n      {form.phone.isVisible && <Input {...form.phone} />}\n    </>\n  );\n}"
+      }
+    },
+    {
+      "index": "02",
+      "title": "ViewModel — конфиг",
+      "text": "Одно дерево описывает значения, валидацию, видимость, кросс-полевые правила и lifecycle-колбэки. Никаких useEffect, кастомных хуков и контекстов: вся необходимая сложность стянута в один объект, который читается сверху вниз — и, в отличие от дерева хуков, ревьюится за один проход.",
+      "code": {
+        "lang": "ts",
+        "caption": "Пример конфигурации (декларация ViewModel по MVVM)",
+        "code": "const store = new Palistor({\n  config: {\n    id: { value: \"\" },\n    email: {\n      value: \"\",\n      isRequired: true,\n    },\n    phone: {\n      value: \"\",\n      isVisible: (v) => v.email !== \"\",\n      resolve: {\n        // getPhone это уже слой данных.\n        resolver: async (v) => { return await getPhone(v.id) }\n      }\n    },\n  },\n});"
+      }
+    },
+    {
+      "index": "03",
+      "title": "Model — слой данных",
+      "text": "Получение и отправка данных остаются вне Palistor: простой fetch, кэширующий слой или полноценный offline-слой — что угодно, что вы подключаете через resolve. Palistor задаёт интерфейс к нему, а не реализацию, и кеширует то, что вернул резольвер, чтобы не тянуть одни и те же данные дважды.",
+      "code": null
+    }
+  ],
+  "startTitle": "Быстрый старт",
+  "install": {
+    "lang": "bash",
+    "caption": "Установка из публичного npm-реестра",
+    "code": "npm install palistor\n# peer-зависимость: react ^19"
+  },
+  "steps": [
+    {
+      "index": "01",
+      "title": "Опишите форму",
+      "text": "Конфиг декларативен: значения полей, валидация, видимость и lifecycle-колбэки живут в одном дереве. Store создаётся на уровне модуля.",
+      "code": {
+        "lang": "ts",
+        "caption": "Конфиг формы оплаты",
+        "code": "import { Palistor } from \"palistor\";\n\nexport const paymentStore = new Palistor({\n  config: {\n    paymentType: {\n      value: \"card\",\n      label: \"Способ оплаты\",\n    },\n    cardNumber: {\n      value: \"\",\n      label: \"Номер карты\",\n      placeholder: \"0000 0000 0000 0000\",\n      isVisible: (v) => v.paymentType === \"card\",\n      isRequired: (v) => v.paymentType === \"card\",\n      validate: (value, v) =>\n        v.paymentType === \"card\" && value.length < 16\n          ? \"Введите 16 цифр\"\n          : undefined,\n    },\n    passport: {\n      isVisible: (v) => v.paymentType === \"bank\",\n      number:    { value: \"\", label: \"Серия и номер\", isRequired: true },\n      issueDate: { value: \"\", label: \"Дата выдачи\" },\n    },\n    amount: { value: 0, label: \"Сумма\", isRequired: true },\n  },\n  initialValues: { paymentType: \"card\" },\n});"
+      }
+    },
+    {
+      "index": "02",
+      "title": "Подключите компонент",
+      "text": "useForm возвращает типизированный tracking proxy. Компонент ре-рендерится только при изменении тех узлов, которые он реально прочитал, — запись в соседнее поле его не трогает.",
+      "code": {
+        "lang": "tsx",
+        "caption": "Компонент формы оплаты",
+        "code": "import { useForm } from \"palistor\";\nimport { paymentStore } from \"./paymentStore\";\n\nfunction PaymentForm() {\n  const form = useForm(paymentStore);\n\n  return (\n    <form onSubmit={(e) => { e.preventDefault(); paymentStore.submit(); }}>\n      <Select\n        value={form.paymentType.value}\n        onChange={(e) => (form.paymentType.value = e.target.value)}\n        label={form.paymentType.label}\n      />\n\n      {/* Конфиг знает об интерфейсе Input благодаря адаптеру (fieldMapping) */}\n      {form.cardNumber.isVisible && <Input {...form.cardNumber} />}\n\n      {form.passport.isVisible && <PassportSection passport={form.passport} />}\n\n      <Button type=\"submit\" isLoading={form.submitting}>Оплатить</Button>\n    </form>\n  );\n}"
+      }
+    }
+  ],
+  "featuresTitle": "Возможности",
+  "features": [
+    {
+      "term": "Гранулярные ре-рендеры",
+      "text": "Компонент подписывается только на те поля, которые он читал, — больше ничего не триггерит ре-рендер."
+    },
+    {
+      "term": "Computed field state",
+      "text": "isVisible, isRequired, label и ошибки валидации пересчитываются автоматически по конфигу."
+    },
+    {
+      "term": "Proxy API",
+      "text": "Нативный синтаксис: form.email.value = x вместо диспатча экшенов."
+    },
+    {
+      "term": "Submit pipeline",
+      "text": "beforeSubmit → validate → onSubmit → afterSubmit; ошибки показываются после первого неудачного submit."
+    },
+    {
+      "term": "Async-резолверы",
+      "text": "Загрузка данных с авто-трекингом зависимостей, retry, optimistic updates и React Suspense."
+    },
+    {
+      "term": "Списки и сущности",
+      "text": "Нормализованный реестр сущностей, list proxy с add / remove / setItems, per-entity шаблоны."
+    },
+    {
+      "term": "Flows",
+      "text": "Пошаговые мастера через defineFlow / defineStep: навигация, ветвление, валидация по шагам."
+    },
+    {
+      "term": "Persist",
+      "text": "Автосохранение в localStorage, sessionStorage или любой кастомный драйвер — вместе с навигацией флоу."
+    }
+  ],
+  "fitTitle": "Где применять",
+  "fit": [
+    "Онбординг, KYC, верификация и анкеты — ветвящиеся многошаговые мастера, условные поля, пошаговая валидация.",
+    "Чек-ауты и платёжные формы — условные способы оплаты, кросс-полевые правила, async-подгрузка.",
+    "Конфигураторы, калькуляторы и CPQ — computed-поля и зависимости (цена × количество → налог → итог) без единого useEffect.",
+    "CRUD-редакторы сущностей и таблицы с inline-правкой — нормализованный реестр, list-proxy, per-entity шаблоны.",
+    "Schema-driven формы — конфиг это данные, поэтому его можно генерировать или отдавать с бэкенда, в том числе под разные регионы."
+  ],
+  "unfitTitle": "Где не стоит",
+  "unfit": [
+    "Контент-сайты — блоги, документация, маркетинг, SSG: SEO-first, статика, поведения почти нет.",
+    "Графика, canvas и realtime-рендер — игры, редакторы rich-text и диаграмм, карты, тяжёлые визуализации: сложность живёт в рендере, а модель не расщепляется на слои.",
+    "Тривиальный UI — один поиск, одна кнопка, форма из пары полей: трёхслойное разделение — оверхед, который не окупается.",
+    "Встраиваемые виджеты, где критичен вес бандла, — библиотека не маленькая."
+  ],
+  "demoTitle": "Живое демо",
+  "demoLead": "Все примеры с этой страницы работают на живом стенде. Каждый таб — отдельная возможность фреймворка, на каждый ведёт прямая ссылка.",
+  "demo": [
+    {
+      "label": "Быстрый старт",
+      "url": "https://projectint.github.io/palistor/#form",
+      "note": "условные поля, submit-pipeline, persist"
+    },
+    {
+      "label": "Flows",
+      "url": "https://projectint.github.io/palistor/#flow",
+      "note": "пошаговый мастер с ветвлением"
+    },
+    {
+      "label": "Списки и сущности",
+      "url": "https://projectint.github.io/palistor/#lists",
+      "note": "нормализованный реестр, list-proxy, контекст store"
+    },
+    {
+      "label": "Async-резолверы",
+      "url": "https://projectint.github.io/palistor/#async",
+      "note": "загрузка данных, retry, уведомления"
+    },
+    {
+      "label": "Field mapping",
+      "url": "https://projectint.github.io/palistor/#mapping",
+      "note": "переименование пропсов под UI-кит"
+    }
+  ],
+  "faqTitle": "Коротко о главном",
+  "faq": [
+    {
+      "q": "Что такое Palistor?",
+      "a": "Открытый MVVM-фреймворк для React под лицензией MIT. Он делит экран на три слоя: JSX, который только отображает; конфиг, в котором лежит всё поведение — значения, валидация, видимость, кросс-полевые правила; и слой данных, который вы подключаете через resolve. Вместо дерева useEffect'ов и кастомных хуков получается один плоский объект."
+    },
+    {
+      "q": "Чем он отличается от Redux, Zustand или React Hook Form?",
+      "a": "Каждый из них решает что-то одно: глобальное состояние или состояние формы. Palistor задаёт архитектуру экрана целиком — поведение, данные и отображение разнесены намеренно. Состояние считается в сторе, вне рендер-цикла React, и компонент получает сигнал только по тем полям, что реально прочитал, поэтому ре-рендеры точечные, а не каскадные."
+    },
+    {
+      "q": "Используется ли он в реальных проектах?",
+      "a": "Да. Palistor работает в продакшене pali.rent — SaaS для управления автопарками — и kvartly.com, маркетплейса недвижимости; оба открыты по ссылке и их можно проверить. Он обкатан на собственных продуктах автора, при этом публичный API ещё уплотняется — об этом и говорят версии 0.0.x."
+    },
+    {
+      "q": "Почему это удобно для генерации кода ИИ?",
+      "a": "ИИ плохо архитектурит, но отлично заполняет декларативные слоты. Palistor убирает саму задачу архитектуры: остаётся заполнить конфиг по правилам. Ревью сгенерированного кода превращается в чтение одного плоского объекта вместо дерева useEffect'ов, поэтому развалить его гораздо труднее."
+    },
+    {
+      "q": "Какая лицензия и как поставить?",
+      "a": "MIT. Ставится из публичного npm-реестра командой npm install palistor, peer-зависимость — react ^19. Тот же пакет опубликован в GitHub Packages под scoped-именем @projectint/palistor, но каноническим считается имя palistor."
+    }
+  ],
+  "ctaText": "Нужен экран — или продукт целиком — построенный так же? Palistor вырос из продакшена SaaS-платформ, которые мы проектируем, запускаем и сопровождаем сами.",
+  "ctaLabel": "Обсудить проект",
+  "worksLabel": "Все работы",
+  "docsLabel": "Полная документация"
+}

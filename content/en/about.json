@@ -31,6 +31,10 @@
     {
       "label": "GitHub — ProjectINT",
       "url": "https://github.com/ProjectINT"
+    },
+    {
+      "label": "Palistor — MVVM framework for React",
+      "url": "/palistor"
     }
   ]
 }

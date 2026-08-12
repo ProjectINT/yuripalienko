@@ -7,6 +7,8 @@ const ROUTES = [
   { path: '/works', priority: 0.9, changeFrequency: 'monthly' as const },
   { path: '/pricing', priority: 0.9, changeFrequency: 'monthly' as const },
   { path: '/cv', priority: 0.8, changeFrequency: 'monthly' as const },
+  // 0.8 наравне с /cv: страница важнее /about, но ниже коммерческих /works и /pricing
+  { path: '/palistor', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/about', priority: 0.7, changeFrequency: 'yearly' as const },
   { path: '/articles', priority: 0.7, changeFrequency: 'weekly' as const },
   { path: '/contacts', priority: 0.6, changeFrequency: 'yearly' as const },

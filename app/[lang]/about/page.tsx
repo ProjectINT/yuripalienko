@@ -7,7 +7,7 @@ import JsonLd from '@/components/seo/JsonLd'
 import PageShell from '@/components/ui/PageShell'
 import PageHeader from '@/components/ui/PageHeader'
 import CvFacts from '@/components/cv/CvFacts'
-import ExternalLink from '@/components/ui/ExternalLink'
+import SmartLink from '@/components/ui/SmartLink'
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/about'>) {
   const { lang } = await params
@@ -40,9 +40,10 @@ export default async function AboutPage({ params }: PageProps<'/[lang]/about'>) 
       <ul className="space-y-2">
         {about.links.map((link) => (
           <li key={link.url}>
-            <ExternalLink href={link.url}>
-              {link.label} <span aria-hidden>↗</span>
-            </ExternalLink>
+            {/* Свои страницы («/palistor») открываются в той же вкладке */}
+            <SmartLink href={link.url} lang={lang} arrow>
+              {link.label}
+            </SmartLink>
           </li>
         ))}
       </ul>
