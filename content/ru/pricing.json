@@ -5,35 +5,6 @@
   "seoDescription": "Прозрачные цены: лендинг от $250, MVP с бэкендом и платежами от $1000, SaaS-платформа или маркетплейс от $6000. Стек: Next.js, NestJS, Supabase, ClickHouse.",
   "tiers": [
     {
-      "slug": "landing",
-      "title": "Лендинг / промо-сайт",
-      "price": 250,
-      "currency": "USD",
-      "priceNote": "",
-      "summary": "Next.js, адаптив, SEO, деплой.",
-      "includes": [
-        "Дизайн и вёрстка",
-        "SEO и OG-разметка",
-        "Деплой на Vercel"
-      ],
-      "featured": false
-    },
-    {
-      "slug": "mvp",
-      "title": "MVP",
-      "price": 1000,
-      "currency": "USD",
-      "priceNote": "",
-      "summary": "Рабочий продукт с бэкендом, авторизацией и оплатой.",
-      "includes": [
-        "Архитектура и схема данных",
-        "Бэкенд на NestJS",
-        "Авторизация и платежи",
-        "Админка"
-      ],
-      "featured": false
-    },
-    {
       "slug": "complex",
       "title": "Сложное приложение",
       "price": 6000,
@@ -66,6 +37,7 @@
       "items": [
         "Node.js",
         "NestJS",
+        "Supabase",
         "Prisma"
       ]
     },
