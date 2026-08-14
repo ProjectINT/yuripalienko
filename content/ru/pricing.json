@@ -1,14 +1,14 @@
 {
   "title": "Цены",
   "intro": "Работаем проектом или в формате выделенной команды. Оценка после первого созвона.",
-  "seoTitle": "Разработка SaaS и MVP — цены от $250 | Palisoft",
-  "seoDescription": "Прозрачные цены: лендинг от $250, MVP с бэкендом и платежами от $1000, SaaS-платформа или маркетплейс от $6000. Стек: Next.js, NestJS, Supabase, ClickHouse.",
+  "seoTitle": "Разработка сложных веб-приложений и SaaS — от 500 000 ₽ | Palisoft",
+  "seoDescription": "Прозрачные цены: SaaS-платформа, маркетплейс или BI-система от 500 000 ₽ — архитектура, event-driven бэкенд, мультитенантность, интеграции. Next.js, NestJS, Supabase, ClickHouse.",
   "tiers": [
     {
       "slug": "complex",
       "title": "Сложное приложение",
-      "price": 6000,
-      "currency": "USD",
+      "price": 500000,
+      "currency": "RUB",
       "priceNote": "SaaS-платформа, маркетплейс, BI-система",
       "summary": "Полный цикл: архитектура, бэкенд, фронтенд, интеграции, вывод в продакшен.",
       "includes": [
@@ -38,7 +38,8 @@
         "Node.js",
         "NestJS",
         "Supabase",
-        "Prisma"
+        "Prisma",
+        "Metarhia"
       ]
     },
     {

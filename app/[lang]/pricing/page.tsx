@@ -21,7 +21,11 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/pricing'>)
 
 function formatPrice(tier: PricingTier, lang: Locale) {
   if (tier.price === null) return lang === 'ru' ? 'по запросу' : 'on request'
-  const amount = `$${tier.price.toLocaleString('en-US')}`
+  const amount = new Intl.NumberFormat(lang === 'ru' ? 'ru-RU' : 'en-US', {
+    style: 'currency',
+    currency: tier.currency,
+    maximumFractionDigits: 0,
+  }).format(tier.price)
   return lang === 'ru' ? `от ${amount}` : `from ${amount}`
 }
 
@@ -29,33 +33,55 @@ export default async function PricingPage({ params }: PageProps<'/[lang]/pricing
   const { lang } = await params
   if (!isLocale(lang)) notFound()
   const pricing = getPricing(lang)
+  const solo = pricing.tiers.length === 1
 
   return (
     <PageShell>
       <JsonLd data={breadcrumbs(lang, '/pricing', pricing.title)} />
       <JsonLd data={pricingGraph(lang, pricing)} />
       <PageHeader title={pricing.title} intro={pricing.intro} />
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      {/* Один тариф разворачивается в две колонки, несколько — в сетку карточек */}
+      <div className={solo ? '' : 'grid grid-cols-1 gap-6 lg:grid-cols-3'}>
         {pricing.tiers.map((tier) => (
           <Card key={tier.slug} featured={tier.featured}>
-            <h2 className="text-xl font-bold tracking-tight">{tier.title}</h2>
-            <p className="mt-4 text-2xl font-bold tracking-tight lg:text-3xl">
-              {formatPrice(tier, lang)}
-            </p>
-            {tier.priceNote && (
-              <p className="mt-1 font-mono text-xs uppercase tracking-widest text-muted">
-                {tier.priceNote}
-              </p>
-            )}
-            <p className="mt-4 leading-relaxed text-muted">{tier.summary}</p>
-            <ul className="mt-6 space-y-1.5 text-sm leading-relaxed">
-              {tier.includes.map((line) => (
-                <li key={line} className="flex gap-2">
-                  <span aria-hidden className="text-muted">—</span>
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
+            <div
+              className={
+                solo ? 'grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)]' : ''
+              }
+            >
+              <div>
+                <h2 className={`font-bold tracking-tight ${solo ? 'text-2xl' : 'text-xl'}`}>
+                  {tier.title}
+                </h2>
+                <p
+                  className={`mt-4 font-bold tracking-tight ${
+                    solo ? 'text-3xl lg:text-5xl' : 'text-2xl lg:text-3xl'
+                  }`}
+                >
+                  {formatPrice(tier, lang)}
+                </p>
+                {tier.priceNote && (
+                  <p className="mt-2 font-mono text-xs uppercase tracking-widest text-muted">
+                    {tier.priceNote}
+                  </p>
+                )}
+                <p className="mt-6 max-w-prose leading-relaxed text-muted">{tier.summary}</p>
+              </div>
+              <ul
+                className={`text-sm leading-relaxed ${
+                  solo
+                    ? 'grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-1 lg:border-l lg:border-line lg:pl-8'
+                    : 'mt-6 space-y-1.5'
+                }`}
+              >
+                {tier.includes.map((line) => (
+                  <li key={line} className="flex gap-2">
+                    <span aria-hidden className="text-muted">—</span>
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </Card>
         ))}
       </div>

@@ -1,38 +1,9 @@
 {
   "title": "Pricing",
   "intro": "We work per project or as a dedicated team. Estimate after the first call.",
-  "seoTitle": "SaaS & MVP Development Pricing — from $250 | Palisoft",
-  "seoDescription": "Transparent pricing: landing pages from $250, an MVP with backend and payments from $1,000, a SaaS platform or marketplace from $6,000. Next.js, NestJS, Supabase.",
+  "seoTitle": "Complex Web App & SaaS Development Pricing — from $6,000 | Palisoft",
+  "seoDescription": "Transparent pricing: a SaaS platform, marketplace or BI system from $6,000 — architecture, event-driven backend, multi-tenancy, integrations. Next.js, NestJS, Supabase.",
   "tiers": [
-    {
-      "slug": "landing",
-      "title": "Landing / promo site",
-      "price": 250,
-      "currency": "USD",
-      "priceNote": "",
-      "summary": "Next.js, responsive, SEO, deployment.",
-      "includes": [
-        "Design and markup",
-        "SEO and OG markup",
-        "Deployment to Vercel"
-      ],
-      "featured": false
-    },
-    {
-      "slug": "mvp",
-      "title": "MVP",
-      "price": 1000,
-      "currency": "USD",
-      "priceNote": "",
-      "summary": "A working product with a backend, authentication and payments.",
-      "includes": [
-        "Architecture and data schema",
-        "NestJS backend",
-        "Authentication and payments",
-        "Admin panel"
-      ],
-      "featured": false
-    },
     {
       "slug": "complex",
       "title": "Complex application",
@@ -65,8 +36,10 @@
       "group": "Backend",
       "items": [
         "Node.js",
+        "Supabase",
         "NestJS",
-        "Prisma"
+        "Prisma",
+        "Metarhia"
       ]
     },
     {

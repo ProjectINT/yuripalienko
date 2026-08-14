@@ -37,7 +37,7 @@ export function rootGraph(lang: Locale) {
         employee: { '@id': PERSON_ID },
         areaServed: { '@type': 'Place', name: 'Worldwide' }, // Q3
         availableLanguage: ['en', 'ru'],
-        priceRange: '$250–$6000+', // Q4
+        priceRange: lang === 'ru' ? 'от 500 000 ₽' : 'from $6000', // Q4
         sameAs: SAME_AS,
       },
       {
