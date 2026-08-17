@@ -1,0 +1,249 @@
+{
+  "slug": "rynok-po-i-investicii-v-ai-2022-2026",
+  "lang": "en",
+  "date": "2026-08-17",
+  "updated": null,
+  "draft": false,
+  "title": "The software market 2022–2026 and the shift of investment into AI",
+  "summary": "What happened to development budgets over four years, where the money went, and the three channels through which capital is moving into AI.",
+  "seoTitle": "Software Market 2022–2026: Investment Shift to AI | Palisoft",
+  "seoDescription": "Numbers from Gartner, OECD and Stanford HAI: software spending grew to $1.25T, AI's share of venture capital went from 30% to 61%. Three channels of the shift — and what correlation does not prove.",
+  "ogAlt": "Article: the software market 2022–2026 and the shift of investment into AI",
+  "tags": ["market", "ai", "investment"],
+  "cover": null,
+  "blocks": [
+    {
+      "type": "note",
+      "variant": "info",
+      "text": "Analytical review. Prepared: August 2026. Sources: Gartner, OECD, Stanford HAI (AI Index), Bain, Carta, Sapphire Ventures, Crunchbase and others."
+    },
+    { "type": "divider" },
+    { "type": "heading", "level": 2, "id": "key-findings", "text": "Key findings" },
+    {
+      "type": "text",
+      "text": "The software market grew from ~$0.81T (2022) to ~$1.25T (2025), with a forecast of $1.44T for 2026, and the growth rate accelerated from ~10% to ~15% a year — largely thanks to AI components inside the software itself. In parallel, AI's share of global venture funding rose from 30% (2022) to 61% (2025) according to the OECD, while corporate investment in AI more than doubled during 2025 alone, reaching $581.7B. The shift of capital away from software development and into AI shows up through three channels: venture funding (the non-AI share shrinking both in percent and in dollars), corporate budgets (payroll converted into AI capex) and the developer labour market (junior employment down ~20% since 2024). Correlation, however, is not clean causation: part of the effect is explained by the interest-rate cycle, and software spending as a category is not falling but growing — the shift is visible above all in marginal, «new» money."
+    },
+    { "type": "divider" },
+    {
+      "type": "heading",
+      "level": 2,
+      "id": "software-market",
+      "text": "1. Software market dynamics, 2022–2026"
+    },
+    { "type": "heading", "level": 3, "id": "market-figures", "text": "1.1 Headline figures" },
+    {
+      "type": "table",
+      "caption": "* Intermediate values for 2023–2024 are approximate because of Gartner's revisions between forecast releases.",
+      "head": ["Year", "Software spending (world)", "YoY growth", "Context"],
+      "rows": [
+        ["2022", "$806.8B", "+9.6%", "The whole IT market +3%; cooling amid inflation and rates"],
+        ["2023", "~$0.9–0.97T\\*", "~+11–12%", "Software — the fastest growing IT segment"],
+        ["2024", "~$1.08T\\*", "+11.7%", "Growth driven by cloud and vendor price increases"],
+        ["2025", "$1.23T", "+14.0%", "Acceleration; Gartner links the growth to AI projects"],
+        ["2026 (forecast)", "$1.44T", "+15.1%", "GenAI features are everywhere and make software costlier"]
+      ]
+    },
+    { "type": "heading", "level": 3, "id": "two-modes", "text": "1.2 Two regimes of the market" },
+    {
+      "type": "text",
+      "text": "**2022 — cooling on the macro backdrop.** Software remained the most resilient IT segment (+9.6% against +3% for the market as a whole), but venture funding of software development was already contracting: deal value fell 47% between Q1 and Q4 2022 amid rising rates and a closed exit window. At that point AI accounted for only a small share of funding — the downturn was macroeconomic, not «AI-induced»."
+    },
+    {
+      "type": "text",
+      "text": "**2023–2024 — double-digit growth, but still «without AI».** Corporate software spending grew 11–12% a year on cloud migration and vendor price increases. An important detail: by Gartner's estimate, in 2023–2024 generative AI had almost no direct effect on IT spending — companies invested in AI and automation mostly for operational efficiency and to cover staffing gaps."
+    },
+    {
+      "type": "text",
+      "text": "**2025–2026 — acceleration driven by AI.** Software spending grew 14% in 2025 to $1.23T, and Gartner explicitly links the growth of software and IT services to AI projects. The market became «multi-speed»: AI-centric software segments significantly outpace traditional categories, spending on GenAI model development more than doubles year over year, and GenAI features embedded into corporate software already in use push its price up. Demand for vertical (industry-specific) software, meanwhile, grows weakly."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "id": "where-money-goes",
+      "text": "1.3 The contrast: where the money actually goes"
+    },
+    {
+      "type": "text",
+      "text": "The real centre of gravity for capital is AI infrastructure, not application software:"
+    },
+    {
+      "type": "table",
+      "caption": null,
+      "head": ["Segment", "2024", "2025", "2026 (forecast)"],
+      "rows": [
+        ["Software", "+11.7%", "+14.0%", "+15.1%"],
+        ["Data centres (servers, storage, system software)", "~+35%", "+46.8%", "+55.8% (>$788B)"]
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Server sales, by Gartner's forecast, will almost triple: from $134B (2023) to $332B (2028), including more than $257B in 2025 alone. Gartner calls the build-out of compute capacity for AI the largest infrastructure project in history."
+    },
+    { "type": "divider" },
+    {
+      "type": "heading",
+      "level": 2,
+      "id": "ai-investment",
+      "text": "2. Investment in AI, 2022–2025"
+    },
+    { "type": "heading", "level": 3, "id": "vc-oecd", "text": "2.1 Venture capital (OECD)" },
+    {
+      "type": "table",
+      "caption": "* Estimates for 2022–2023 vary across sources (OECD, Crunchbase, Bain) because of different definitions of an «AI company»; see section 4.",
+      "head": ["Metric", "2022", "2023", "2024", "2025"],
+      "rows": [
+        ["AI share of global venture capital", "30%", "n/a", "34%", "61%"],
+        ["Venture capital into AI, $B", "~130\\*", "~56–70\\*", ">100", "258.7"],
+        ["Total global venture capital, $B", "~430–460", "~350", "~370", "427.1"],
+        ["Venture capital into generative AI, $B", "2.8", "15.3", "~30", "35.3"]
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Further characteristics of the market per OECD data: since 2023 the largest sub-segment of AI venture funding is IT infrastructure and hosting ($109.3B in 2025 alone); megadeals above $100M account for ~73% of the value of all AI investment in 2025, and deals above $1B for roughly half — which points to a highly concentrated market (OpenAI, Anthropic, xAI, Mistral and others)."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "id": "corporate-investment",
+      "text": "2.2 Corporate investment (Stanford AI Index)"
+    },
+    {
+      "type": "table",
+      "caption": null,
+      "head": ["Metric", "2023", "2024", "2025"],
+      "rows": [
+        ["Total corporate investment in AI, $B", "~189", "252.3 (+26%)", "581.7 (+130%)"],
+        ["Private investment in AI, $B", "—", "~175 (+44.5%)", "344.7 (+127.5%)"],
+        ["Private investment in GenAI, $B", "28.5", "33.9", "growth >200%"]
+      ]
+    },
+    {
+      "type": "text",
+      "text": "The 2025 level exceeded the previous peak of 2021 ($360B). The geography is extremely asymmetric: US private AI investment in 2025 ($285.9B) is ~23 times larger than China's, although private figures understate the role of state funds in China."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "id": "genai-spending",
+      "text": "2.3 GenAI spending (Gartner)"
+    },
+    {
+      "type": "text",
+      "text": "Gartner estimated total global spending on generative AI (software, services, devices, servers) at $365B in 2024 and $644B in 2025 (+76%). Of that, GenAI software: $19.2B (2024) → $37.2B (2025)."
+    },
+    { "type": "divider" },
+    {
+      "type": "heading",
+      "level": 2,
+      "id": "reallocation",
+      "text": "3. The shift out of software development: three channels"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "id": "vc-channel",
+      "text": "3.1 Venture capital — the cleanest reallocation"
+    },
+    {
+      "type": "text",
+      "text": "Total global venture funding fell roughly 47% from its 2021 peak (~$800B) to $427B in 2025. Inside that shrunken pie AI's share grew from 30% to 61% — meaning every other sector, traditional software development included, competed in 2025 for the remaining 39% (~$167B). Non-AI funding fell both in share and in absolute terms."
+    },
+    {
+      "type": "text",
+      "text": "On the «donor» side the picture is confirmed directly. Growth-stage investment in enterprise software hit a 10-year low in 2023. The median growth rate of SaaS companies slowed from 17% (2023) to 14% (2024), with a forecast of a further decline to 12%. By 2025 investors effectively cut off SaaS without an AI core: fundable products are those where AI is the architectural foundation, with proprietary models or data, while «AI as a marketing layer» all but removes a company's access to venture capital. Formally, SaaS funding grew in 2025 to ~$223B (+76%), but with a material caveat: the growth came precisely from AI-native companies that statistics classify as SaaS."
+    },
+    {
+      "type": "text",
+      "text": "A telling micro-category inside software development itself: venture funding of coding agents (Cursor, Windsurf and their peers) grew from ~$550M (2024) to ~$4B (2025) — sevenfold in a year. The money is flowing not simply «from development into AI», but from classic developer tooling into AI tooling that automates development itself."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "id": "budget-channel",
+      "text": "3.2 Corporate budgets — payroll converted into compute"
+    },
+    {
+      "type": "text",
+      "text": "The tech sector cut around 165k employees in 2022 and 264k in 2023; in 2025 about 246k, and in 2026 the pace of cuts is running roughly a third above last year's. The link to AI has gone from implicit to explicit:"
+    },
+    {
+      "type": "text",
+      "text": "In a January 2024 memo Google explained the layoffs as a need to free up funds for key priorities — against a backdrop of multi-billion GenAI commitments. Meta described its 2026 cuts as a way to offset the cost of AI investment. Amazon, Microsoft, Alphabet and Meta together plan ~$700B of capital expenditure for 2026 — almost double the 2025 level, predominantly on AI compute, data centres and networking. According to Challenger, Gray & Christmas, companies are shifting budgets towards AI at the expense of jobs: AI was cited as a factor in roughly 13% of 2026 layoff plans against ~5% a year earlier. Atlassian, IBM, Cisco, Dropbox and other software vendors are cutting staff with the explicit wording «rebalancing towards AI»."
+    },
+    {
+      "type": "note",
+      "variant": "warn",
+      "text": "**The essence of this channel:** development payroll budgets are being converted into GPUs, data centres and AI capex."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "id": "labor-channel",
+      "text": "3.3 The developer labour market — an indirect but important indicator"
+    },
+    {
+      "type": "text",
+      "text": "According to Stanford HAI (AI Index 2026), employment of developers aged 22–25 has fallen almost 20% since 2024, concentrated in routine work — boilerplate code, scripted testing, fixing typical bugs — that AI tools now cover. The number of open tech vacancies peaked in 2022 and declined afterwards. Investment «in development» as human capital is shrinking at the same time as investment in AI capital grows — which is consistent with the reallocation hypothesis rather than with a merely cyclical contraction."
+    },
+    { "type": "divider" },
+    {
+      "type": "heading",
+      "level": 2,
+      "id": "limits",
+      "text": "4. Limits of the analysis: what correlation proves and what it does not"
+    },
+    {
+      "type": "text",
+      "text": "**Rates, not only AI.** The venture downturn began in 2022, before ChatGPT was released (November 2022) — amid rising rates, geopolitical uncertainty and a frozen IPO market. A significant part of the «shift» is not money withdrawn from software portfolios in favour of AI, but the fact that new money in the recovered market of 2024–2025 went almost exclusively into AI. Causality is entangled with the macro cycle, and without controlling for rate dynamics these effects cannot be separated statistically."
+    },
+    {
+      "type": "text",
+      "text": "**Money is not leaving software as a spending category.** Corporate software spending grows at double-digit rates and is accelerating. The shift happens inside the segment — from traditional and vertical software towards AI-native (Gartner's «multi-speed market» model) — and up the stack, into infrastructure, where growth is 3–4 times faster. Moreover, part of the growth in software spending is forced price inflation: GenAI features are embedded into products already in use and raise their price, so «AI money» partly sits inside the software line of the budget itself."
+    },
+    {
+      "type": "text",
+      "text": "**Methodological noise.** The estimate of AI's share of venture capital depends heavily on the definition of an «AI company»: Bain reports above 25% for 2025 (against 7% in 2023 and 15% in 2024), while the OECD reports 61%. The discrepancy comes from classification boundaries (whether to count AI-native SaaS, vertical AI, infrastructure), and the mass rebranding of SaaS companies as «AI» inflates the upper estimates further. The correct formulation: AI's share of venture capital in 2025 lies in a 25–61% band depending on methodology, with an unambiguous direction of travel."
+    },
+    {
+      "type": "text",
+      "text": "**Part of the layoffs is a correction of 2021 hiring.** The 2023 layoff wave was openly explained as post-pandemic headcount normalisation; part of the 2026 wave affects the same functions but is presented under an AI label. Not every dollar of «freed» payroll is a consequence of AI."
+    },
+    { "type": "divider" },
+    { "type": "heading", "level": 2, "id": "conclusion", "text": "Conclusion" },
+    {
+      "type": "text",
+      "text": "The shift of investment from software development into AI is traceable, and most rigorously in two places. First, in venture capital: non-AI development lost both share and absolute funding volume, growth-stage investment in traditional enterprise software went through a 10-year low, and funding of SaaS without an AI core effectively dried up. Second, in large technology companies: the conversion of development payroll into AI capex is confirmed by direct internal communications (Google, Meta, Microsoft, Atlassian and others) and by record capital programmes (~$700B for the «big four» in 2026)."
+    },
+    {
+      "type": "text",
+      "text": "In corporate IT budgets the picture is different: this is a reallocation of the increment, not an outflow. The software market grew from ~$0.8T to ~$1.25T over 2022–2025 and keeps accelerating — but practically every marginal dollar (venture, capex, hiring) is now AI-coloured. A rigorous quantitative estimate of the shift would require quarterly series by sub-segment, controls for interest rates and a breakdown by deal stage."
+    },
+    { "type": "divider" },
+    { "type": "heading", "level": 2, "id": "sources", "text": "Main sources" },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "[Gartner — Worldwide IT Spending Forecast, releases 2022–2026](https://www.gartner.com/en/newsroom/press-releases/2026-04-22-gartner-forecasts-worldwide-it-spending-to-grow-13-point-5-percent-in-2026-totaling-6-point-31-trillion-dollars)",
+        "[Gartner — 2025 forecast: software +14%, $1.23T](https://www.gartner.com/en/newsroom/press-releases/2024-10-23-gartner-forecasts-worldwide-it-spending-to-grow-nine-point-three-percent-in-2025)",
+        "[Gartner — GenAI spending forecast: $644B in 2025](https://secure.businesswire.com/news/home/20250331176525/en/Gartner-Forecasts-Worldwide-GenAI-Spending-to-Reach-%24644-Billion-in-2025)",
+        "[OECD — AI firms capture 61% of global venture capital in 2025](https://www.oecd.org/en/about/news/announcements/2026/02/ai-firms-capture-61-percent-of-global-venture-capital-in-2025.html)",
+        "[OECD — Venture capital investments in AI through 2025, policy brief](https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/02/venture-capital-investments-in-artificial-intelligence-through-2025_3bcb227f/a13752f5-en.pdf)",
+        "[Stanford HAI — AI Index Report 2025](https://hai.stanford.edu/ai-index/2025-ai-index-report)",
+        "[Stanford HAI — AI Index Report 2026](https://hai.stanford.edu/ai-index/2026-ai-index-report)",
+        "[Bain & Company — Global Venture Capital Trends](https://www.bain.com/insights/global-venture-capital-outlook-latest-trends-snap-chart/)",
+        "[Sapphire Ventures — The State of the SaaS Capital Markets](https://sapphireventures.com/blog/the-state-of-the-saas-capital-markets-2024-in-review-2025-in-focus/)",
+        "[Carta — SaaS industry spotlight Q3 2025](https://carta.com/data/saas-industry-spotlight-Q3-2025/)",
+        "[Axios — Venture funding: SaaS startups and the AI asterisk, 2026](https://www.axios.com/pro/enterprise-software-deals/2026/01/16/venture-funding-saas-startup-ai-2025)",
+        "[Computer Weekly — Tech sector layoffs mount amid AI investment frenzy](https://www.computerweekly.com/news/366606035/Tech-sector-layoffs-mount-amid-AI-investment-frenzy)",
+        "[Visual Capitalist — Where Venture Capital Money Is Going: AI vs. Everything Else](https://www.visualcapitalist.com/venture-capital-ai-vs-everything-else/)"
+      ]
+    },
+    {
+      "type": "note",
+      "variant": "info",
+      "text": "Values marked with an asterisk are approximate because of discrepancies between forecast vintages and source methodologies. This document is not investment advice."
+    }
+  ]
+}

@@ -1,8 +1,16 @@
 {
   "title": "Статьи",
-  "intro": "О palistor — декларативном MVVM-фреймворке для React.",
-  "seoTitle": "Статьи о React, MVVM и AI-агентах | Palisoft",
-  "seoDescription": "Инженерные статьи из продакшена: palistor — декларативный MVVM-фреймворк для React, harness для AI-агентов, аналитика на DuckDB и ClickHouse в браузере.",
+  "intro": "Разборы из практики: рынок разработки, архитектура, инструменты. Ниже — публикации на внешних площадках.",
+  "seoTitle": "Статьи о разработке, React и AI | Palisoft",
+  "seoDescription": "Инженерные разборы из продакшена: рынок ПО и инвестиции в AI, palistor — декларативный MVVM-фреймворк для React, harness для AI-агентов, аналитика в браузере.",
+  "postsTitle": "На сайте",
+  "externalTitle": "Внешние публикации",
+  "readingLabel": "мин чтения",
+  "readLabel": "Читать",
+  "updatedLabel": "Обновлено",
+  "backLabel": "Все статьи",
+  "copyLabel": "Копировать",
+  "copiedLabel": "Скопировано",
   "items": [
     {
       "title": "Palistor is here: the AI-friendly MVVM framework for React",

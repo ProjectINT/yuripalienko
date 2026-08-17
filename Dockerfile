@@ -54,6 +54,9 @@ COPY --from=builder --chown=node:node /app/.next/standalone ./
 COPY --from=builder --chown=node:node /app/.next/static ./.next/static
 # lib/og.tsx читает шрифты с диска относительно cwd на рендере OG-картинок.
 COPY --from=builder --chown=node:node /app/assets/fonts ./assets/fonts
+# lib/posts.ts читает content/posts/ так же с диска: OG-роут статьи динамический
+# и берёт заголовок из JSON поста уже в рантайме.
+COPY --from=builder --chown=node:node /app/content ./content
 
 USER node
 EXPOSE 3000

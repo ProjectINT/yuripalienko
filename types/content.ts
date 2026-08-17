@@ -101,6 +101,21 @@ export interface ArticlesContent {
   intro: string
   seoTitle: string
   seoDescription: string
+  /** заголовок блока своих статей над лентой постов */
+  postsTitle: string
+  /** заголовок блока внешних публикаций под лентой */
+  externalTitle: string
+  /** «7 мин чтения» — подпись после числа, считается в lib/posts.ts */
+  readingLabel: string
+  /** «Читать» — ссылка в карточке поста */
+  readLabel: string
+  /** «Обновлено 12 августа» — префикс даты правки в шапке статьи */
+  updatedLabel: string
+  /** «Все статьи» — возврат со страницы поста на индекс */
+  backLabel: string
+  /** подписи кнопки копирования в блоках кода — см. PalistorContent */
+  copyLabel: string
+  copiedLabel: string
   items: ArticleItem[]
 }
 
@@ -251,4 +266,92 @@ export interface PalistorContent {
   ctaLabel: string /** → /{lang}/contacts */
   worksLabel: string /** → /{lang}/works */
   docsLabel: string /** → README на GitHub */
+}
+
+/* ---------------------------------------------------------------------------
+ * Свои статьи: content/posts/{ru,en}/{slug}.json
+ * Источник правды — типизированный JSON, markdown-парсера в проекте нет.
+ * Чтение и проверка — lib/posts.ts, рендер — components/blog/.
+ * ------------------------------------------------------------------------- */
+
+/**
+ * Строка с инлайн-разметкой: `**жирный**`, `*курсив*`, `` `код` ``,
+ * `[текст](/palistor)` и `[текст](https://…)`. Ровно четыре конструкции,
+ * значащий символ экранируется обратным слэшем (`\*`). Разбирает
+ * components/blog/RichText.tsx — в React-узлы, без dangerouslySetInnerHTML.
+ */
+export type RichText = string
+
+/**
+ * Блок кода статьи структурно совпадает с блоком на /palistor, поэтому
+ * рендерится тем же components/ui/CodeBlock.tsx. Тип не дублируется:
+ * разъехавшись, они сломали бы переиспользование компонента.
+ */
+export type PostCode = PalistorCode
+
+/**
+ * Дискриминированный union. Новый тип = ветка в switch PostBody + компонент;
+ * без ветки падает `tsc` (never-проверка в default), а не прод.
+ * Старые посты при расширении union не трогаются.
+ */
+export type PostBlock =
+  /** level 2 | 3: H1 рисует PageHeader из title, второй H1 в теле запрещён */
+  | { type: 'heading'; level: 2 | 3; id: string; text: string }
+  | { type: 'text'; text: RichText }
+  | { type: 'list'; ordered: boolean; items: RichText[] }
+  | { type: 'quote'; text: RichText; author: string | null }
+  | { type: 'note'; variant: 'info' | 'warn'; text: RichText }
+  | ({ type: 'code' } & PostCode)
+  /** до 5 колонок; рендерится в контейнере с горизонтальным скроллом */
+  | { type: 'table'; caption: string | null; head: string[]; rows: RichText[][] }
+  /** width/height обязательны: без них next/image даёт сдвиг вёрстки */
+  | {
+      type: 'image'
+      src: string
+      alt: string
+      width: number
+      height: number
+      caption: string | null
+    }
+  | { type: 'divider' }
+
+export interface PostCover {
+  /** общий для обеих локалей путь в public/posts/{slug}/ */
+  src: string
+  /** локализуется: в ru-посте русский, в en — английский */
+  alt: string
+  width: number
+  height: number
+}
+
+/** Ровно то, что лежит в файле поста */
+export interface PostFile {
+  /** совпадает с именем файла и одинаков в обеих локалях — это и есть связка перевода */
+  slug: string
+  /** совпадает с папкой: content/posts/{lang}/ */
+  lang: string
+  /** YYYY-MM-DD, дата написания. Явное поле: в докер-сборке mtime — время чекаута */
+  date: string
+  /** null или дата правки; идёт в dateModified и в lastModified sitemap */
+  updated: string | null
+  /** true — пост не попадает ни в списки, ни в generateStaticParams, ни в sitemap */
+  draft: boolean
+  /** заголовок страницы (PageHeader) */
+  title: string
+  /** лид под заголовком, он же подзаголовок OG-картинки */
+  summary: string
+  /** отдельные от title/summary, как на всех страницах сайта */
+  seoTitle: string
+  seoDescription: string
+  /** alt для og:image */
+  ogAlt: string
+  tags: string[]
+  cover: PostCover | null
+  blocks: PostBlock[]
+}
+
+/** Пост после чтения: файл + производные поля */
+export interface Post extends PostFile {
+  /** не хранится в JSON — иначе протухнет при первой же правке текста */
+  readingMinutes: number
 }

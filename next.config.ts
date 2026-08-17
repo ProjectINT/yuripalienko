@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     // Статика из public версионируется только контентом — кэшируем намертво
-    return ["/works/:path*", "/hdri/:path*", "/logo/:path*"].map((source) => ({
+    return ["/works/:path*", "/posts/:path*", "/hdri/:path*", "/logo/:path*"].map((source) => ({
       source,
       headers: [IMMUTABLE],
     }));

@@ -29,3 +29,6 @@ yarn-error.log*
 .idea
 Dockerfile
 .dockerignore
+
+# черновики статей — в сборке не участвуют
+drafts

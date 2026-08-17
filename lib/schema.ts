@@ -1,5 +1,5 @@
 import type { Locale } from './i18n'
-import type { PalistorContent, PricingContent, WorksContent } from '@/types/content'
+import type { PalistorContent, Post, PricingContent, WorksContent } from '@/types/content'
 import { SITE_URL, SITE_NAME, urlFor } from './seo'
 import { getCv, getSite } from './content'
 
@@ -63,20 +63,60 @@ export function rootGraph(lang: Locale) {
   }
 }
 
-/** Хлебные крошки в выдаче вместо голого URL; сайт двухуровневый */
-export function breadcrumbs(lang: Locale, path: string, name: string) {
+/**
+ * Хлебные крошки в выдаче вместо голого URL. Сайт двухуровневый, кроме статей:
+ * им передаётся parent и получается Главная → Статьи → Статья.
+ */
+export function breadcrumbs(
+  lang: Locale,
+  path: string,
+  name: string,
+  parent?: { path: string; name: string },
+) {
+  const trail = [
+    { name: lang === 'ru' ? 'Главная' : 'Home', item: urlFor(lang) },
+    ...(parent ? [{ name: parent.name, item: urlFor(lang, parent.path) }] : []),
+    { name, item: urlFor(lang, path) },
+  ]
+
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: lang === 'ru' ? 'Главная' : 'Home',
-        item: urlFor(lang),
-      },
-      { '@type': 'ListItem', position: 2, name, item: urlFor(lang, path) },
-    ],
+    itemListElement: trail.map((step, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      ...step,
+    })),
+  }
+}
+
+/**
+ * Разметка своей статьи. Автор и издатель — ссылками на @id из rootGraph:
+ * статья становится ещё одним ребром графа к Person и Organization, а не
+ * изолированной сущностью с продублированными именами.
+ *
+ * `image` ставится только при своей обложке: OG-картинка статьи рендерится
+ * динамическим роутом, и её URL с суффиксом id — не тот адрес, который стоит
+ * фиксировать в разметке.
+ */
+export function blogPosting(lang: Locale, post: Post) {
+  const url = urlFor(lang, `/articles/${post.slug}`)
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': `${url}#post`,
+    url,
+    mainEntityOfPage: url,
+    headline: post.title,
+    description: post.summary,
+    inLanguage: lang,
+    datePublished: post.date,
+    dateModified: post.updated ?? post.date,
+    author: { '@id': PERSON_ID },
+    publisher: { '@id': ORG_ID },
+    isPartOf: { '@id': WEBSITE_ID },
+    ...(post.tags.length > 0 ? { keywords: post.tags.join(', ') } : {}),
+    ...(post.cover ? { image: `${SITE_URL}${post.cover.src}` } : {}),
   }
 }
 

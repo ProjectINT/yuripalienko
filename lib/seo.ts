@@ -41,27 +41,39 @@ export const robotsMeta = INDEXING_ENABLED
 /**
  * Общие метаданные страницы: title — абсолютный (без шаблона layout), чтобы
  * держать длину 50–60 символов под выдачу, а не под красоту навигации.
+ *
+ * article — только для страниц статей: даёт `og:type=article` вместо
+ * `website` и даты публикации/правки в ISO 8601.
  */
 export function metaFor(
   lang: Locale,
   path: string,
   title: string,
   description: string,
+  article?: { publishedTime: string; modifiedTime?: string },
 ): Metadata {
+  const og = {
+    url: urlFor(lang, path),
+    title,
+    description,
+    siteName: SITE_NAME,
+    locale: OG_LOCALE[lang],
+    alternateLocale: LOCALES.filter((l) => l !== lang).map((l) => OG_LOCALE[l]),
+  }
+
   return {
     title: { absolute: title },
     description,
     robots: robotsMeta,
     alternates: alternatesFor(lang, path),
-    openGraph: {
-      type: 'website',
-      url: urlFor(lang, path),
-      title,
-      description,
-      siteName: SITE_NAME,
-      locale: OG_LOCALE[lang],
-      alternateLocale: LOCALES.filter((l) => l !== lang).map((l) => OG_LOCALE[l]),
-    },
+    openGraph: article
+      ? {
+          ...og,
+          type: 'article',
+          publishedTime: article.publishedTime,
+          modifiedTime: article.modifiedTime,
+        }
+      : { ...og, type: 'website' },
     twitter: { card: 'summary_large_image', title, description },
   }
 }
