@@ -9,6 +9,7 @@ import JsonLd from '@/components/seo/JsonLd'
 import SideNav from '@/components/layout/SideNav'
 import MobileNav from '@/components/layout/MobileNav'
 import Footer from '@/components/layout/Footer'
+import ConsentGate from '@/components/analytics/ConsentGate'
 import '../globals.css'
 
 const sans = Geist({
@@ -62,8 +63,9 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
           <main className="mx-auto min-h-dvh w-full max-w-5xl px-6 pt-24 pb-24 lg:px-12 lg:pt-16">
             {children}
           </main>
-          <Footer lang={lang} />
+          <Footer lang={lang} settingsLabel={site.consent.settings} />
         </div>
+        <ConsentGate content={site.consent} />
       </body>
     </html>
   )

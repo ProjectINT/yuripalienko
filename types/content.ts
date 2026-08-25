@@ -9,6 +9,22 @@ export interface HomeContent {
   pricingLink: string
 }
 
+/**
+ * Баннер согласия на аналитику. Строки локализованы, как и весь остальной
+ * контент, — внутри компонентов баннера текста нет.
+ */
+export interface ConsentContent {
+  title: string
+  text: string
+  accept: string
+  decline: string
+  /** Подпись кнопки в подвале, которая открывает баннер повторно */
+  settings: string
+  /** Показывается при повторном открытии — какой выбор действует сейчас */
+  statusGranted: string
+  statusDenied: string
+}
+
 export interface SiteContent {
   name: string
   role: string
@@ -18,6 +34,7 @@ export interface SiteContent {
   seoTitle: string
   /** Description под выдачу (140–160 симв.) */
   seoDescription: string
+  consent: ConsentContent
   home: HomeContent
 }
 

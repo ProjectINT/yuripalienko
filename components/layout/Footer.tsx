@@ -1,11 +1,22 @@
 import type { Locale } from '@/lib/i18n'
+import ConsentSettingsButton from '@/components/analytics/ConsentSettingsButton'
 
-export default function Footer({ lang }: { lang: Locale }) {
+export default function Footer({
+  lang,
+  settingsLabel,
+}: {
+  lang: Locale
+  settingsLabel: string
+}) {
   return (
     <footer className="border-t border-line px-6 py-8 lg:px-12">
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 font-mono text-xs tracking-widest text-muted">
-        <p>
-          © 2026 Yuri Palienko ·{' '}
+        <p className="flex items-center gap-2">
+          <span>© 2026 Yuri Palienko</span>
+          <span className="text-line" aria-hidden>
+            ·
+          </span>
+          <ConsentSettingsButton label={settingsLabel} />
         </p>
         <a
           href="https://github.com/ProjectINT/yuripalienko"

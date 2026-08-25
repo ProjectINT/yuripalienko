@@ -49,9 +49,25 @@ body {
   animation: lightbox-in 0.2s ease-out;
 }
 
+@keyframes consent-in {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-consent {
+  animation: consent-in 0.25s ease-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-hero-glow,
-  .animate-lightbox {
+  .animate-lightbox,
+  .animate-consent {
     animation: none;
   }
 }

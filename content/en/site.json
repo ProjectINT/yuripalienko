@@ -5,6 +5,15 @@
   "description": "Full-stack JavaScript development studio. Node.js / NestJS / React. SaaS platforms and marketplaces from scratch to production.",
   "seoTitle": "Palisoft — SaaS, Marketplace & MVP Development Studio",
   "seoDescription": "We design and ship SaaS platforms, marketplaces and MVPs from architecture to production. Next.js, NestJS, PostgreSQL, ClickHouse. Remote, worldwide.",
+  "consent": {
+    "title": "Cookies and analytics",
+    "text": "We use Yandex Metrica to see which pages are useful. The counter and its cookies load only after you agree.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "settings": "Cookies",
+    "statusGranted": "Analytics is currently on.",
+    "statusDenied": "Analytics is currently off."
+  },
   "home": {
     "heading": "SaaS, marketplace and MVP development",
     "paragraphs": [
