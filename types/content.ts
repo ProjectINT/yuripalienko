@@ -25,15 +25,27 @@ export interface ConsentContent {
   statusDenied: string
 }
 
-export interface SiteContent {
+/**
+ * Поля, общие для всех страниц сайта: title/description под выдачу,
+ * локализованный alt OG-картинки и дата правки контента для lastmod sitemap.
+ * Длины проверяет scripts/check-seo.mjs на сборке.
+ */
+export interface PageSeo {
+  /** Полный title под выдачу (≤60 симв.), выводится без шаблона layout */
+  seoTitle: string
+  /** Description под выдачу (70–155 симв.) */
+  seoDescription: string
+  /** alt для og:image — не берётся из intro, там своя длина и смысл */
+  ogAlt: string
+  /** YYYY-MM-DD, дата последней правки контента страницы → lastmod в sitemap */
+  updated: string
+}
+
+export interface SiteContent extends PageSeo {
   name: string
   role: string
   tagline: string
   description: string
-  /** Полный title под выдачу (50–60 симв.), выводится без шаблона layout */
-  seoTitle: string
-  /** Description под выдачу (140–160 симв.) */
-  seoDescription: string
   consent: ConsentContent
   home: HomeContent
 }
@@ -69,10 +81,19 @@ export interface WorkItem {
   stack: string[]
   featured: boolean
   /**
-   * Внутренняя страница проекта («/palistor»), если она есть. Опционально:
-   * сейчас такая страница одна, остальные 10 проектов поля не имеют.
+   * Внутренняя страница проекта: «/works/<slug>» (app/[lang]/works/[slug]) или
+   * «/palistor» у фреймворка. Без поля кейс живёт только карточкой на /works.
    */
   page?: string | null
+  /** H1 страницы кейса; title остаётся короткой подписью карточки и крошек */
+  h1?: string
+  seoTitle?: string
+  seoDescription?: string
+  ogAlt?: string
+  /** Абзацы описания на странице кейса — то, чего нет в карточке */
+  description?: string[]
+  /** YYYY-MM-DD, правка текста кейса → lastmod страницы кейса */
+  updated?: string
   /** подмешивается в lib/content.ts из works-media.json, в локализованных JSON его нет */
   images?: WorkImage[]
 }
@@ -87,21 +108,40 @@ export interface HeroCard {
   full: string
 }
 
-export interface WorksContent {
+/** Подписи страницы кейса — одни на все кейсы локали */
+export interface CaseLabels {
+  about: string
+  done: string
+  stack: string
+  company: string
+  role: string
+  period: string
+  site: string
+  back: string
+  cta: string
+  pricing: string
+  /** «Скриншот {title} — {n}» — n подставляет компонент */
+  screenshot: string
+}
+
+export interface WorksContent extends PageSeo {
   title: string
+  /** H1 страницы; title — подпись в меню и крошках */
+  h1: string
   intro: string
-  seoTitle: string
-  seoDescription: string
+  caseLabels: CaseLabels
   items: WorkItem[]
 }
 
-export interface AboutContent {
+export interface AboutContent extends PageSeo {
   title: string
+  h1: string
   lead: string
-  seoTitle: string
-  seoDescription: string
-  paragraphs: string[]
+  /** Разделы с H2 — иначе на странице ни одного подзаголовка */
+  sections: { heading: string; paragraphs: string[] }[]
+  factsTitle: string
   facts: { label: string; value: string }[]
+  linksTitle: string
   links: { label: string; url: string }[]
 }
 
@@ -113,11 +153,10 @@ export interface ArticleItem {
   lang: string
 }
 
-export interface ArticlesContent {
+export interface ArticlesContent extends PageSeo {
   title: string
+  h1: string
   intro: string
-  seoTitle: string
-  seoDescription: string
   /** заголовок блока своих статей над лентой постов */
   postsTitle: string
   /** заголовок блока внешних публикаций под лентой */
@@ -149,15 +188,21 @@ export interface PricingTier {
   featured: boolean
 }
 
-export interface PricingContent {
+export interface PricingContent extends PageSeo {
   title: string
+  h1: string
   intro: string
-  seoTitle: string
-  seoDescription: string
   tiers: PricingTier[]
   stackTitle: string
   stack: { group: string; items: string[] }[]
+  /** Как считается оценка и как идёт работа — закрывает возражения до созвона */
+  processTitle: string
+  process: { title: string; text: string }[]
+  faqTitle: string
+  /** идут в FAQPage JSON-LD как есть, поэтому без разметки и без ссылок */
+  faq: { q: string; a: string }[]
   note: string
+  ctaLabel: string
 }
 
 export interface CvJob {
@@ -172,11 +217,10 @@ export interface CvJob {
   current: boolean
 }
 
-export interface CvContent {
+export interface CvContent extends PageSeo {
   title: string
+  h1: string
   intro: string
-  seoTitle: string
-  seoDescription: string
   pdfUrl: string
   pdfLabel: string
   profile: string
@@ -186,14 +230,21 @@ export interface CvContent {
   education: { year: string; title: string; note: string }[]
 }
 
-export interface ContactsContent {
+export interface ContactsContent extends PageSeo {
   title: string
+  h1: string
   intro: string
-  seoTitle: string
-  seoDescription: string
   channels: { label: string; value: string; url: string; primary: boolean }[]
-  location: string
+  availabilityLabel: string
   availability: string
+  locationLabel: string
+  location: string
+  /** Что написать в первом сообщении — чтобы разговор начался с сути */
+  briefTitle: string
+  brief: string[]
+  /** Как идёт работа после первого сообщения */
+  processTitle: string
+  process: { title: string; text: string }[]
 }
 
 export interface PalistorLink {
@@ -235,13 +286,10 @@ export interface PalistorStep {
   code: PalistorCode
 }
 
-export interface PalistorContent {
+export interface PalistorContent extends PageSeo {
   title: string
+  h1: string
   intro: string
-  seoTitle: string
-  seoDescription: string
-  /** alt для og:image — не берётся из intro, там своя длина и смысл */
-  ogAlt: string
   /** «MIT · React 19 · TypeScript» — мета-строка под заголовком */
   meta: string[]
   links: PalistorLink[]
@@ -344,6 +392,8 @@ export interface PostCover {
 /** Ровно то, что лежит в файле поста */
 export interface PostFile {
   /** совпадает с именем файла и одинаков в обеих локалях — это и есть связка перевода */
+  id: string
+  /** URL-слаг этой локали: /{lang}/articles/{slug}. У перевода свой слаг на своём языке */
   slug: string
   /** совпадает с папкой: content/posts/{lang}/ */
   lang: string
@@ -371,4 +421,6 @@ export interface PostFile {
 export interface Post extends PostFile {
   /** не хранится в JSON — иначе протухнет при первой же правке текста */
   readingMinutes: number
+  /** слаг этого же поста в каждой локали — для hreflang, sitemap и переключателя языка */
+  alternates: Record<string, string>
 }

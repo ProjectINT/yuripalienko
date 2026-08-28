@@ -4,7 +4,7 @@ import type { Locale } from '@/lib/i18n'
 import { isLocale } from '@/lib/i18n'
 import { getPricing } from '@/lib/content'
 import { metaFor } from '@/lib/seo'
-import { breadcrumbs, pricingGraph } from '@/lib/schema'
+import { breadcrumbs, faqPage, pricingGraph } from '@/lib/schema'
 import type { PricingTier } from '@/types/content'
 import JsonLd from '@/components/seo/JsonLd'
 import PageShell from '@/components/ui/PageShell'
@@ -39,7 +39,8 @@ export default async function PricingPage({ params }: PageProps<'/[lang]/pricing
     <PageShell>
       <JsonLd data={breadcrumbs(lang, '/pricing', pricing.title)} />
       <JsonLd data={pricingGraph(lang, pricing)} />
-      <PageHeader title={pricing.title} intro={pricing.intro} />
+      <JsonLd data={faqPage(lang, '/pricing', pricing.faq)} />
+      <PageHeader title={pricing.h1} intro={pricing.intro} />
       {/* Один тариф разворачивается в две колонки, несколько — в сетку карточек */}
       <div className={solo ? '' : 'grid grid-cols-1 gap-6 lg:grid-cols-3'}>
         {pricing.tiers.map((tier) => (
@@ -85,6 +86,27 @@ export default async function PricingPage({ params }: PageProps<'/[lang]/pricing
           </Card>
         ))}
       </div>
+
+      <section className="space-y-8">
+        <h2 className="text-2xl font-bold tracking-tight lg:text-3xl">{pricing.processTitle}</h2>
+        <ol className="space-y-8">
+          {pricing.process.map((step, index) => (
+            <li
+              key={step.title}
+              className="grid grid-cols-1 gap-2 border-t border-line pt-6 lg:grid-cols-[12rem_1fr] lg:gap-8"
+            >
+              <p className="font-mono text-xs uppercase tracking-widest text-muted">
+                {String(index + 1).padStart(2, '0')}
+              </p>
+              <div className="min-w-0 max-w-prose">
+                <h3 className="font-medium">{step.title}</h3>
+                <p className="mt-1 leading-relaxed text-muted">{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
       <section className="space-y-6">
         <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
           {pricing.stackTitle}
@@ -102,13 +124,28 @@ export default async function PricingPage({ params }: PageProps<'/[lang]/pricing
           ))}
         </div>
       </section>
-      <div className="space-y-6">
+
+      {/* FAQ дублируется в FAQPage JSON-LD: robots.txt пускает AI-краулеров,
+          а вопрос-ответ — лучший формат для извлечения фактов LLM */}
+      <section id="faq" className="space-y-6">
+        <h2 className="text-2xl font-bold tracking-tight lg:text-3xl">{pricing.faqTitle}</h2>
+        <div className="max-w-prose space-y-8">
+          {pricing.faq.map((item) => (
+            <div key={item.q} className="space-y-2">
+              <h3 className="font-medium">{item.q}</h3>
+              <p className="leading-relaxed text-muted">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="space-y-6 border-t border-line pt-8">
         <p className="max-w-prose leading-relaxed text-muted">{pricing.note}</p>
         <Link
           href={`/${lang}/contacts`}
           className="inline-block border-b border-fg pb-1 font-mono text-sm uppercase tracking-widest transition-colors hover:text-muted focus-visible:outline-2 focus-visible:outline-offset-2"
         >
-          {lang === 'ru' ? 'Обсудить задачу →' : 'Discuss a project →'}
+          {pricing.ctaLabel} →
         </Link>
       </div>
     </PageShell>

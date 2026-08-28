@@ -5,9 +5,10 @@
   "packageManager": "pnpm@10.18.2",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/check-seo.mjs && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:seo": "node scripts/check-seo.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

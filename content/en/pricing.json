@@ -1,8 +1,11 @@
 {
   "title": "Pricing",
+  "h1": "Pricing: complex web applications and SaaS from $6,000",
   "intro": "We work per project or as a dedicated team. Estimate after the first call.",
-  "seoTitle": "Complex Web App & SaaS Development Pricing — from $6,000 | Palisoft",
-  "seoDescription": "Transparent pricing: a SaaS platform, marketplace or BI system from $6,000 — architecture, event-driven backend, multi-tenancy, integrations. Next.js, NestJS, Supabase.",
+  "seoTitle": "SaaS & Web App Development Pricing — from $6,000 | Palisoft",
+  "seoDescription": "SaaS platform, marketplace or BI system from $6,000: architecture, event-driven backend, multi-tenancy, integrations, launch. Next.js, NestJS, Supabase.",
+  "ogAlt": "Palisoft pricing — complex web application and SaaS development from $6,000",
+  "updated": "2026-08-28",
   "tiers": [
     {
       "slug": "complex",
@@ -20,6 +23,25 @@
         "Post-launch support"
       ],
       "featured": true
+    }
+  ],
+  "processTitle": "How we estimate and work",
+  "process": [
+    {
+      "title": "Call and brief",
+      "text": "A 30–60 minute call about the product, its users, constraints and what the first release must do. No pitch deck required."
+    },
+    {
+      "title": "Written estimate",
+      "text": "Scope, architecture outline, milestones and a price range within a few days. The estimate is free and does not commit you to anything."
+    },
+    {
+      "title": "Milestones and demos",
+      "text": "Work is split into milestones of two to four weeks, each with a demo on a staging environment and payment on acceptance."
+    },
+    {
+      "title": "Launch and support",
+      "text": "Production launch, monitoring, and a support arrangement after release — fixed hours per month or on request."
     }
   ],
   "stackTitle": "The stack we build on",
@@ -54,5 +76,41 @@
       ]
     }
   ],
-  "note": "An exact estimate comes after discussing the task. Part-time work or a dedicated team lead arrangement is possible."
+  "faqTitle": "Questions about pricing and process",
+  "faq": [
+    {
+      "q": "What does the price “from $6,000” include?",
+      "a": "A complete first release of a complex application: architecture, backend, frontend, integrations, deployment and launch. The lower bound is for a focused MVP with one core scenario; a platform with multi-tenancy, billing and several integrations is estimated separately after the call."
+    },
+    {
+      "q": "How long does a project take?",
+      "a": "An MVP with one core scenario — 6–10 weeks. A SaaS platform with billing, roles and integrations — 3–6 months to the first production release, then iterations. Dates are fixed in the estimate per milestone."
+    },
+    {
+      "q": "How is payment structured?",
+      "a": "By milestones: a prepayment for the first one, then payment on acceptance of each milestone after its demo. For a dedicated team or part-time format — monthly."
+    },
+    {
+      "q": "Who owns the code?",
+      "a": "You do. The code lives in your repository from the first commit, along with infrastructure configs and documentation. There is no vendor lock-in on our side."
+    },
+    {
+      "q": "What happens after launch?",
+      "a": "Post-launch support is part of the engagement: monitoring, fixes and small improvements. Beyond that — a support plan with a fixed number of hours per month, or work on request."
+    },
+    {
+      "q": "Do you work with an existing codebase?",
+      "a": "Yes. We start with an audit of the architecture and the code, propose a plan, and continue with your stack when it makes sense — a rewrite is the last option, not the first."
+    },
+    {
+      "q": "Can you work as part of our team?",
+      "a": "Yes: a part-time architect or team lead, or a dedicated team for a longer period. The format and hours are agreed at the start."
+    },
+    {
+      "q": "Which stack do you use and why?",
+      "a": "TypeScript across the stack: Next.js and React on the frontend, Node.js with NestJS on the backend, PostgreSQL (often via Supabase), ClickHouse for analytics, Kafka and Redis for event flows. It is the stack we have run in production for years with hundreds of B2B clients."
+    }
+  ],
+  "note": "An exact estimate comes after discussing the task. Part-time work or a dedicated team lead arrangement is possible.",
+  "ctaLabel": "Discuss a project"
 }

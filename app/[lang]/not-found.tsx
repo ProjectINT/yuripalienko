@@ -28,8 +28,9 @@ export default function NotFound() {
 
   return (
     <section className="flex min-h-[50dvh] flex-col items-start justify-center gap-6">
-      {/* React 19 поднимет title и meta в <head>; страницы 404 не индексируем */}
-      <title>{`404 — ${copy.title}`}</title>
+      {/* React 19 поднимает meta в <head>. <title> здесь не работает — его
+          перебивает Metadata API, поэтому заголовок 404 задан как
+          title.default в layout.tsx. Страницы 404 не индексируем. */}
       <meta name="robots" content="noindex" />
       <p className="font-mono text-xs uppercase tracking-widest text-muted">404</p>
       <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-none tracking-tighter">

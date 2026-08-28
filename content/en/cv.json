@@ -1,8 +1,11 @@
 {
   "title": "CV",
+  "h1": "Yuri Palienko — Senior Full-Stack JavaScript Engineer & Team Lead",
   "intro": "Senior / Lead Full-Stack JavaScript Engineer",
   "seoTitle": "Yuri Palienko — Senior Full-Stack JS / Team Lead CV",
-  "seoDescription": "CV: 10+ years in JavaScript, 4+ years as a team lead. Node.js, NestJS, React, Next.js, Kafka, ClickHouse. SaaS platforms grown to 500+ B2B clients. PDF inside.",
+  "seoDescription": "CV: 10+ years in JavaScript, 4+ years as a team lead. Node.js, NestJS, React, Next.js, Kafka, ClickHouse. SaaS platforms grown to 500+ B2B clients. PDF.",
+  "ogAlt": "Yuri Palienko — Senior Full-Stack JavaScript / Team Lead CV",
+  "updated": "2026-08-28",
   "pdfUrl": "/cv/yuri-palienko-fullstack-tl.pdf",
   "pdfLabel": "Download PDF",
   "profile": "Full-Stack JavaScript Architect and Team Lead. I specialize in designing and delivering SaaS platforms and marketplaces from scratch to production. Deep expertise in backend architecture with Node.js/NestJS, event-driven systems and high-load solutions. Built engineering processes in distributed teams.",

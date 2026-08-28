@@ -15,7 +15,11 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/articles'>
   const { lang } = await params
   if (!isLocale(lang)) return {}
   const articles = getArticles(lang)
-  return metaFor(lang, '/articles', articles.seoTitle, articles.seoDescription)
+  // Своего opengraph-image.tsx у сегмента нет (он есть у [slug] ниже) —
+  // запасная статическая картинка
+  return metaFor(lang, '/articles', articles.seoTitle, articles.seoDescription, {
+    image: { alt: articles.ogAlt },
+  })
 }
 
 export default async function ArticlesPage({ params }: PageProps<'/[lang]/articles'>) {
@@ -28,7 +32,7 @@ export default async function ArticlesPage({ params }: PageProps<'/[lang]/articl
   return (
     <PageShell>
       <JsonLd data={breadcrumbs(lang, '/articles', articles.title)} />
-      <PageHeader title={articles.title} intro={articles.intro} />
+      <PageHeader title={articles.h1} intro={articles.intro} />
 
       {posts.length > 0 ? (
         <section id="posts" className="space-y-10">

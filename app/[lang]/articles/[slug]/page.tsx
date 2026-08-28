@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { isLocale } from '@/lib/i18n'
 import { getArticles } from '@/lib/content'
-import { getPost, getPostSlugs } from '@/lib/posts'
+import { getPost, getPosts } from '@/lib/posts'
 import { metaFor } from '@/lib/seo'
 import { blogPosting, breadcrumbs } from '@/lib/schema'
 import JsonLd from '@/components/seo/JsonLd'
@@ -13,15 +13,17 @@ import PostBody from '@/components/blog/PostBody'
 import PostMeta from '@/components/blog/PostMeta'
 
 /**
- * Страница своей статьи. Слаги приходят из lib/posts.ts и существуют только
- * парами ru+en, поэтому dynamicParams = false: неизвестный слаг отдаёт 404
- * сразу, а не пытается собраться в рантайме из отсутствующего файла.
+ * Страница своей статьи. Посты существуют только парами ru+en, но слаг у
+ * каждой локали свой (lib/posts.ts), поэтому generateStaticParams берёт lang
+ * из родительского сегмента и отдаёт слаги именно этой локали.
+ * dynamicParams = false: неизвестный слаг отдаёт 404 сразу; чужой слаг
+ * (из другой локали) перехватывает proxy.ts и редиректит на свой.
  */
 export const dynamicParams = false
 
-export function generateStaticParams() {
-  // lang добирает generateStaticParams родительского layout: слаг в паре один
-  return getPostSlugs().map((slug) => ({ slug }))
+export function generateStaticParams({ params }: { params: { lang: string } }) {
+  if (!isLocale(params.lang)) return []
+  return getPosts(params.lang).map((post) => ({ slug: post.slug }))
 }
 
 /** `2026-08-16` → ISO 8601 для article:published_time */
@@ -34,8 +36,16 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/articles/[
   if (!post) return {}
 
   return metaFor(lang, `/articles/${slug}`, post.seoTitle, post.seoDescription, {
-    publishedTime: toIso(post.date),
-    modifiedTime: post.updated ? toIso(post.updated) : undefined,
+    article: {
+      publishedTime: toIso(post.date),
+      modifiedTime: post.updated ? toIso(post.updated) : undefined,
+      section: getArticles(lang).title,
+      tags: post.tags,
+    },
+    // hreflang на перевод — по его собственному слагу
+    paths: Object.fromEntries(
+      Object.entries(post.alternates).map(([l, s]) => [l, `/articles/${s}`]),
+    ),
   })
 }
 

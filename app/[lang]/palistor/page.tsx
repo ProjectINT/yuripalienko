@@ -15,11 +15,10 @@ import CodeBlock from '@/components/ui/CodeBlock'
  * `/{lang}/palistor` — канонический URL бренда Palistor (короткий, под
  * брендовый запрос из выдачи).
  *
- * Когда появится общий роут страниц проектов `/{lang}/works/[slug]` (P1-3 из
- * docs/seo-plan.md), slug `palistor` даст два URL с одним содержимым и
- * каннибализацию. Тогда — либо исключить `palistor` из generateStaticParams
- * того роута, либо отдать с него 301 сюда через redirects() в next.config.ts.
- * Вопрос решён здесь, переоткрывать его не нужно.
+ * Общий роут кейсов `/{lang}/works/[slug]` существует, но `palistor` в его
+ * generateStaticParams не попадает (у него page = /palistor, а не
+ * /works/palistor), а /works/palistor отдаёт 301 сюда через redirects()
+ * в next.config.ts — два URL с одним содержимым исключены.
  */
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/palistor'>) {
@@ -42,7 +41,7 @@ export default async function PalistorPage({ params }: PageProps<'/[lang]/palist
       <JsonLd data={faqPage(lang, '/palistor', palistor.faq)} />
 
       <div className="space-y-6">
-        <PageHeader title={palistor.title} intro={palistor.intro} />
+        <PageHeader title={palistor.h1} intro={palistor.intro} />
         <p className="font-mono text-xs uppercase tracking-widest text-muted">
           {palistor.meta.join(' · ')}
         </p>

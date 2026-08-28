@@ -24,7 +24,7 @@ export default async function WorksPage({ params }: PageProps<'/[lang]/works'>) 
     <PageShell>
       <JsonLd data={breadcrumbs(lang, '/works', works.title)} />
       <JsonLd data={worksItemList(lang, works)} />
-      <PageHeader title={works.title} intro={works.intro} />
+      <PageHeader title={works.h1} intro={works.intro} />
       <div className="grid grid-cols-1 gap-x-12 gap-y-12 lg:grid-cols-2">
         {works.items.map((item, index) => (
           <WorkCard key={item.slug} item={item} lang={lang} priority={index === 0} />

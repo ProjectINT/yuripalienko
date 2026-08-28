@@ -1,9 +1,11 @@
 {
   "title": "Palistor",
+  "h1": "Palistor — открытый MVVM-фреймворк для React",
   "intro": "Открытый MVVM-фреймворк для React. Поведение экрана уезжает в конфиг, данные остаются за резольвером, а JSX остаётся тонким слоем отображения. Обкатан в продакшене pali.rent и kvartly.com; публичный API ещё уплотняется — версии 0.0.x.",
   "seoTitle": "Palistor — открытый MVVM-фреймворк для React | Palisoft",
   "seoDescription": "Открытый MVVM-фреймворк для React: формы, списки, мастера. Точечные ре-рендеры, конфиг вместо useEffect. В продакшене pali.rent и kvartly.com.",
   "ogAlt": "Palistor — открытый MVVM-фреймворк для React от студии Palisoft",
+  "updated": "2026-08-28",
   "meta": [
     "MIT",
     "React 19",

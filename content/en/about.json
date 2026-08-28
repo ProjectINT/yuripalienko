@@ -1,14 +1,40 @@
 {
   "title": "About",
+  "h1": "About Palisoft: a full-stack JavaScript studio led by Yuri Palienko",
   "lead": "Full-Stack JavaScript architect and Team Lead. I specialize in designing and delivering SaaS platforms and marketplaces from scratch to production.",
   "seoTitle": "About Palisoft — Full-Stack JavaScript Development Studio",
-  "seoDescription": "The studio of Yuri Palienko: 10+ years in development, 4+ years as a team lead. SaaS platforms, marketplaces and AI agents — from architecture to production.",
-  "paragraphs": [
-    "10+ years in development, 4+ years as a Team Lead. Deep expertise in backend architecture with Node.js and NestJS, event-driven systems and high-load solutions.",
-    "For four years I led a distributed team in Rome: architecture decisions, code review, mentoring. Kept the platform stable under growing load as it scaled to 500+ corporate clients.",
-    "These days I build my own products in EdTech, PropTech and SaaS, plus open source: palistor (a declarative MVVM framework for React) and paliproxy.",
-    "A separate focus is AI agents in production: a harness with tools, subagents and a memory system for managing an application and its data."
+  "seoDescription": "The studio of Yuri Palienko: 10+ years in development, 4+ years as a team lead. SaaS platforms, marketplaces and AI agents — architecture to production.",
+  "ogAlt": "About Palisoft — Yuri Palienko, full-stack JavaScript architect and team lead",
+  "updated": "2026-08-28",
+  "sections": [
+    {
+      "heading": "Experience",
+      "paragraphs": [
+        "10+ years in development, 4+ years as a Team Lead. Deep expertise in backend architecture with Node.js and NestJS, event-driven systems and high-load solutions.",
+        "For four years I led a distributed team in Rome: architecture decisions, code review, mentoring. Kept the platform stable under growing load as it scaled to 500+ corporate clients — the toprentapp.com and billionrent.com case studies describe how."
+      ]
+    },
+    {
+      "heading": "Own products and open source",
+      "paragraphs": [
+        "These days I build my own products in EdTech, PropTech and SaaS — egesto.ru, kvartly.com, pali.rent — plus open source: Palistor, a declarative MVVM framework for React that runs in production on two of them, and paliproxy, a proxy pool manager for Node.js."
+      ]
+    },
+    {
+      "heading": "AI agents in production",
+      "paragraphs": [
+        "A separate focus is AI agents in production: a harness with tools, subagents and a memory system for managing an application and its data. The most complete example is the AI agent inside a Power BI-grade analytics system, which builds reports and changes data models in natural language."
+      ]
+    },
+    {
+      "heading": "How we work",
+      "paragraphs": [
+        "Palisoft is a small studio, not an agency: the person you talk to on the first call is the one who designs the architecture and writes the core of the system. When a project needs more hands, we bring in developers we have worked with before and keep the technical lead in-house.",
+        "Every project starts with architecture: data model, service boundaries, event flows and the deployment scheme are written down before the first feature. That is what lets a platform grow from zero to hundreds of B2B clients without a rewrite. Code lives in your repository from the first commit, work goes in milestones with demos, and support continues after launch."
+      ]
+    }
   ],
+  "factsTitle": "Facts",
   "facts": [
     {
       "label": "Experience",
@@ -27,14 +53,27 @@
       "value": "Sochi, Russia"
     }
   ],
+  "linksTitle": "Links",
   "links": [
+    {
+      "label": "Case studies — SaaS, marketplaces, BI",
+      "url": "/works"
+    },
+    {
+      "label": "Palistor — MVVM framework for React",
+      "url": "/palistor"
+    },
     {
       "label": "GitHub — ProjectINT",
       "url": "https://github.com/ProjectINT"
     },
     {
-      "label": "Palistor — MVVM framework for React",
-      "url": "/palistor"
+      "label": "LinkedIn — Yuri Palienko",
+      "url": "https://www.linkedin.com/in/yuripalienko/"
+    },
+    {
+      "label": "X — @PalienkoYuri",
+      "url": "https://x.com/PalienkoYuri"
     }
   ]
 }

@@ -1,9 +1,11 @@
 {
   "title": "Palistor",
+  "h1": "Palistor — open-source MVVM framework for React",
   "intro": "An open-source MVVM framework for React. Screen behaviour goes into a config, data stays behind a resolver, and JSX is left as a thin rendering layer. Battle-tested in production on pali.rent and kvartly.com; the public API is still tightening up — versions 0.0.x.",
   "seoTitle": "Palistor — open-source MVVM framework for React | Palisoft",
   "seoDescription": "Open-source MVVM framework for React: forms, lists, wizards. Granular re-renders, config instead of useEffect. In production on pali.rent and kvartly.com.",
   "ogAlt": "Palistor — an open-source MVVM framework for React by Palisoft",
+  "updated": "2026-08-28",
   "meta": [
     "MIT",
     "React 19",

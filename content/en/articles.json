@@ -1,8 +1,11 @@
 {
   "title": "Writing",
+  "h1": "Articles on software, React architecture and AI",
   "intro": "Analysis from practice: the software market, architecture, tooling. Below — publications on external platforms.",
   "seoTitle": "Articles on Software, React and AI | Palisoft",
-  "seoDescription": "Engineering writing from production experience: the software market and AI investment, palistor — a declarative MVVM framework for React, AI agent harnesses, in-browser analytics.",
+  "seoDescription": "Engineering writing from production: the software market and AI investment, Palistor — an MVVM framework for React, AI agent harnesses, browser analytics.",
+  "ogAlt": "Palisoft articles — software market, React architecture, AI agents",
+  "updated": "2026-08-28",
   "postsTitle": "On the site",
   "externalTitle": "External publications",
   "readingLabel": "min read",

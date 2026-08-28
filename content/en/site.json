@@ -5,6 +5,8 @@
   "description": "Full-stack JavaScript development studio. Node.js / NestJS / React. SaaS platforms and marketplaces from scratch to production.",
   "seoTitle": "Palisoft — SaaS, Marketplace & MVP Development Studio",
   "seoDescription": "We design and ship SaaS platforms, marketplaces and MVPs from architecture to production. Next.js, NestJS, PostgreSQL, ClickHouse. Remote, worldwide.",
+  "ogAlt": "Palisoft — Yuri Palienko, Full-Stack Architect & Team Lead",
+  "updated": "2026-08-28",
   "consent": {
     "title": "Cookies and analytics",
     "text": "We use Yandex Metrica to see which pages are useful. The counter and its cookies load only after you agree.",

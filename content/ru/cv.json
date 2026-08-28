@@ -1,8 +1,11 @@
 {
   "title": "Резюме",
+  "h1": "Юрий Палиенко — Senior Full-Stack JavaScript / Team Lead",
   "intro": "Senior / Lead Full-Stack JavaScript Engineer",
   "seoTitle": "Юрий Палиенко — резюме Senior Full-Stack JS / Team Lead",
   "seoDescription": "Резюме Юрия Палиенко: 10+ лет в JavaScript, 4+ года Team Lead. Node.js, NestJS, React, Next.js, Kafka, ClickHouse. SaaS с нуля до 500+ B2B-клиентов. PDF.",
+  "ogAlt": "Юрий Палиенко — резюме Senior Full-Stack JavaScript / Team Lead",
+  "updated": "2026-08-28",
   "pdfUrl": "/cv/yuri-palienko-fullstack-tl.pdf",
   "pdfLabel": "Скачать PDF",
   "profile": "Full-Stack JavaScript Architect и Team Lead. Специализируюсь на проектировании и доставке SaaS-платформ и маркетплейсов с нуля до продакшена. Глубокая экспертиза в backend-архитектуре на Node.js/NestJS, event-driven системах и высоконагруженных решениях. Выстраивал инженерные процессы в распределённых командах.",

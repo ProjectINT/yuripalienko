@@ -21,6 +21,8 @@ import type { Post, PostBlock, PostCover, PostFile } from '@/types/content'
 const POSTS_DIR = join(process.cwd(), 'content/posts')
 
 const DATE_FORMAT = /^\d{4}-\d{2}-\d{2}$/
+/** URL-слаг: латиница, цифры, дефис — кириллица и пробелы в адресе не нужны */
+const SLUG_FORMAT = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 
 /** Средняя скорость чтения технического текста; 180 — общепринятая оценка для обоих языков */
 const WORDS_PER_MINUTE = 180
@@ -185,7 +187,7 @@ function block(file: string, value: unknown, index: number): PostBlock {
   }
 }
 
-function parsePost(file: string, lang: Locale, slug: string, raw: string): PostFile {
+function parsePost(file: string, lang: Locale, id: string, raw: string): PostFile {
   let value: unknown
   try {
     value = JSON.parse(raw)
@@ -194,8 +196,12 @@ function parsePost(file: string, lang: Locale, slug: string, raw: string): PostF
   }
   if (!isRecord(value)) fail(file, 'ожидался объект поста')
 
-  if (str(file, value, 'slug') !== slug) {
-    fail(file, `slug "${value.slug}" не совпадает с именем файла "${slug}"`)
+  if (str(file, value, 'id') !== id) {
+    fail(file, `id "${value.id}" не совпадает с именем файла "${id}"`)
+  }
+  const slug = str(file, value, 'slug')
+  if (!SLUG_FORMAT.test(slug)) {
+    fail(file, `slug "${slug}": допустимы только строчные латинские буквы, цифры и дефис`)
   }
   if (str(file, value, 'lang') !== lang) {
     fail(file, `lang "${value.lang}" не совпадает с папкой "${lang}"`)
@@ -213,6 +219,7 @@ function parsePost(file: string, lang: Locale, slug: string, raw: string): PostF
   if (duplicate) fail(file, `heading.id "${duplicate}" встречается дважды`)
 
   return {
+    id,
     slug,
     lang,
     date: date(file, value, 'date'),
@@ -236,9 +243,9 @@ function readLocale(lang: Locale): Map<string, PostFile> {
 
   for (const name of readdirSync(dir).sort()) {
     if (!name.endsWith('.json')) continue
-    const slug = name.slice(0, -'.json'.length)
+    const id = name.slice(0, -'.json'.length)
     const file = `content/posts/${lang}/${name}`
-    posts.set(slug, parsePost(file, lang, slug, readFileSync(join(dir, name), 'utf8')))
+    posts.set(id, parsePost(file, lang, id, readFileSync(join(dir, name), 'utf8')))
   }
   return posts
 }
@@ -317,38 +324,59 @@ function loadAll(): Record<Locale, Post[]> {
     Post[]
   >
 
-  const slugs = [...new Set(LOCALES.flatMap((lang) => [...byLocale[lang].keys()]))].sort()
+  const ids = [...new Set(LOCALES.flatMap((lang) => [...byLocale[lang].keys()]))].sort()
 
-  for (const slug of slugs) {
-    // Публикуется только полная пара: непарный слаг не существует ни в одной
+  // Слаг → id по всем локалям: слаг одной локали не должен вести к другому
+  // посту в соседней, иначе редирект в proxy.ts отправит читателя не туда.
+  const owners = new Map<string, string>()
+
+  for (const id of ids) {
+    // Публикуется только полная пара: непарный id не существует ни в одной
     // локали (сработает [...rest] → 404), но сборка при этом жива.
-    const missing = LOCALES.filter((lang) => !byLocale[lang].has(slug))
+    const missing = LOCALES.filter((lang) => !byLocale[lang].has(id))
     if (missing.length > 0) {
-      console.warn(`[posts] пропущено: ${slug} — нет перевода ${missing.join(', ')}`)
+      console.warn(`[posts] пропущено: ${id} — нет перевода ${missing.join(', ')}`)
       continue
     }
 
-    const pair = LOCALES.map((lang) => byLocale[lang].get(slug)!)
+    const pair = LOCALES.map((lang) => byLocale[lang].get(id)!)
     if (pair.some((post) => post.draft)) {
       if (pair.some((post) => !post.draft)) {
-        console.warn(`[posts] ${slug}: draft различается между локалями — пост не публикуется`)
+        console.warn(`[posts] ${id}: draft различается между локалями — пост не публикуется`)
       }
       continue
     }
 
     for (const post of pair.slice(1)) {
       const mismatch = structureMismatch(pair[0], post)
-      if (mismatch) console.warn(`[posts] ${slug}: структура перевода разошлась — ${mismatch}`)
+      if (mismatch) console.warn(`[posts] ${id}: структура перевода разошлась — ${mismatch}`)
     }
 
+    for (const post of pair) {
+      const owner = owners.get(post.slug)
+      if (owner && owner !== id) {
+        fail(`content/posts/${post.lang}/${id}.json`, `slug "${post.slug}" уже занят постом "${owner}"`)
+      }
+      owners.set(post.slug, id)
+    }
+
+    const alternates = Object.fromEntries(pair.map((post) => [post.lang, post.slug])) as Record<
+      Locale,
+      string
+    >
+
     pair.forEach((post) => {
-      result[post.lang as Locale].push({ ...post, readingMinutes: readingMinutes(post.blocks) })
+      result[post.lang as Locale].push({
+        ...post,
+        alternates,
+        readingMinutes: readingMinutes(post.blocks),
+      })
     })
   }
 
-  // Свежие сверху; при одной дате — стабильный порядок по слагу
+  // Свежие сверху; при одной дате — стабильный порядок по id
   for (const lang of LOCALES) {
-    result[lang].sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug))
+    result[lang].sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id))
   }
   return result
 }
@@ -373,7 +401,14 @@ export function getPost(lang: Locale, slug: string): Post | null {
   return all()[lang].find((post) => post.slug === slug) ?? null
 }
 
-/** Слаги опубликованных пар — для generateStaticParams; они одинаковы во всех локалях */
-export function getPostSlugs(): string[] {
-  return all()[LOCALES[0]].map((post) => post.slug)
+/**
+ * Слаг поста в локали lang по слагу из любой локали. Для proxy.ts: чужой слаг
+ * (переключатель языка, старая ссылка) → 308 на свой; null — поста нет.
+ */
+export function findPostSlug(lang: Locale, slug: string): string | null {
+  for (const locale of LOCALES) {
+    const post = all()[locale].find((item) => item.slug === slug)
+    if (post) return post.alternates[lang]
+  }
+  return null
 }

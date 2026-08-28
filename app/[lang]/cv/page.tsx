@@ -27,7 +27,7 @@ export default async function CvPage({ params }: PageProps<'/[lang]/cv'>) {
       <JsonLd data={breadcrumbs(lang, '/cv', cv.title)} />
       <JsonLd data={profilePage(lang, '/cv')} />
       <div className="space-y-8">
-        <PageHeader title={cv.title} intro={cv.intro} />
+        <PageHeader title={cv.h1} intro={cv.intro} />
         <a
           href={cv.pdfUrl}
           download

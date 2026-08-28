@@ -1,17 +1,45 @@
 {
   "title": "Work",
+  "h1": "SaaS platforms, marketplaces and BI systems: case studies",
   "intro": "10+ years: SaaS platforms, marketplaces, BI systems and my own products.",
   "seoTitle": "Portfolio: SaaS, Marketplaces & BI Systems | Palisoft",
   "seoDescription": "Fleet-management SaaS with 500+ B2B clients, a car rental marketplace, Power BI-grade analytics, AI agents in production. Next.js, NestJS, ClickHouse.",
+  "ogAlt": "Palisoft portfolio — SaaS, marketplaces and BI systems",
+  "updated": "2026-08-28",
+  "caseLabels": {
+    "about": "About the project",
+    "done": "What was done",
+    "stack": "Stack",
+    "company": "Company",
+    "role": "Role",
+    "period": "Period",
+    "site": "Website",
+    "back": "All work",
+    "cta": "Discuss a project",
+    "pricing": "Pricing",
+    "screenshot": "Interface screenshot: {title} — {n}"
+  },
   "items": [
     {
       "slug": "toprentapp",
       "title": "toprentapp.com",
+      "h1": "toprentapp.com — fleet-management SaaS from zero to 500+ B2B clients",
       "url": "https://toprentapp.com",
+      "page": "/works/toprentapp",
       "role": "Team Lead",
       "period": "2020 — 2025",
       "company": "Laflei ltd, Rome",
       "summary": "SaaS for fleet management and car rental companies. Built from scratch, grew to 500+ corporate clients with 20% year-over-year growth.",
+      "seoTitle": "toprentapp.com: Fleet-Management SaaS Case Study | Palisoft",
+      "seoDescription": "Car rental management SaaS built from scratch: bookings, fleet, contracts, payments. 500+ corporate clients, 20% YoY growth. Next.js, NestJS, Kafka.",
+      "ogAlt": "toprentapp.com case study — fleet-management SaaS with 500+ B2B clients",
+      "updated": "2026-08-28",
+      "description": [
+        "toprentapp.com is a web-based management and booking system for car rental companies: reservations, fleet, customer records, contracts, payments and reporting in one workspace. The product started from an empty repository in 2020 and by 2025 served 500+ corporate clients with sustained 20% year-over-year growth.",
+        "I led the distributed team at Laflei ltd (Rome) as Team Lead: architecture decisions, code review, mentoring, release process. The core is a Node.js / NestJS backend over PostgreSQL with Kafka for event-driven flows between booking, billing and notification services; the frontend is React and Next.js with GraphQL (Relay) and a custom UI library with dynamic theming for white-label deployments.",
+        "Beyond cars the platform serves bike, boat, scooter, camper and equipment fleets. Documents are the part clients notice first: multilingual contracts are generated automatically and signed digitally with OTP, so paperwork that used to take five minutes closes in about twenty seconds. Damage reports with photo and video, check-in/check-out checklists, GPS modules, a website booking widget and WhatsApp reminders complete the loop.",
+        "Integrations: Stripe for payments, Firebase for auth and push notifications, Cloudinary for media. Native iOS and Android apps sit on the same API. The main engineering challenge was keeping the platform stable under growing load while shipping features weekly — that is what the event-driven architecture and a strict review process were for."
+      ],
       "highlights": [
         "Platform from scratch to 500+ corporate clients",
         "Sustained 20% year-over-year growth",
@@ -38,11 +66,23 @@
     {
       "slug": "billionrent",
       "title": "billionrent.com",
+      "h1": "billionrent.com — B2C luxury car rental marketplace across Europe",
       "url": "https://billionrent.com",
+      "page": "/works/billionrent",
       "role": "Team Lead",
       "period": "2020 — 2025",
       "company": "Laflei ltd, Rome",
       "summary": "B2C car rental marketplace with external fleets integrated via API.",
+      "seoTitle": "billionrent.com: Car Rental Marketplace Case | Palisoft",
+      "seoDescription": "B2C marketplace for luxury car rental in 25+ European countries and the UAE: external fleets via API, embeddable booking widgets, one-click partner sites.",
+      "ogAlt": "billionrent.com case study — B2C car rental marketplace with external fleets via API",
+      "updated": "2026-08-28",
+      "description": [
+        "billionrent.com is a B2C marketplace for premium and luxury car rental: 200+ vehicles from partner fleets in 25+ European countries and the UAE, instant booking, door-to-door delivery, one-way rentals and a chauffeur option. Payment by card, PayPal or crypto.",
+        "Unlike a single-company rental site, the marketplace aggregates external fleets: partner inventory, availability and pricing arrive through API integrations, and a booking on billionrent.com becomes an order in the partner’s own system. That integration layer — Node.js, GraphQL, PostgreSQL plus FaunaDB for partner-side data — was the core of the work.",
+        "Two products grew out of it for the partners themselves: responsive embeddable booking widgets any rental company can drop into its site, and a “website in one click” module that auto-generates a landing page with the partner’s fleet and live booking. Frontend on Next.js and React, served behind Nginx.",
+        "Role: Team Lead at Laflei ltd (Rome), 2020–2025 — the same team and infrastructure as toprentapp.com, so the marketplace and the fleet-management SaaS share one booking core."
+      ],
       "highlights": [
         "External fleet integration via API",
         "Responsive embeddable booking widgets for partner sites",
@@ -61,12 +101,24 @@
     },
     {
       "slug": "bi-platform",
-      "title": "BI-система уровня Power BI",
+      "title": "Power BI-grade analytics system",
+      "h1": "Power BI-grade BI system with an AI agent, DuckDB and ClickHouse",
       "url": null,
+      "page": "/works/bi-platform",
       "role": "Full-Stack Developer",
       "period": "2026",
       "company": "Colvir Software Solutions",
       "summary": "A business intelligence system on par with Microsoft Power BI. Rebuilt the core: split the client and server sides, which delivered a noticeable performance boost.",
+      "seoTitle": "BI Platform with AI Agent, DuckDB & ClickHouse | Palisoft",
+      "seoDescription": "Power BI-grade BI system: rebuilt core, AI agent with tools and memory, DuckDB analytics in the browser, ClickHouse backend, formula editor. NestJS, React.",
+      "ogAlt": "Case study — Power BI-grade analytics system with an AI agent, DuckDB and ClickHouse",
+      "updated": "2026-08-28",
+      "description": [
+        "A business intelligence system on par with Microsoft Power BI, built at Colvir Software Solutions: dashboards, data models, formulas and reports over large datasets. Full-stack developer role, 2026.",
+        "The first task was the core: the client and server sides had grown into one tangled state. Splitting them — data on one side, configuration on the other — delivered a noticeable performance boost and made the rest of the roadmap possible.",
+        "Analytics moved closer to the user: DuckDB runs in the browser, so filtering, aggregation and pivoting over loaded data happen without a round-trip, while ClickHouse on the backend handles large volumes and heavy queries. A tokenization-based formula editor gives analysts a Power BI-like expression language with validation and autocompletion.",
+        "The AI agent is what sets the system apart from classic BI: a harness with tools, subagents and a memory system that manages the application and its data — builds reports, changes models and answers questions about the data in natural language. Backend on NestJS with Prisma, frontend on React, TypeScript throughout."
+      ],
       "highlights": [
         "AI agent for managing the app and its data — a harness with tools, subagents and a memory system",
         "DuckDB on the client — analytics right in the browser",
@@ -87,11 +139,23 @@
     {
       "slug": "egesto",
       "title": "egesto.ru",
+      "h1": "egesto.ru — AI platform for Russian state exam preparation",
       "url": "https://egesto.ru",
+      "page": "/works/egesto",
       "role": "Founder & Developer",
       "period": "2025 — present",
       "company": "ИП Палиенко",
       "summary": "AI platform for preparing for the Russian state English exam.",
+      "seoTitle": "egesto.ru: EdTech SaaS with an AI Tutor Case | Palisoft",
+      "seoDescription": "Own EdTech product: AI examiner scores speaking and writing by official FIPI criteria, teacher and school accounts, games, progress analytics. Next.js.",
+      "ogAlt": "egesto.ru case study — EdTech SaaS with an AI examiner for Russian state exams",
+      "updated": "2026-08-28",
+      "description": [
+        "egesto.ru is our own EdTech product: an AI platform for preparing for the Russian state exams — ЕГЭ, ОГЭ and ВПР — starting with English. Students practise exam tasks and get instant feedback; teachers and schools get accounts, groups and progress analytics.",
+        "The core feature is the AI examiner. A student records the speaking task aloud — reading a text, answering questions, describing a photo, comparing pictures — and receives a score with a breakdown by the official FIPI criteria: pronunciation, content, organisation, language accuracy. Written tasks are checked the same way. Attempts are unlimited, with a built-in exam timer, and higher plans add live teacher review.",
+        "Around the examiner: grammar and vocabulary mini-games, reading and listening sections, video calls and lesson whiteboards for teachers, a dashboard with score predictions. Monetisation is subscription tiers from a free plan to a personal-mentor plan.",
+        "Stack: Next.js on the frontend, NestJS and PostgreSQL on the backend, OpenAI models for assessment and the AI tutor. Founder & developer: product, architecture and code — the platform is a live example of how we build a SaaS from scratch."
+      ],
       "highlights": [],
       "stack": [
         "Next.js",
@@ -105,11 +169,23 @@
     {
       "slug": "kvartly",
       "title": "kvartly.com",
+      "h1": "kvartly.com — real estate marketplace in Georgia with lead generation",
       "url": "https://kvartly.com",
+      "page": "/works/kvartly",
       "role": "Founder & Developer",
       "period": "2025 — present",
       "company": "ИП Палиенко",
       "summary": "Real estate marketplace in Georgia, lead generation model.",
+      "seoTitle": "kvartly.com: PropTech Marketplace Case Study | Palisoft",
+      "seoDescription": "Own PropTech product: catalogue of new developments in Georgia with ROI analysis, verified developers and agents, lead generation, listings SaaS. Next.js.",
+      "ogAlt": "kvartly.com case study — real estate marketplace in Georgia with lead generation",
+      "updated": "2026-08-28",
+      "description": [
+        "kvartly.com is our own PropTech product: a real estate marketplace for Georgia built around a community of local experts. Buyers and investors get a catalogue of new developments and resale properties with ROI analysis; developers and agents get verified profiles, listings and leads.",
+        "The business model is lead generation: a request from the catalogue goes to a verified agent or developer, and the platform tracks it from first contact to registration. On top sits a SaaS for managing property listings — units, prices, construction progress, media — that developers and agencies use as their inventory tool.",
+        "Content matters as much as the catalogue: market figures, immigration and relocation guides, area overviews. The site is multilingual, so SEO architecture — localized routes, hreflang, structured data for listings — was designed in from day one.",
+        "Stack: Next.js frontend, NestJS backend, PostgreSQL via Supabase, Redis for caching and queues. Founder & developer role. The MVVM layer of the frontend runs on our open-source framework Palistor — kvartly.com is one of its two production deployments."
+      ],
       "highlights": [],
       "stack": [
         "Next.js",
@@ -124,11 +200,23 @@
     {
       "slug": "palirent",
       "title": "pali.rent",
+      "h1": "pali.rent — fleet-management SaaS for rental companies",
       "url": "https://pali.rent",
+      "page": "/works/palirent",
       "role": "Founder & Developer",
       "period": "2025 — present",
       "company": "ИП Палиенко",
       "summary": "SaaS platform for rental companies.",
+      "seoTitle": "pali.rent: Fleet-Management SaaS Case Study | Palisoft",
+      "seoDescription": "Own SaaS for car rental companies: fleet, bookings and orders, team roles, flexible pricing, marketplace widget, 18 languages. Next.js, NestJS, Supabase.",
+      "ogAlt": "pali.rent case study — multi-tenant fleet-management SaaS for rental companies",
+      "updated": "2026-08-28",
+      "description": [
+        "pali.rent is our own SaaS for rental companies: fleet, bookings and orders, team roles (admins, operators, drivers), finances with flexible pricing and a marketplace widget for taking bookings from the company’s own site. The interface is available in 18 languages.",
+        "The product is a second-generation take on fleet management after five years of toprentapp.com: the same domain, but a leaner core designed for self-service onboarding. Plans go from a free tier (up to 30 orders a month) to Base, Pro and Full at €29–149 per month; premium services such as geocoding and SMS/email are billed per use.",
+        "Architecturally it is a multi-tenant Next.js + NestJS application over PostgreSQL (Supabase) with usage-based limits enforced in the backend — the same patterns we ship for clients. The frontend runs on our open-source MVVM framework Palistor; pali.rent is its first production deployment.",
+        "Founder & developer, 2025 — present."
+      ],
       "highlights": [],
       "stack": [
         "Next.js",
@@ -158,11 +246,22 @@
     {
       "slug": "paliproxy",
       "title": "paliproxy",
+      "h1": "paliproxy — proxy pool manager for Node.js with health checks and balancing",
       "url": "https://github.com/ProjectINT/paliproxy",
+      "page": "/works/paliproxy",
       "role": "Author",
       "period": "2025 — present",
       "company": "Open source",
       "summary": "A proxy tool for development.",
+      "seoTitle": "paliproxy: Proxy Pool Manager for Node.js | Palisoft",
+      "seoDescription": "Open-source TypeScript module: proxy pool with health checks, latency-based balancing, retries, fetch-compatible API, OpenAI SDK support, Dante SOCKS5.",
+      "ogAlt": "paliproxy — open-source proxy pool manager for Node.js by Palisoft",
+      "updated": "2026-08-28",
+      "description": [
+        "paliproxy (npm: proxy-connection) is an open-source TypeScript module for managing a pool of proxies from Node.js. It grew out of a practical need: backend services that call external APIs through rotating proxies and must survive individual proxies going down.",
+        "The ProxyManager class handles automatic health checks, latency-based balancing, retries with a configurable policy, a request stack and attempt history. The API is fetch-compatible, so it drops into existing code, and it works as a transport for the OpenAI SDK. Dante SOCKS5 proxies are managed through bundled scripts and configuration; logging goes through a built-in logger with Sentry support or a custom implementation.",
+        "MIT licence, tests on the Node.js test runner, examples and documentation in the repository. Author and maintainer."
+      ],
       "highlights": [],
       "stack": [
         "Node.js",
@@ -172,12 +271,23 @@
     },
     {
       "slug": "elit-taxi",
-      "title": "CRM для службы такси",
+      "title": "CRM for a taxi service",
+      "h1": "CRM for a taxi service — dispatching, maps and reporting on React",
       "url": null,
+      "page": "/works/elit-taxi",
       "role": "React Middle Developer",
       "period": "2019 — 2020",
       "company": "Элит такси",
       "summary": "CRM system for a taxi service: dispatching, maps, reporting.",
+      "seoTitle": "Taxi Service CRM on React: Case Study | Palisoft",
+      "seoDescription": "CRM system for a taxi company: dispatcher console, live orders on OpenStreetMap, drivers and reporting. React, Redux, Redux-Saga, Ant Design. 2019–2020.",
+      "ogAlt": "Case study — CRM for a taxi service on React with maps and dispatching",
+      "updated": "2026-08-28",
+      "description": [
+        "A CRM system for the Elit Taxi service: a dispatcher console for taking and assigning orders, live vehicles and orders on an OpenStreetMap map, driver and client records, and reporting for management. Middle React developer, 2019–2020.",
+        "Frontend on React with Redux and Redux-Saga for the order flow — long-running sagas kept order state consistent while dispatchers, drivers and the map updated in real time. Ant Design provided the dense, table-heavy interface a dispatch room needs.",
+        "The project was the step from standalone websites to application development: state management at scale, real-time data and a UI where a mistake costs an order."
+      ],
       "highlights": [],
       "stack": [
         "React",
@@ -191,11 +301,22 @@
     {
       "slug": "topjsurfing",
       "title": "Topjsurfing",
+      "h1": "Topjsurfing — online store migrated from jQuery to Next.js",
       "url": null,
+      "page": "/works/topjsurfing",
       "role": "Developer",
       "period": "2018 — 2019",
       "company": "Topjsurfing",
       "summary": "Migrated an online store frontend from jQuery to Next.js. The store became a niche leader thanks to speed, markup validity and SEO.",
+      "seoTitle": "Topjsurfing: Online Store on Next.js Case Study | Palisoft",
+      "seoDescription": "E-commerce frontend rebuilt from jQuery to Next.js with Keystone.js: reviews, CRM integrations, PDF invoices, email notifications. Niche leader on SEO.",
+      "ogAlt": "Topjsurfing case study — online store migrated from jQuery to Next.js",
+      "updated": "2026-08-28",
+      "description": [
+        "Topjsurfing is an online store of jet surfboards and water sports equipment. In 2018–2019 I migrated its frontend from a jQuery site to Next.js with Keystone.js as the CMS and API layer.",
+        "Beyond the rewrite: customer reviews, CRM integrations, PDF invoices and email notifications for orders. Server-side rendering, clean markup and fast pages were the point of the migration — the store went on to lead its niche in search on speed, validity and SEO.",
+        "It was my first Next.js project in production and the beginning of a long specialisation in SSR React."
+      ],
       "highlights": [
         "Reviews, CRM integrations, PDF invoices, email notifications"
       ],
@@ -207,12 +328,23 @@
     },
     {
       "slug": "freelance",
-      "title": "Фриланс: сайты для автопроката, недвижимости и туризма",
+      "title": "Freelance: websites for car rental, real estate and tourism",
+      "h1": "Freelance 2015–2018 — websites for car rental, real estate and tourism",
       "url": null,
+      "page": "/works/freelance",
       "role": "Programmer, webmaster",
       "period": "2015 — 2018",
       "company": "Фриланс",
       "summary": "zapstroy.ru (Nuxt.js), estiacard.com (Next.js), somnium.su (Vue SSR), barcelonasupercars.com, monacosupercar.com, taketesla.com.",
+      "seoTitle": "Freelance Web Development 2015–2018: Cases | Palisoft",
+      "seoDescription": "Sites for car rental, real estate and tourism 2015–2018: zapstroy.ru on Nuxt.js, estiacard.com on Next.js, somnium.su on Vue SSR, car rental in Monaco.",
+      "ogAlt": "Freelance web development 2015–2018 — car rental, real estate and tourism websites",
+      "updated": "2026-08-28",
+      "description": [
+        "Three years of freelance web development before moving into product teams: sites for car rental, real estate and tourism businesses, from landing pages to catalogue sites with booking.",
+        "Projects: zapstroy.ru (Nuxt.js), estiacard.com (Next.js), somnium.su (Vue with server-side rendering), barcelonasupercars.com and monacosupercar.com (luxury car rental), taketesla.com. The stack moved from jQuery, WordPress and Gulp/Pug/Stylus builds to Vue/Nuxt and React/Next.js with SSR — the transition that defined the later work.",
+        "Car rental became a recurring domain: the booking flows built here led to the taxi CRM and later to the fleet-management SaaS platforms."
+      ],
       "highlights": [],
       "stack": [
         "JavaScript",

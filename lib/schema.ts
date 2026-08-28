@@ -1,6 +1,12 @@
 import type { Locale } from './i18n'
-import type { PalistorContent, Post, PricingContent, WorksContent } from '@/types/content'
-import { SITE_URL, SITE_NAME, urlFor } from './seo'
+import type {
+  PalistorContent,
+  Post,
+  PricingContent,
+  WorkItem,
+  WorksContent,
+} from '@/types/content'
+import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, SOCIAL_LINKS, urlFor } from './seo'
 import { getCv, getSite } from './content'
 
 const ORG_ID = `${SITE_URL}/#organization`
@@ -8,13 +14,16 @@ const PERSON_ID = `${SITE_URL}/#person`
 const WEBSITE_ID = `${SITE_URL}/#website`
 const PALISTOR_ID = `${SITE_URL}/#palistor`
 
-// Q6 открыт: дополнить LinkedIn, X, npm-пакетами, когда владелец пришлёт URL.
-// Двусторонняя связка: эти профили должны ссылаться на palisoft.ru (Этап 5).
+// Q6 закрыт: LinkedIn и X добавлены. Связка двусторонняя — эти профили должны
+// ссылаться на palisoft.ru (см. §6 docs/seo-audit-2026-08-28.md).
 const SAME_AS = [
-  'https://github.com/ProjectINT',
-  'https://t.me/yurapalienko',
-  'https://dev.to/yuri_palienko',
-  'https://vc.ru/id6038291',
+  SOCIAL_LINKS.linkedin,
+  SOCIAL_LINKS.x,
+  SOCIAL_LINKS.github,
+  SOCIAL_LINKS.telegram,
+  SOCIAL_LINKS.devto,
+  SOCIAL_LINKS.vcru,
+  SOCIAL_LINKS.habr,
 ]
 
 /**
@@ -33,6 +42,8 @@ export function rootGraph(lang: Locale) {
         name: SITE_NAME,
         url: SITE_URL,
         description: site.description,
+        image: `${SITE_URL}${DEFAULT_OG_IMAGE.url}`,
+        logo: `${SITE_URL}/favicon/icon-512.png`,
         founder: { '@id': PERSON_ID },
         employee: { '@id': PERSON_ID },
         areaServed: { '@type': 'Place', name: 'Worldwide' }, // Q3
@@ -64,8 +75,8 @@ export function rootGraph(lang: Locale) {
 }
 
 /**
- * Хлебные крошки в выдаче вместо голого URL. Сайт двухуровневый, кроме статей:
- * им передаётся parent и получается Главная → Статьи → Статья.
+ * Хлебные крошки в выдаче вместо голого URL. Сайт двухуровневый, кроме статей
+ * и кейсов: им передаётся parent и получается Главная → Раздел → Страница.
  */
 export function breadcrumbs(
   lang: Locale,
@@ -95,9 +106,9 @@ export function breadcrumbs(
  * статья становится ещё одним ребром графа к Person и Organization, а не
  * изолированной сущностью с продублированными именами.
  *
- * `image` ставится только при своей обложке: OG-картинка статьи рендерится
- * динамическим роутом, и её URL с суффиксом id — не тот адрес, который стоит
- * фиксировать в разметке.
+ * `image` обязателен для Article rich results. Своя обложка — приоритет;
+ * без неё — статическая запасная OG-картинка (у неё стабильный URL, в
+ * отличие от динамического OG-роута статьи с суффиксом id).
  */
 export function blogPosting(lang: Locale, post: Post) {
   const url = urlFor(lang, `/articles/${post.slug}`)
@@ -116,8 +127,16 @@ export function blogPosting(lang: Locale, post: Post) {
     publisher: { '@id': ORG_ID },
     isPartOf: { '@id': WEBSITE_ID },
     ...(post.tags.length > 0 ? { keywords: post.tags.join(', ') } : {}),
-    ...(post.cover ? { image: `${SITE_URL}${post.cover.src}` } : {}),
+    image: post.cover
+      ? `${SITE_URL}${post.cover.src}`
+      : `${SITE_URL}${DEFAULT_OG_IMAGE.url}`,
   }
+}
+
+/** Ссылка на кейс: своя страница, если есть, иначе внешний сайт проекта */
+function workUrl(lang: Locale, item: WorkItem) {
+  if (item.page) return urlFor(lang, item.page)
+  return item.url ?? undefined
 }
 
 export function worksItemList(lang: Locale, works: WorksContent) {
@@ -132,7 +151,7 @@ export function worksItemList(lang: Locale, works: WorksContent) {
         '@type': 'CreativeWork',
         name: item.title,
         description: item.summary,
-        ...(item.url ? { url: item.url } : {}),
+        ...(workUrl(lang, item) ? { url: workUrl(lang, item) } : {}),
         keywords: item.stack.join(', '),
         creator: { '@id': ORG_ID },
       },
@@ -141,7 +160,53 @@ export function worksItemList(lang: Locale, works: WorksContent) {
 }
 
 /**
- * Q4: Offer с priceCurrency USD. Google редко показывает цены для Service
+ * Страница кейса: WebPage + CreativeWork (сам проект). Скриншоты — ImageObject
+ * с alt: это единственное место, где они существуют для Google Картинок вне
+ * <canvas> hero-сцены.
+ */
+export function caseStudyGraph(lang: Locale, item: WorkItem, path: string) {
+  const url = urlFor(lang, path)
+  const workId = `${url}#work`
+  const images = (item.images ?? []).map((image, index) => ({
+    '@type': 'ImageObject',
+    contentUrl: `${SITE_URL}${image.src}`,
+    width: 1600,
+    height: 900,
+    name: `${item.title} — ${index + 1}`,
+  }))
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#webpage`,
+        url,
+        name: item.seoTitle ?? item.title,
+        description: item.seoDescription ?? item.summary,
+        inLanguage: lang,
+        isPartOf: { '@id': WEBSITE_ID },
+        about: { '@id': workId },
+        mainEntity: { '@id': workId },
+        ...(images.length > 0 ? { primaryImageOfPage: images[0].contentUrl } : {}),
+      },
+      {
+        '@type': 'CreativeWork',
+        '@id': workId,
+        name: item.title,
+        description: item.summary,
+        ...(item.url ? { sameAs: item.url } : {}),
+        keywords: item.stack.join(', '),
+        creator: { '@id': ORG_ID },
+        contributor: { '@id': PERSON_ID },
+        ...(images.length > 0 ? { image: images } : {}),
+      },
+    ],
+  }
+}
+
+/**
+ * Q4: Offer с priceCurrency. Google редко показывает цены для Service
  * в сниппетах — разметка уточняет сущность и читается AI-ассистентами.
  */
 export function pricingGraph(lang: Locale, pricing: PricingContent) {

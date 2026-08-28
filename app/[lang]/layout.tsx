@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { notFound } from 'next/navigation'
+import type { Locale } from '@/lib/i18n'
 import { LOCALES, isLocale } from '@/lib/i18n'
 import { getSite, getNav } from '@/lib/content'
-import { SITE_URL, metaFor } from '@/lib/seo'
+import { SITE_URL, robotsMeta } from '@/lib/seo'
 import { rootGraph } from '@/lib/schema'
 import JsonLd from '@/components/seo/JsonLd'
 import SideNav from '@/components/layout/SideNav'
@@ -22,6 +23,11 @@ const mono = Geist_Mono({
   subsets: ['latin', 'cyrillic'],
 })
 
+const NOT_FOUND_TITLE: Record<Locale, string> = {
+  ru: '404 — Страница не найдена',
+  en: '404 — Page not found',
+}
+
 export const viewport: Viewport = {
   themeColor: '#0a0a0b',
 }
@@ -36,14 +42,17 @@ export async function generateMetadata({ params }: LayoutProps<'/[lang]'>): Prom
   const site = getSite(lang)
   return {
     metadataBase: new URL(SITE_URL),
-    // canonical/hreflang, robots (kill-switch Q5), OG и twitter — для главной;
-    // каждая внутренняя страница переопределяет их своим metaFor(lang, path, …),
-    // потому что alternates наследуются и иначе канонизируют всё на главную.
-    ...metaFor(lang, '', site.seoTitle, site.seoDescription),
-    // Шаблон — для страниц без собственного absolute-title (например, 404)
-    title: { default: site.seoTitle, template: `%s · ${site.name}` },
-    // Этап 5 (после снятия флага индексации): коды подтверждения площадок.
-    // verification: { google: '…', other: { 'msvalidate.01': '…' }, yandex: '…' },
+    // Здесь НЕТ canonical/hreflang, description и OG: метаданные наследуются
+    // поверхностно, и всё, что задано в layout, достаётся 404-границам
+    // (not-found после notFound() свои generateMetadata не применяет). Битая
+    // ссылка тогда превьюшилась в мессенджере как главная. Главная берёт
+    // свой metaFor в app/[lang]/page.tsx, как и все остальные страницы.
+    //
+    // title.default используют только страницы без собственного absolute-title —
+    // сегодня это ровно not-found-границы, поэтому default = заголовок 404.
+    title: { default: NOT_FOUND_TITLE[lang], template: `%s · ${site.name}` },
+    robots: robotsMeta, // kill-switch Q5 для тех же 404
+    // Панели вебмастера подтверждаются через DNS — мета-теги verification не нужны.
   }
 }
 

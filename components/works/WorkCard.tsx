@@ -42,8 +42,17 @@ export default function WorkCard({
       <p className="font-mono text-xs uppercase tracking-widest text-muted">
         <PeriodText value={item.period} />
       </p>
+      {/* Заголовок ведёт на свою страницу кейса (анкор с названием — внутренняя
+          перелинковка); внешний сайт — отдельной строкой ниже */}
       <h2 className="mt-3 break-words text-2xl font-bold tracking-tight lg:text-3xl">
-        {item.url ? (
+        {item.page ? (
+          <Link
+            href={`/${lang}${item.page}`}
+            className="transition-colors hover:text-muted focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            {item.title}
+          </Link>
+        ) : item.url ? (
           <ExternalLink
             href={item.url}
             className="transition-colors hover:text-muted focus-visible:outline-2 focus-visible:outline-offset-2"
@@ -56,6 +65,17 @@ export default function WorkCard({
       </h2>
       <p className="mt-1 text-sm text-muted">
         {item.company} · {item.role}
+        {item.page && item.url && (
+          <>
+            {' · '}
+            <ExternalLink
+              href={item.url}
+              className="underline decoration-line underline-offset-4 transition-colors hover:decoration-fg focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              {item.url.replace(/^https?:\/\//, '')} <span aria-hidden>↗</span>
+            </ExternalLink>
+          </>
+        )}
       </p>
       <p className="mt-4 max-w-prose leading-relaxed">{item.summary}</p>
       {item.highlights.length > 0 && (
@@ -73,8 +93,6 @@ export default function WorkCard({
           <Tag key={tech}>{tech}</Tag>
         ))}
       </div>
-      {/* Точка расширения под P1-3: когда появятся страницы остальных проектов,
-          достаточно проставить им page в works.json */}
       {item.page && (
         <Link
           href={`/${lang}${item.page}`}

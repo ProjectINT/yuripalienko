@@ -2,8 +2,18 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { isLocale } from '@/lib/i18n'
 import { getHeroCards, getSite } from '@/lib/content'
+import { metaFor } from '@/lib/seo'
 import Hero from '@/components/hero/Hero'
 import SmartLink from '@/components/ui/SmartLink'
+
+// Метаданные главной — свои, а не из layout: иначе они наследуются 404-ми
+// (см. комментарий в layout.tsx). Картинку даёт app/[lang]/opengraph-image.tsx.
+export async function generateMetadata({ params }: PageProps<'/[lang]'>) {
+  const { lang } = await params
+  if (!isLocale(lang)) return {}
+  const site = getSite(lang)
+  return metaFor(lang, '', site.seoTitle, site.seoDescription)
+}
 
 export default async function HomePage({ params }: PageProps<'/[lang]'>) {
   const { lang } = await params

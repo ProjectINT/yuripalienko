@@ -1,8 +1,11 @@
 {
   "title": "Contact",
+  "h1": "Contact Palisoft — let’s discuss your SaaS, marketplace or MVP",
   "intro": "Get in touch — let's discuss your task and timeline.",
   "seoTitle": "Contact Palisoft — Discuss Your SaaS or MVP Project",
   "seoDescription": "Tell us about your product via email or Telegram — we'll discuss scope, timeline and an estimate. Working remotely, worldwide, in English and Russian.",
+  "ogAlt": "Contact Palisoft — email and Telegram, remote worldwide",
+  "updated": "2026-08-28",
   "channels": [
     {
       "label": "Email",
@@ -21,8 +24,54 @@
       "value": "github.com/ProjectINT",
       "url": "https://github.com/ProjectINT",
       "primary": false
+    },
+    {
+      "label": "X",
+      "value": "@PalienkoYuri",
+      "url": "https://x.com/PalienkoYuri",
+      "primary": false
+    },
+    {
+      "label": "LinkedIn",
+      "value": "linkedin.com/in/yuripalienko",
+      "url": "https://www.linkedin.com/in/yuripalienko/",
+      "primary": false
+    },
+    {
+      "label": "dev.to",
+      "value": "@yuri_palienko",
+      "url": "https://dev.to/yuri_palienko",
+      "primary": false
     }
   ],
+  "availabilityLabel": "Availability",
+  "availability": "Remote · working worldwide · English and Russian",
+  "locationLabel": "Location",
   "location": "Sochi, Russia",
-  "availability": "Remote · working worldwide · English and Russian"
+  "briefTitle": "What to write in the first message",
+  "brief": [
+    "What the product does and for whom — two or three sentences are enough",
+    "Where it stands: an idea, a prototype, or a working system that needs to grow",
+    "Timeline and constraints: launch date, budget range, existing stack or team",
+    "Links, if any: current site, repository, mockups, competitors"
+  ],
+  "processTitle": "What happens next",
+  "process": [
+    {
+      "title": "Reply within one business day",
+      "text": "We answer by email or Telegram, ask clarifying questions and suggest a time for a call."
+    },
+    {
+      "title": "A 30–60 minute call",
+      "text": "We go through the product, its users and constraints, and agree on what the first release must contain."
+    },
+    {
+      "title": "Estimate and plan",
+      "text": "Within a few days you get a written scope, an estimate with a range, milestones and an architecture outline — free of charge and without obligation."
+    },
+    {
+      "title": "Start",
+      "text": "Contract, first milestone, weekly demos. The code lives in your repository from the first commit."
+    }
+  ]
 }

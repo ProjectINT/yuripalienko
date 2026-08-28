@@ -1,5 +1,6 @@
 {
-  "slug": "rynok-po-i-investicii-v-ai-2022-2026",
+  "id": "rynok-po-i-investicii-v-ai-2022-2026",
+  "slug": "software-market-2022-2026-investment-shift-to-ai",
   "lang": "en",
   "date": "2026-08-17",
   "updated": null,
@@ -7,7 +8,7 @@
   "title": "The software market 2022–2026 and the shift of investment into AI",
   "summary": "What happened to development budgets over four years, where the money went, and the three channels through which capital is moving into AI.",
   "seoTitle": "Software Market 2022–2026: Investment Shift to AI | Palisoft",
-  "seoDescription": "Numbers from Gartner, OECD and Stanford HAI: software spending grew to $1.25T, AI's share of venture capital went from 30% to 61%. Three channels of the shift — and what correlation does not prove.",
+  "seoDescription": "Gartner, OECD and Stanford HAI numbers: software spending grew to $1.25T, AI’s share of venture capital went from 30% to 61%. Three channels of the shift.",
   "ogAlt": "Article: the software market 2022–2026 and the shift of investment into AI",
   "tags": ["market", "ai", "investment"],
   "cover": null,
