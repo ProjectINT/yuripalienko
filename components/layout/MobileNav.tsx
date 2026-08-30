@@ -7,6 +7,7 @@ import type { Locale } from '@/lib/i18n'
 import type { NavItem, SiteContent } from '@/types/content'
 import NavList from './NavList'
 import LocaleSwitcher from './LocaleSwitcher'
+import HeaderContacts from './HeaderContacts'
 
 export default function MobileNav({
   lang,
@@ -46,25 +47,31 @@ export default function MobileNav({
 
   return (
     <div className="lg:hidden">
-      <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-line bg-bg/90 px-6 backdrop-blur">
-        <Link
-          href={`/${lang}`}
-          className="text-lg font-bold tracking-tighter focus-visible:outline-2 focus-visible:outline-offset-2"
-          aria-label={site.name}
-        >
-          YP
-        </Link>
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-expanded={open}
-          aria-controls="mobile-nav-panel"
-          aria-label={lang === 'ru' ? 'Открыть меню' : 'Open menu'}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2"
-        >
-          <span aria-hidden className="h-px w-6 bg-fg" />
-          <span aria-hidden className="h-px w-6 bg-fg" />
-        </button>
+      <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-line bg-bg/90 px-4 backdrop-blur">
+        <div className="flex items-center gap-4">
+          <Link
+            href={`/${lang}`}
+            className="text-lg font-bold tracking-tighter focus-visible:outline-2 focus-visible:outline-offset-2"
+            aria-label={site.name}
+          >
+            YP
+          </Link>
+          <LocaleSwitcher lang={lang} variant="switch" />
+        </div>
+        <div className="flex items-center gap-3">
+          <HeaderContacts lang={lang} />
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-expanded={open}
+            aria-controls="mobile-nav-panel"
+            aria-label={lang === 'ru' ? 'Открыть меню' : 'Open menu'}
+            className="flex h-10 w-9 flex-col items-center justify-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            <span aria-hidden className="h-px w-6 bg-fg" />
+            <span aria-hidden className="h-px w-6 bg-fg" />
+          </button>
+        </div>
       </header>
 
       <div
