@@ -9,6 +9,7 @@ export default function HeaderContacts({ lang }: { lang: Locale }) {
     <div className="flex items-center">
       <a
         href={CONTACTS.phoneHref}
+        title={CONTACTS.phoneDisplay}
         aria-label={
           lang === 'ru' ? `Позвонить: ${CONTACTS.phoneDisplay}` : `Call ${CONTACTS.phoneDisplay}`
         }

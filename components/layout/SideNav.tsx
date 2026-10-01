@@ -3,6 +3,7 @@ import type { Locale } from '@/lib/i18n'
 import type { NavItem, SiteContent } from '@/types/content'
 import NavList from './NavList'
 import LocaleSwitcher from './LocaleSwitcher'
+import HeaderContacts from './HeaderContacts'
 
 export default function SideNav({
   lang,
@@ -15,7 +16,7 @@ export default function SideNav({
 }) {
   return (
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-line lg:flex">
-      <div className="px-8 pt-10">
+      <div className="flex items-center justify-between px-8 pt-10">
         <Link
           href={`/${lang}`}
           className="text-xl font-bold tracking-tighter focus-visible:outline-2 focus-visible:outline-offset-2"
@@ -23,6 +24,9 @@ export default function SideNav({
         >
           YP
         </Link>
+        <div className="-mr-2">
+          <HeaderContacts lang={lang} />
+        </div>
       </div>
 
       <nav className="flex-1 overflow-y-auto px-8 pt-16" aria-label={site.name}>
